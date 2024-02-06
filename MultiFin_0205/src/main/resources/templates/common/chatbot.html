@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="layout/head :: config"></th:block>
+	<title>MultiFin::챗봇</title>
+	<!-- 현재 페이지에서만 쓰는 css, script -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+	<script th:src="@{/assets/js/chat.js}"></script>
+<style>
+.chatbubble {
+	width: 600px;
+}
+
+.message {
+	width: 710px;
+	padding: 20px 20px;
+	margin-top: 15px;
+	margin-right: 20px;
+	resize: none;
+}
+
+.message:focus {
+	outline: none;
+}
+
+.btn {
+	width: 70px;
+}
+
+.linkBtn {
+	border: 1px solid #0d1b48;
+	padding: 3px 8px;
+	margin-right: 5px;
+	border-radius: 15px;
+	color: white;
+	background-color: #0d1b48;
+}
+</style>
+
+</head>
+
+
+<body>
+    <main>
+<!-- 타이틀 시작 -->
+<div class="section bg-dark text-center text-white pt-3 pb-3">
+    <i class="fa-solid fa-comments fa-2x onlineChatBtn m-4"> &nbsp;멀티핀 챗봇</i>
+    <p>웹소켓을 연결하고 궁금한 것을 물어보세요</p>
+   	<p>닉네임 : [[${loginMember.id}]]</p>
+   	<input type="hidden" id="loginMember" th:value="${loginMember.id}">
+</div>
+<!-- 타이틀 끝 -->
+
+<!-- 퍼온 코드 시작 -->
+<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
+    enabled. Please enable
+    Javascript and reload this page!</h2></noscript>
+<div id="main-content" class="container">
+    <div class="col-md-6">
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="connect">웹소켓 연결:</label>
+                <button id="connect" class="btn btn-default" type="submit">연결</button>
+                <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">해제
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- 퍼온 코드 끝 -->
+
+<!-- 채팅 부분 시작 -->
+<div class="section section-lg bg-soft pt-5 pb-5">
+    <div class="container" style="width: 800px;">
+        <div class="row pt-5 pt-md-0">
+            <div class="col-md-12">
+            	<div id="communicate2">
+            	</div>
+            	<form class="mt-4 row">
+	                <div class="form-group col-9">
+	                	<div class="d-flex justify-content-between align-items-center mt-3" style="width:800px;">
+                        	<input type="text" id="msg" class="message border border-light-gray mb-4" placeholder="내용을 입력하세요....">
+	                        <button id="send" class="btn btn-dark" disabled type="submit">SEND</button>
+	                    </div>
+	                </div>
+	            </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 채팅 부분 끝 -->
+</main>
+<th:block th:replace="layout/scripts :: scripts"></th:block>
+</body>
+
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="layout/head :: config"></th:block>
+	<title>MultiFin:내댓글</title>
+	<!-- 현재 페이지에서만 쓰는 css, script -->
+	<link rel="stylesheet" type="text/css" th:href="@{/css/member/myboard.css}">
+	<style>
+		.title{color: black;}
+		.delete{
+			justify-content: flex-end;
+			height:30px;
+		}
+		.my_board-input{margin-top: 10px;}
+		.choice{margin-top: 5px;}
+		.del-btn{
+			width:80px; 
+		    color:white; 
+		    background-color: rgb(13, 27, 72);
+		    border-radius: 4px;
+		    font-weight: 600;
+		    padding:0px 15px;
+		}
+		.del-btn:hover{background-color: black;}
+		.myboard_btn{width:80px;}
+	</style>
+</head>
+<body>
+<header th:replace="~{layout/header :: #header}"></header>    
+    <main>
+        <div class="section section-lg bg-soft">
+            <div class="container">
+                <div class="row pt-5 pt-md-0">
+                    <div class="col-12 col-md-4 d-none d-lg-block">
+                        <!-- Navigation -->
+                        <div class="card border-light p-2">
+                            <div class="card-body p-2">
+                                <div class="profile-thumbnail small-thumbnail mx-auto">
+                                    <img src="../../assets/img/member/mypage_img01 copy.jpg" class="card-img-top rounded-circle border-white" alt="Joseph Portrait">
+                                </div>
+                             	<h2 class="h5 font-weight-normal text-center mt-3 mb-0">[[${session.loginMember.name}]]</h2>
+                                <div class="list-group dashboard-menu list-group-sm mt-4">
+                                    <a href="/member/account" class="d-flex list-group-item list-group-item-action title">나의 계좌 <span class="icon icon-xs ml-auto"><span class="fas fa-chevron-right"></span></span> </a>
+                                    <a href="/member/mypage" class="d-flex list-group-item list-group-item-action title">회원정보변경<span class="icon icon-xs ml-auto"><span class="fas fa-chevron-right"></span></span> </a>
+                                    <a href="/member/mywrite" class="d-flex list-group-item list-group-item-action title">내 글 보기<span class="icon icon-xs ml-auto"><span class="fas fa-chevron-right"></span></span> </a>
+                                    <a href="/member/myreply" class="d-flex list-group-item list-group-item-action title  active">내 댓글 보기<span class="icon icon-xs ml-auto"><span class="fas fa-chevron-right"></span></span> </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-8" >
+                        <div class="row justify-content-center" >
+                            <div class="col-12 col-sm-10 col-md-6 col-lg-12" >
+                                <div class="card border-light mb-4" >
+                                    <div class="row no-gutters align-items-center  pt-5 pb-5 pl-5 pr-5" >
+                                         <section class="board mb-6">
+                                            <div class="boardbox_01 pl-0 mb-2" style="padding: 35px "><h5>작성 댓글</h5></div> 
+                                            <div class="delete mb-2" style="padding-bottom: 50px">
+                                                <button type="submit" class="myboard_btn" style="float: right;" onclick="deleteAllPage();">전체 삭제</button>
+                                            </div>
+                                            <table id="tbl-board" class="board-table">
+	                                            <tr>
+	                                                <th class="table-header" >댓글</div></th>
+	                                                <th class="table-header" >작성한날짜</th>
+	                                                <th class="table-header" >원제</th>
+	                                                <th class="table-header">삭제</th>
+	                                                
+	                                               
+	                                            </tr>
+	                                            <th:block th:if="${list == null || list.size()==0}">
+													<tr>
+														<td colspan="6" style="text-align: center;"> 작성한 글이 없습니다.</td>
+													</tr>
+												</th:block>
+												<th:block th:if="${list != null}">
+												
+														<tr th:each="list, number: ${list}" > 
+															<td class="board-content board-title2" th:onclick="|directView('${list.bNo}')|">[[${list.content}]]</td>
+															
+															<td class="board-content" th:onclick="|directView('${list.bNo}')|" th:text="${#dates.format(list.createDate, 'yyyy/MM/dd')}"/></td>
+															
+															<td class="board-content board-title2" th:onclick="|directView('${list.bNo}')|">
+														 		[[${list.title}]]
+															</td>
+															<td class="board-content">
+																<button class="del-btn" th:value="${list.rNo}" th:onclick="|deletePage('${list.rNo}')|">삭제</button>
+															</td>
+															
+														</tr>
+												</th:block>
+                                           </table>
+                                           
+                                           <!-- 페이징 시작 -->
+								            <div class="table-buttons" align="center">
+								                <button onclick="movePage('/member/myreply?page=1');" class="table-button">&lt;&lt;</button>
+								                <button th:onclick="|movePage('/member/myreply?page=${pageInfo.prevPage}');|" class="table-button">&lt;</button>
+								                <th:block th:each="num, status : ${#numbers.sequence(pageInfo.startPage, pageInfo.endPage)}">
+													<th:block th:if="${status.current == pageInfo.currentPage}">
+								                		<button class="table-button" disabled>[[${status.current}]]</button>
+								                	</th:block>
+								                	<th:block th:if="${status.current != pageInfo.currentPage && status.current!=0}">
+								                		<button class="table-button" th:onclick="|movePage('/member/myreply?page=${status.current}');|">[[${status.current}]]</button>
+								                	</th:block>
+								                </th:block>
+								                <button th:onclick="|movePage('/member/myreply?page=${pageInfo.nextPage}');|" class="table-button">&gt;</button>
+								                <button th:onclick="|movePage('/member/myreply?page=${pageInfo.maxPage}');|" class="table-button">&gt;&gt;</button>
+								            </div>
+								             <!-- 페이징 끝 -->
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+<footer th:replace="~{layout/footer :: #footer}"></footer>
+<th:block th:replace="layout/scripts :: scripts"></th:block>
+<script type="text/javascript">
+	function movePage(pageUrl){
+		location.href = encodeURI(pageUrl);	
+	}
+	
+	function deletePage(rno){
+		if(confirm("정말로 게시글을 삭제 하시겠습니까?")){
+			location.replace("/member/replyDelete?replyNo="+rno);
+		}
+	}
+	
+	function deleteAllPage(){
+		if(confirm("정말로 게시글을 삭제 하시겠습니까?")){
+			location.replace("/member/replyAllDelete");
+		}
+	}
+	
+	function directView(bno){
+		location.replace("/community/view?no="+bno);
+	}
+	
+</script>
+</body>
+</html>

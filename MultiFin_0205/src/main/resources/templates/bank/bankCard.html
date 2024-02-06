@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="layout/head :: config"></th:block>
+	<title>MultiFin:카드상품</title>
+	<!-- 현재 페이지에서만 쓰는 css, script -->
+	<link rel="stylesheet" th:href="@{/css/bank/bank.css}">
+	<style>
+	.img-card{box-shadow: 0 40px 80px rgb(0 0 0 / 16%);}
+	.checkedMenu{background-color: #0d1b48; color: white !important;}
+	</style>
+</head>
+<body>
+<header th:replace="~{layout/header :: #header}"></header>
+<main>
+<!-- 배너 시작 -->
+        <!-- Hero -->
+        <section class="section section-header bg-soft pb-0 pt-6">
+            <div class="container">
+                <div class="row justify-content-between align-items-center">
+                    <div class="row justify-content-between align-items-center cardMain">
+                        <div class="col-12 col-md-5 ml-3  bankMain_Title">
+                            <h1 class="main_maintitle">카드 상품</h1>
+                            <h5 class="font-weight-normal main_subtitle">카드사별 다양한 카드 상품 및 헤택을 확인해보시고<br>나에게 맞는 카드를 선택해보세요!</h5>
+                        </div>
+                        <div class="img_container" style="width: 500px;"> 
+                           <img th:src="@{/assets/img/ours/electronic-wallet-vector-free-illustration.png}" class="img-fluid" alt="Forest Illustration">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+<!-- 배너 끝 -->
+
+<!-- 카드상품 시작 -->
+<section class="section section-lg pt-6 pb-6 mt-4">
+    <div class="container" style="width: 1100px;">
+        <div class="row" id="css_tabs">
+            <div class="col-4 mb-3">
+                <p class="h2 font-weight-bolder mb-4">WHAT'S THE<br>CARDS</p>
+                <p class="font-weight-normal">카드사 별 대표카드 상품정보입니다.<br>카드를 클릭하면 카드의 상세정보를<br>확인할 수 있습니다.</p>
+                <table class="cardComTBL">
+                    <tr>
+                        <td><input type="radio" name="radioBtn" class="radioBtn" data-tab="slide1" id="radio1" checked><label for="radio1" class="radioLabel">현대카드</label></td>
+                        <td><input type="radio" name="radioBtn" class="radioBtn" data-tab="slide2" id="radio2"><label for="radio2" class="radioLabel">KB국민카드</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="radioBtn" class="radioBtn" data-tab="slide3" id="radio3"><label for="radio3" class="radioLabel">하나카드</label></td>
+                        <td><input type="radio" name="radioBtn" class="radioBtn" data-tab="slide4" id="radio4"><label for="radio4" class="radioLabel">비씨카드</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="radioBtn" class="radioBtn" data-tab="slide5" id="radio5"><label for="radio5" class="radioLabel">신한카드</label></td>
+                        <td><input type="radio" name="radioBtn" class="radioBtn" data-tab="slide6" id="radio6"><label for="radio6" class="radioLabel">우리카드</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="radioBtn" class="radioBtn" data-tab="slide7" id="radio7"><label for="radio7" class="radioLabel">롯데카드</label></td>
+                        <td><input type="radio" name="radioBtn" class="radioBtn" data-tab="slide8" id="radio8"><label for="radio8" class="radioLabel">삼성카드</label></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-8 slides">
+                <!-- 슬라이드 1 s -->
+                <div class="slide first mb-4 mb-lg-0 slideOpen" id="slide1">
+                    <div class="row mb1">
+                        <div class="bmCard mb-4" th:each="debitHyundai : ${debitHyundai}">
+                            <!-- Card -->
+                            <!-- @@@@@@@@@@@@@@@ 이미지 회전하는 방법 다시 생각하기 23.02.09 14:22 -->
+                            <a th:href="${debitHyundai.detailUrl}" target="_blank" class="card img-card fh-240 border-0 outer-bg">
+                                <div class="card-img-overlay d-flex align-items-center bg-dark p-0">
+                                    <img th:src="${debitHyundai.productImg}">
+                                </div>
+                            </a>
+                            <div class="text-dark p-2 text-center font-weight-bold">
+                                [[${debitHyundai.productNm}]]
+                            </div>
+                            <!-- End of Card -->
+                        </div>
+                        <div class="bmCard mb-4" th:each="creditHyundai : ${creditHyundai}">
+                            <!-- Card -->
+                            <a th:href="${creditHyundai.detailUrl}" target="_blank" class="card img-card fh-240 border-0 outer-bg">
+                                <div class="card-img-overlay d-flex align-items-center bg-dark p-0">
+                                    <img th:src="${creditHyundai.productImg}">
+                                </div>
+                            </a>
+                            <div class="text-dark p-2 text-center font-weight-bold">
+                                [[${creditHyundai.productNm}]]
+                            </div>
+                            <!-- End of Card -->
+                        </div>
+                    </div>
+                </div>
+                <!-- 슬라이드 2 s -->
+                <div class="slide first mb-4 mb-lg-0" id="slide2">
+                    <div class="row mb1">
+                        <div class="bmCard mb-4" th:each="debitKb : ${debitKb}">
+                            <!-- Card -->
+                            <a th:href="${debitKb.detailUrl}" target="_blank" class="card img-card fh-240 border-0 outer-bg">
+                                <div class="card-img-overlay d-flex align-items-center bg-dark p-0">
+                                    <img th:src="${debitKb.productImg}" class="rotate90" style="width: 240px;height: 160px;max-width: 240px;margin-left: -40px;">
+                                </div>
+                            </a>
+                            <div class="text-dark p-2 text-center font-weight-bold">
+                                [[${debitKb.productNm}]]
+                            </div>
+                            <!-- End of Card -->
+                        </div>
+                        <div class="bmCard mb-4" th:each="creditKb : ${creditKb}">
+                            <!-- Card -->
+                            <a th:href="${creditKb.detailUrl}" target="_blank" class="card img-card fh-240 border-0 outer-bg">
+                                <div class="card-img-overlay d-flex align-items-center bg-dark p-0">
+                                    <img th:src="${creditKb.productImg}" class="rotate90" style="width: 240px;height: 160px;max-width: 240px;margin-left: -40px;">
+                                </div>
+                            </a>
+                            <div class="text-dark p-2 text-center font-weight-bold">
+                                [[${creditKb.productNm}]]
+                            </div>
+                            <!-- End of Card -->
+                        </div>
+                    </div>
+                </div>
+                <!-- 슬라이드 3 s -->
+                <div class="slide first mb-4 mb-lg-0" id="slide3">
+                    <div class="row mb1">
+                        <div class="bmCard mb-4" th:each="debitHana : ${debitHana}">
+                            <!-- Card -->
+                            <a th:href="${debitHana.detailUrl}" target="_blank" class="card img-card fh-240 border-0 outer-bg">
+                                <div class="card-img-overlay d-flex align-items-center bg-dark p-0">
+                                    <img th:src="${debitHana.productImg}">
+                                </div>
+                            </a>
+                            <div class="text-dark p-2 text-center font-weight-bold">
+                                [[${debitHana.productNm}]]
+                            </div>
+                            <!-- End of Card -->
+                        </div>
+                        <div class="bmCard mb-4" th:each="creditHana : ${creditHana}">
+                            <!-- Card -->
+                            <a th:href="${creditHana.detailUrl}" target="_blank" class="card img-card fh-240 border-0 outer-bg">
+                                <div class="card-img-overlay d-flex align-items-center bg-dark p-0">
+                                    <img th:src="${creditHana.productImg}" class="rotate90" style="width: 240px;height: 160px;max-width: 240px;margin-left: -40px;">
+                                </div>
+                            </a>
+                            <div class="text-dark p-2 text-center font-weight-bold">
+                                [[${creditHana.productNm}]]
+                            </div>
+                            <!-- End of Card -->
+                        </div>
+                    </div>
+                </div>
+                <!-- 슬라이드 4 s -->
+                <div class="slide first mb-4 mb-lg-0" id="slide4">
+                    <div class="row mb1">
+                        <div class="bmCard mb-4" th:each="debitBC : ${debitBC}">
+                            <!-- Card -->
+                            <a th:href="${debitBC.detailUrl}" target="_blank" class="card img-card fh-240 border-0 outer-bg">
+                                <div class="card-img-overlay d-flex align-items-center bg-dark p-0">
+                                    <img th:src="${debitBC.productImg}" class="width > height ? rotate90 : ">
+                                </div>
+                            </a>
+                            <div class="text-dark p-2 text-center font-weight-bold">
+                                [[${debitBC.productNm}]]
+                            </div>
+                            <!-- End of Card -->
+                        </div>
+                        <div class="bmCard mb-4" th:each="creditBC : ${creditBC}">
+                            <!-- Card -->
+                            <a th:href="${creditBC.detailUrl}" target="_blank" class="card img-card fh-240 border-0 outer-bg">
+                                <div class="card-img-overlay d-flex align-items-center bg-dark p-0">
+                                    <img th:src="${creditBC.productImg}" class="width > height ? rotate90 : ">
+                                </div>
+                            </a>
+                            <div class="text-dark p-2 text-center font-weight-bold">
+                                [[${creditBC.productNm}]]
+                            </div>
+                            <!-- End of Card -->
+                        </div>
+                    </div>
+                </div>
+                <!-- 슬라이드 5 s -->
+                <div class="slide first mb-4 mb-lg-0" id="slide5">
+                    <div class="row mb1">
+                        <div class="bmCard mb-4" th:each="debitSinhan : ${debitSinhan}">
+                            <!-- Card -->
+                            <a th:href="${debitSinhan.detailUrl}" target="_blank" class="card img-card fh-240 border-0 outer-bg">
+                                <div class="card-img-overlay d-flex align-items-center bg-dark p-0">
+                                    <img th:src="${debitSinhan.productImg}" class="width > height ? rotate90 : ">
+                                </div>
+                            </a>
+                            <div class="text-dark p-2 text-center font-weight-bold">
+                                [[${debitSinhan.productNm}]]
+                            </div>
+                            <!-- End of Card -->
+                        </div>
+                        <div class="bmCard mb-4" th:each="creditSinhan : ${creditSinhan}">
+                            <!-- Card -->
+                            <a th:href="${creditSinhan.detailUrl}" target="_blank" class="card img-card fh-240 border-0 outer-bg">
+                                <div class="card-img-overlay d-flex align-items-center bg-dark p-0">
+                                    <img th:src="${creditSinhan.productImg}" class="width > height ? rotate90 : ">
+                                </div>
+                            </a>
+                            <div class="text-dark p-2 text-center font-weight-bold">
+                                [[${creditSinhan.productNm}]]
+                            </div>
+                            <!-- End of Card -->
+                        </div>
+                    </div>
+                </div>
+                <!-- 슬라이드 6 s -->
+                <div class="slide first mb-4 mb-lg-0" id="slide6">
+                    <div class="row mb1">
+                        <div class="bmCard mb-4" th:each="debitWoori : ${debitWoori}">
+                            <!-- Card -->
+                            <a th:href="${debitWoori.detailUrl}" target="_blank" class="card img-card fh-240 border-0 outer-bg">
+                                <div class="card-img-overlay d-flex align-items-center bg-dark p-0">
+                                    <img th:src="${debitWoori.productImg}" class="width > height ? rotate90 : ">
+                                </div>
+                            </a>
+                            <div class="text-dark p-2 text-center font-weight-bold">
+                                [[${debitWoori.productNm}]]
+                            </div>
+                            <!-- End of Card -->
+                        </div>
+                        <div class="bmCard mb-4" th:each="creditWoori : ${creditWoori}">
+                            <!-- Card -->
+                            <a th:href="${creditWoori.detailUrl}" target="_blank" class="card img-card fh-240 border-0 outer-bg">
+                                <div class="card-img-overlay d-flex align-items-center bg-dark p-0">
+                                    <img th:src="${creditWoori.productImg}" class="width > height ? rotate90 : ">
+                                </div>
+                            </a>
+                            <div class="text-dark p-2 text-center font-weight-bold">
+                                [[${creditWoori.productNm}]]
+                            </div>
+                            <!-- End of Card -->
+                        </div>
+                    </div>
+                </div>
+                <!-- 슬라이드 7 s -->
+                <div class="slide first mb-4 mb-lg-0" id="slide7">
+                    <div class="row mb1">
+                        <div class="bmCard mb-4" th:each="debitLotte : ${debitLotte}">
+                            <!-- Card -->
+                            <a th:href="${debitLotte.detailUrl}" target="_blank" class="card img-card fh-240 border-0 outer-bg">
+                                <div class="card-img-overlay d-flex align-items-center bg-dark p-0">
+                                    <img th:src="${debitLotte.productImg}" class="width > height ? rotate90 : ">
+                                </div>
+                            </a>
+                            <div class="text-dark p-2 text-center font-weight-bold">
+                                [[${debitLotte.productNm}]]
+                            </div>
+                            <!-- End of Card -->
+                        </div>
+                        <div class="bmCard mb-4" th:each="creditLotte : ${creditLotte}">
+                            <!-- Card -->
+                            <a th:href="${creditLotte.detailUrl}" target="_blank" class="card img-card fh-240 border-0 outer-bg">
+                                <div class="card-img-overlay d-flex align-items-center bg-dark p-0">
+                                    <img th:src="${creditLotte.productImg}" class="width > height ? rotate90 : ">
+                                </div>
+                            </a>
+                            <div class="text-dark p-2 text-center font-weight-bold">
+                                [[${creditLotte.productNm}]]
+                            </div>
+                            <!-- End of Card -->
+                        </div>
+                    </div>
+                </div>
+                <!-- 슬라이드 8 s -->
+                <div class="slide first mb-4 mb-lg-0" id="slide8">
+                    <div class="row mb1">
+                        <div class="bmCard mb-4" th:each="debitSamsung : ${debitSamsung}">
+                            <!-- Card -->
+                            <a th:href="${debitSamsung.detailUrl}" target="_blank" class="card img-card fh-240 border-0 outer-bg">
+                                <div class="card-img-overlay d-flex align-items-center bg-dark p-0">
+                                    <img th:src="${debitSamsung.productImg}" class="width > height ? rotate90 : ">
+                                </div>
+                            </a>
+                            <div class="text-dark p-2 text-center font-weight-bold">
+                                [[${debitSamsung.productNm}]]
+                            </div>
+                            <!-- End of Card -->
+                        </div>
+                        <div class="bmCard mb-4" th:each="creditSamsung : ${creditSamsung}">
+                            <!-- Card -->
+                            <a th:href="${creditSamsung.detailUrl}" target="_blank" class="card img-card fh-240 border-0 outer-bg">
+                                <div class="card-img-overlay d-flex align-items-center bg-dark p-0">
+                                    <img th:src="${creditSamsung.productImg}" class="width > height ? rotate90 : ">
+                                </div>
+                            </a>
+                            <div class="text-dark p-2 text-center font-weight-bold">
+                                [[${creditSamsung.productNm}]]
+                            </div>
+                            <!-- End of Card -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- 카드상품 끝 -->
+
+
+<!-- 상품 검색 시작 -->
+<section class="section section-lg pt-5 pb-6">
+    <div class="container" style="width: 1100px;">
+        <div class="row">
+            <div class="col-12 top5-title mb-3">
+                <p class="h3 font-weight-bolder m-0">상품검색</p>
+            </div>
+            <div class="col-12 border-gray-500" style="display:flex;justify-content: space-between;">
+                <div class="col-sm-3 border-gray-500 text-center mb-3 bankSearch rounded">
+                    <div class="border-gray-500 border rounded">
+                        <ul class="list-style-none text-dark blSearchTap">
+                            <li>
+                            	<th:block th:if="${check} == '0'">
+	                                <a href="#debitcard" class="tapbtnDebit checkedMenu">신용카드</a>
+                            	</th:block>
+                            	<th:block th:if="${check} != '0'">
+	                                <a href="#debitcard" class="tapbtnDebit">신용카드</a>
+                            	</th:block>
+                            </li>
+                            <li>
+                            	<th:block th:if="${check} == '1'">
+                             	   <a href="#creditcard" class="tapbtnCredit checkedMenu">체크카드</a>
+                                </th:block>
+                            	<th:block th:if="${check} != '1'">
+                             	   <a href="#creditcard" class="tapbtnCredit ">체크카드</a>
+                                </th:block>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <form autocomplete="off" class="search align-items-end" method="get" th:action="@{/bank/bankCard}">
+                    <div class="col-12 mb-3 mb-lg-4">
+                        <div class="form-group form-group-lg mb-0">
+                            <div class="input-group">
+                                <input id="search-bank" type="text" class="form-control autocomplete border-gray-500 border-right-0" placeholder="카드사명을 입력하세요" th:value="${param.searchValue}" name="searchValue">
+                                <button class="bankMainSubmit border border-gray-500 border-left-0 bg-white text-dark fw-60 fh-60" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+          <th:block th:if="${check} == '0'">
+            <div class="col-sm-12 tapMenu slideOpen" id="debitcard">
+          </th:block>
+          <th:block th:if="${check} != '0'">
+            <div class="col-sm-12 tapMenu" id="debitcard">
+          </th:block>
+                <table id="tbl-board" class="board-table">
+                    <tr class="text-center bg-info text-white">
+                        <th class="table-header" style="width: 45px;">번호</th>
+                        <th class="table-header" style="width: 100px;">카드사명</th>
+                        <th class="table-header" style="width: 180px;">상품명</th>
+                        <th class="table-header" style="width: 240px;">상품특징</th>
+                        <th class="table-header">주요혜택</th>
+                        <th class="table-header" style="width: 100px;">상세정보</th>
+                    </tr>
+                    <th:block th:if="${debitList == null}">
+						<tr>
+							<td colspan="6">조회된 상품이 없습니다.</td>
+						</tr>
+					</th:block>
+                    <th:block th:if="${debitList != null}">
+						<tr th:each="debitList, number : ${debitList}">
+	                        <td class="board-content">[[(${pageDebitInfo.currentPage}-1)*12+${number.index}+1]]</td>
+	                        <td class="board-content board-logoimg">
+	                            <img th:src="${debitList.companyImg}">
+	                        </td>
+	                        <td class="board-content board-cardimg">
+	                            <img th:src="${debitList.productImg}">
+	                            [[${debitList.productNm}]]
+	                        </td>
+	                        <td class="board-content">[[${debitList.productChar}]]</td>
+	                        <td class="board-content text-left">
+	                        	[(${debitList.keyBenefit})]
+	                        <td class="board-content"><a th:href="${debitList.detailUrl}" target="_blank">바로가기</a></td>
+	                    </tr>
+					</th:block>
+                </table>
+                <div class="table-buttons">
+                    <button th:onclick="|movePage('/bank/bankCard?pageDebit=${pageDebitInfo.prevPage}','0');|" class="table-button">&lt;</button>
+                    <th:block th:each="num, status : ${#numbers.sequence(pageDebitInfo.startPage, pageDebitInfo.endPage)}">
+						<th:block th:if="${status.current == pageDebitInfo.currentPage}">
+							<button class="table-button" disabled >[[${status.current}]]</button>
+						</th:block>
+						<th:block th:if="${status.current != pageDebitInfo.currentPage}">
+							<button th:onclick="|movePage('/bank/bankCard?pageDebit=${status.current}','0');|" class="table-button">
+								[[${status.current}]]
+							</button>
+						</th:block>
+					</th:block>
+                    <button th:onclick="|movePage('/bank/bankCard?pageDebit=${pageDebitInfo.nextPage}','0');|" class="table-button">&gt;</button>
+                </div>
+            </div>
+          <th:block th:if="${check} == '1'">
+            <div class="col-sm-12 tapMenu slideOpen" id="creditcard">
+          </th:block>
+          <th:block th:if="${check} != '1'">
+            <div class="col-sm-12 tapMenu" id="creditcard">
+          </th:block>
+                <table id="tbl-board" class="board-table">
+                    <tr class="text-center bg-info text-white">
+                        <th class="table-header" style="width: 45px;">번호</th>
+                        <th class="table-header" style="width: 100px;">카드사명</th>
+                        <th class="table-header" style="width: 180px;">상품명</th>
+                        <th class="table-header" style="width: 240px;">상품특징</th>
+                        <th class="table-header">주요혜택</th>
+                        <th class="table-header" style="width: 100px;">상세정보</th>
+                    </tr>
+                    <th:block th:if="${debitList == null}">
+						<tr>
+							<td colspan="6">조회된 상품이 없습니다.</td>
+						</tr>
+					</th:block>
+                    <th:block th:if="${creditList != null}">
+						<tr th:each="creditList, number : ${creditList}">
+	                        <td class="board-content">[[(${pageCreditInfo.currentPage}-1)*12+${number.index}+1]]</td>
+	                        <td class="board-content board-logoimg">
+	                            <img th:src="${creditList.companyImg}">
+	                        </td>
+	                        <td class="board-content board-cardimg">
+	                            <img th:src="${creditList.productImg}">
+	                            [[${creditList.productNm}]]
+	                        </td>
+	                        <td class="board-content">[[${creditList.productChar}]]</td>
+	                        <td class="board-content text-left">
+	                        	[(${creditList.keyBenefit})]
+	                        <td class="board-content"><a th:href="${creditList.detailUrl}" target="_blank">바로가기</a></td>
+	                    </tr>
+					</th:block>
+                </table>
+                <div class="table-buttons">
+                    <button th:onclick="|movePage('/bank/bankCard?pageCredit=${pageCreditInfo.prevPage}','1');|" class="table-button table-button-credit">&lt;</button>
+                    <th:block th:each="num, status : ${#numbers.sequence(pageCreditInfo.startPage, pageCreditInfo.endPage)}">
+						<th:block th:if="${status.current == pageCreditInfo.currentPage}">
+							<button class="table-button table-button-credit" disabled >[[${status.current}]]</button>
+						</th:block>
+						<th:block th:if="${status.current != pageCreditInfo.currentPage}">
+							<button th:onclick="|movePage('/bank/bankCard?pageCredit=${status.current}','1');|" class="table-button table-button-credit">
+								[[${status.current}]]
+							</button>
+						</th:block>
+					</th:block>
+                    <button th:onclick="|movePage('/bank/bankCard?pageCredit=${pageCreditInfo.nextPage}','1');|" class="table-button table-button-credit">&gt;</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- 상품 검색 끝 -->
+</main>
+
+<footer th:replace="~{layout/footer :: #footer}"></footer>
+
+<th:block th:replace="layout/scripts :: scripts"></th:block>
+
+
+<!-- 왓츠 더 카드 슬라이드 -->
+<script>
+    const radioBtn = document.querySelectorAll('.radioBtn');
+    const slide = document.querySelectorAll('.slide');
+
+    /* 라디오 버튼 클릭하면 함수 실행 */
+    radioBtn.forEach((item) => {
+        item.addEventListener("click", slideMenu);
+    });
+
+    /* 탭메뉴 함수 */
+    function slideMenu(item){
+        const tabTarget = item.currentTarget;
+        const checked = tabTarget.dataset.tab; // 선택된 라디오버튼의 data-tab 가져오기
+        slide.forEach((target) => {
+            target.classList.remove("slideOpen");
+        });
+
+        document.querySelector("#" + checked).classList.add("slideOpen");
+    }
+</script>
+
+<!-- 카드 테이블 탭 -->
+<script>
+    const tapbtnDebit = document.querySelector('.tapbtnDebit');
+    const tapbtnCredit = document.querySelector('.tapbtnCredit');
+	const debitcard = document.querySelector('#debitcard');
+    const creditcard = document.querySelector('#creditcard');
+    /* 메뉴 클릭하면 함수 실행 */
+    tapbtnDebit.addEventListener("click",()=>{
+    	creditcard.classList.remove("slideOpen");
+    	tapbtnCredit.classList.remove("checkedMenu");
+        debitcard.classList.add("slideOpen");
+        tapbtnDebit.classList.add("checkedMenu");
+    });
+    tapbtnCredit.addEventListener("click",()=>{
+    	debitcard.classList.remove("slideOpen");
+    	tapbtnDebit.classList.remove("checkedMenu");
+        creditcard.classList.add("slideOpen");
+        tapbtnCredit.classList.add("checkedMenu");
+    });
+</script>
+<!-- 테이블 페이징 -->
+<script type="text/javascript">
+	function movePage(pageUrl, isCheck){
+		var searchValue = document.getElementById("search-bank"); // 갤럭시
+		if(searchValue.value.length != 0){
+			pageUrl = pageUrl + '&searchValue=' + searchValue.value; 
+		}
+		pageUrl = pageUrl + '&check='+isCheck;
+		location.href = encodeURI(pageUrl);
+	}
+</script>
+
+</body>
+</html>

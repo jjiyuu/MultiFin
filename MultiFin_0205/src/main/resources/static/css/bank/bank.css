@@ -1,0 +1,378 @@
+/*
+    은행 메인페이지
+*/
+/* 푸터 */
+.footer_snsicon{
+    position: relative;
+}
+.footer_snsicon >div{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.bankMain_Title{width:800px;}
+.main_maintitle{
+    margin-bottom: 20px;
+    font-weight: 700;
+}   
+.main_subtitle{
+    width:500px;
+    line-height: 33px;
+    margin-bottom: 20px;
+}
+.bankMain{ margin-top: 80px;}
+.bankMain_Title{width:800px;}
+.mian_form-control{
+    width:310px;
+    height: 50px;
+    border-radius: 4px 0px 0px 4px;
+    border: 1px solid lightgray;
+    padding-left: 15px;
+}
+.mian_form-control:focus{
+    outline: none;
+}
+.img-fluid{width:600px; justify-content: center;}
+.bankMainSubmit{
+    width: 120px;
+    background-color: rgb(13, 27, 72);
+    color: white;
+    border-top-right-radius: 0.45rem;
+    border-bottom-right-radius: 0.45rem;
+    border-top-left-radius: 0rem;
+    border-bottom-left-radius: 0rem;
+    font-size: 1.125rem;
+}
+/* 은행 메인 - 배너 쪽 3개 상품 부분 */
+
+.bpcontainer{
+    text-align:center;
+    display:table;
+    height:150px;
+}
+.bpbanner{
+    display:table-cell;
+    vertical-align:middle;
+}
+.card-body{padding:20px 40px;}
+.card-footer{padding:20px 40px; padding-bottom: 10px;}
+.bplogo{
+    margin: 0 auto;
+    width: auto !important;
+    height:50px;
+}
+.form-row > .col, .form-row > [class*="col-"] {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+/* 은행 메인 - 이달의 추천 금융 상품 top4 */
+.bankMainMoreBtn{
+    width: 100px;
+    height: 45px;
+    line-height: 40px;
+    background-color: rgb(13, 27, 72);
+    color: white;
+    border: 0;
+    border-radius: 0.45rem;
+    font-size: 1.2rem;
+}
+.form-row > .col, .form-row > [class*="col-"]{padding-bottom: 0px; padding-right: 10px;}
+.top4-memo{color: black;}
+.img-fluid{width: 500px;}
+.top4-card{
+    padding: 30px;
+    position: relative;
+    margin-bottom: 10px;
+}
+.bank_logo{margin-top: 10px; margin-right: 20px;}
+.top4-card:hover, .lowRateCard:hover{
+    border-color: rgb(243, 156, 18) !important;
+    background-color: white !important;
+}
+.top4-card img{
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    max-height: 30px;
+}
+.top4-title{margin-bottom: 4px;}
+.top4-text{
+    position: absolute;
+    left: 28px;
+    bottom: 28px;
+}
+.top4-memo{
+    font-weight: 400;
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+}
+
+/* 은행 메인 - 카드 TOP5 */
+.bank_card{margin-bottom: 50px;}
+.top5-title{
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 20px;
+}
+.bankMainMore{
+    font-size: 20px;
+    color: black;
+    margin-right: 25px;
+    margin-top: 5px;
+}
+.bankMainMore_title{ font-weight: 600; margin-right: 15px;}
+.bmCard{
+    width: 160px;
+    margin: 0 30px 0 30px;
+}
+.real_card_title{font-weight: 600;}
+
+/* 은행 메인 - 저금리 대출상품 */
+.loan_card{margin-bottom: 50px;}
+.card-container{
+    width: 1080px;
+    padding-top: 15px;
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+.loan-title{
+    display: flex;
+    justify-content: space-between;
+}
+.card-container>a{width:250px;}
+.pointBox{
+    top: 5px;
+    color: white; background-color:rgb(243, 156, 18); 
+    border-radius: 3px;
+    font-size: 17px;
+    font-weight: 600;
+    height: 35px;
+    line-height: 35px;
+}
+.loan_title{margin-right: 20px;}
+/*
+    예적금상품
+*/
+.goods-title{display: flex; justify-content: space-between;}
+.main_goods_title{display:flex}
+.goods_title{margin-right: 20px;}
+.goods_card{
+    padding : 5px 15px;
+}
+.goods_btn {
+    display: block;
+    padding: 5px 30px;
+    width:200px;
+    background-color: rgb(13, 27, 72);
+    border: 2px solid rgb(13, 27, 72);
+    color: white;
+    line-height: 27px;
+}
+.goods_btn:hover{
+    background-color: transparent;
+    color: rgb(13, 27, 72);
+    transition: all 0.3s;
+}
+.bankSearch p{
+    font-weight: 400;
+}
+.goDetailBtn{
+    font-size: 1.3rem;
+    margin: 5px auto;
+    padding: 5px 68.39px;
+}
+.bdHotProductLogo{
+    float: right;
+    max-height: 30px;
+}
+.cards_contains{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+}
+/* 예적금 - 검색창 */
+.board{
+    width: 1200px;
+    height: 1000px;
+    margin: 0 auto;
+}
+.search{
+    float: right;
+}
+label{
+    font-size: 18px;
+    margin: 10px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.input_text{
+    width: 330px;
+    height: 30px;
+    border: 1px solid black;
+    padding-left: 10px;
+}
+.input_text:focus{
+    border: 1px solid  rgb(251, 188, 4);
+}
+button{
+    height: 36px;
+    top: 2px;
+    border: 0px;
+    font-weight: 800;
+    font-size: 15px;
+    padding: 2px;
+    border-radius: 4px;
+}
+button:hover{
+    background-color: black;
+    color:white;
+    transition: .1s ease-in;
+}
+
+/* 예적금 - 게시판 리스트 */
+.board-table{
+    width: 100%;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-collapse: collapse;
+}
+.table-header{
+    padding: 10px 5px;
+}
+
+.board-content{
+    text-align: center;
+    padding: 10px 10px;
+    border-bottom: 1px solid black;
+    font-weight: 500;
+}
+.board-title{
+    text-align: left;
+    padding-left: 30px;
+    max-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+  /* 예적금 - 테이블 버튼 */
+.table-buttons{
+    text-align: center;
+}
+.table-button{
+    text-align: center;
+    border-radius: 0px;
+    background-color: white;
+    border-radius: 3px;
+    border: 1px solid gray;
+    margin: 20px 0px;
+    width:40px;
+    height: 30px;
+    font-weight: 700;
+    color:rgb(13, 27, 72);
+}
+.table-button:hover{
+    background-color:rgb(13, 27, 72) ;
+    color:white;
+}
+
+/* 
+    실시간 채팅 버튼
+*/
+.onlineChatBtn{
+    background-color: #0d1b48; color: white;
+    width: 80px; height: 80px; line-height: 80px;
+    border-radius: 50%;
+}
+
+/*
+    대출상품 
+*/
+.loans_title_container{display: flex;}
+.loan_here_title{margin-right: 30px; margin-bottom: 0px;}
+.loain_main_card-container{
+    width: 1100px;
+    padding-top: 12px;
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+.loan_btn_container{padding-top: 10px;}
+.loan_main_card{margin-top: 80px;}
+.loan_card_main{width: 250px;}
+.loanMainMore_title{ font-weight: 600;}
+.blSearchTap{padding: 3px 10px;}
+.blSearchTap li{
+    border-bottom: 0.0625rem solid #b7c3d2;
+    height: 40px; line-height: 40px;
+}
+.blSearchTap li:hover{border: none;}
+.blSearchTap a{
+    display: block; height: 40px; line-height: 40px;
+    border-radius: 0.45rem !important;
+}
+.blSearchTap a:hover{
+    background-color: #0d1b48; color: white;
+}
+.selector{
+    margin-bottom: 25px;
+}
+.form-group.form-group-lg .form-control{
+    font-size: 17px;
+    height: auto;
+}
+.form-control{padding: 0px; padding-left: 10px;}
+/*
+    카드
+*/
+.cardMain{ margin-top: 80px; display: flex;}
+/* .cardComTBL td{width: 200px; height: 40px; line-height: 40px;} */
+.cardComTBL a{
+    color:black;
+    border: 1px solid black;
+}
+.rotate90 {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+.tapMenu{display:none;}
+.board-cardimg img{
+	display: block;
+	max-width: 100px;
+	max-height: 100px;
+	margin: 0 auto;
+}
+
+/* 라벨 스타일 지정 */
+.radioBtn{display: none;}
+.radioLabel{
+    width: 150px; height: 40px;
+    text-align: center;
+    padding: 8px 20px;
+    border-radius: 30px;
+    color: #b9b9b9;
+    border: 1px solid #b9b9b9;
+}
+.radioBtn:checked ~ .radioLabel, .radioLabel:hover {
+    color: #C33C54;
+    border-radius: 30px;
+    border: 1px solid #C33C54;
+}
+
+
+/*main_container*/
+.slide_card {display: flex; justify-content: center;align-items: center;}
+.slider {overflow: hidden;}
+.slides input {display: none;}
+.slide {width: 100%; height: 330px; padding-left: 70px; transition: 1s;}
+.slide {display:none;}
+.slideOpen{display: block;}
+/* #radio1:checked ~ .first {margin-left: 0;}
+#radio2:checked ~ .first {margin-left: -100%;} */
+

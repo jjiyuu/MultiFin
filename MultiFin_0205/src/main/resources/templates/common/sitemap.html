@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="layout/head :: config"></th:block>
+	<title>MultiFin:통합검색</title>
+	<!-- 현재 페이지에서만 쓰는 css, script -->
+	<link rel="stylesheet" th:href="@{/css/common/searchTotal.css}">
+
+<!-- 우리가 추가한 스타일 -->
+<style>
+    .sitelink{
+        display: block;
+        color: #424767;
+        margin-bottom: 5px;
+        font-size: 1.1rem;
+    }
+    .apiList img{
+        display: inline-block;
+        height: 45px;
+        margin: 35px 15px;
+    }
+    .logo_naver{
+        background-image: url(https://s.pstatic.net/static/www/img/uit/sp_main_947f65.png);
+        background-size: 442px 428px;
+        display: inline-block;
+        width: 222px;
+        height: 52px;
+        margin: 5px 15px;
+        background-position: 0 -158px;
+        background-repeat: no-repeat;
+        vertical-align: middle;
+        content: '';
+    }
+    .logo_kakao {
+        display: inline-block;
+        width: 88px;
+        height: 45px;
+        margin: 5px 15px;
+        background: #fff url(https://accounts.kakaocdn.net/images/pc/logo_kakao.png) no-repeat 0 0;
+        background-size: 100px 80px;
+        font-size: 19px;
+        line-height: 45px;
+        text-align: center;
+        vertical-align: middle;
+    }
+</style>
+
+</head>
+
+<body>
+<header th:replace="~{layout/header :: #header}"></header>
+
+    <main>
+        <!-- Hero -->
+        <section class="section section-header pt-7 pb-0">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-4 text-left pl-3">
+                        <h4 class="mb-3 font-weight-bolder">은행</h4>
+                        <a class="sitelink" th:href="@{/bank/bankMain}">은행 메인</a>
+                        <a class="sitelink" th:href="@{/bank/bankDeposit}">예금•적금</a>
+                        <a class="sitelink" th:href="@{/bank/bankLoan}">대출상품</a>
+                        <a class="sitelink" th:href="@{/bank/bankCard}">카드상품</a>
+                        <br>
+                        <h4 class="mb-3 font-weight-bolder">증권</h4>
+                        <a class="sitelink" th:href="@{/stock/stockMain}">주식 메인</a>
+                        <a class="sitelink" th:href="@{/stock/stockList}">주식시세</a>
+                        <a class="sitelink" th:href="@{/stock/stockPredicate}">주식동향확인/예측</a>
+                        <a class="sitelink" th:href="@{/stock/stockTest}">모의투자</a>
+                        <a class="sitelink" th:href="@{/stock/stockFund}">펀드</a>
+                    </div>
+                    <div class="col-4 text-left pl-3">
+                        <h4 class="mb-3 font-weight-bolder">부동산</h4>
+                        <a class="sitelink" th:href="@{/home/homeMain}">부동산 메인</a>
+                        <a class="sitelink" th:href="@{/home/homeSell}">매물(월세/전세/매매)</a>
+                        <h4 class="mb-3 font-weight-bolder">청약</h4>
+                        <a class="sitelink" th:href="@{/home/homeBlue}">아파트</a>
+                        <a class="sitelink" th:href="@{/home/homeBlue2}">오피스텔</a>
+                        <a class="sitelink" th:href="@{/home/homeBlue3}">기타</a>
+                        <br>
+                        <h4 class="mb-3 font-weight-bolder">뉴스/법률</h4>
+                        <a class="sitelink" th:href="@{/news/newsMain}">뉴스</a>
+                        <a class="sitelink" th:href="@{/law/lawMain}">법률 메인</a>
+                        <a class="sitelink" th:href="@{/law/lawFAQ}">자주묻는질문</a>
+                    </div>
+                    <div class="col-4 text-left pl-3">
+                        <h4 class="mb-3 font-weight-bolder">커뮤니티</h4>
+                        <a class="sitelink" th:href="@{/community/noticeList}">공지사항</a>
+                        <a class="sitelink" th:href="@{/community/freeList}">자유게시판</a>
+                        <br>
+                        <h4 class="mb-3 font-weight-bolder">회원관리</h4>
+                        <a class="sitelink" th:href="@{/member/sign-up}">회원가입</a>
+                        <a class="sitelink" th:href="@{/member/sign-in}">로그인</a>
+                        <a class="sitelink" th:href="@{/member/forgot-password}">비밀번호찾기</a>
+                        <a class="sitelink" th:href="@{/member/mypage}">마이페이지</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="apiList bg-white align-items-center pt-6 pb-6"> <!-- api 제공 -->
+            <div style="width:1200px; margin: 0px auto;">
+                <a href="https://finlife.fss.or.kr/main/main.do" target="_blank"><img src="https://www.fss.or.kr/static/fss/img/common/logo@2x.png" alt="금융감독원"></a>
+                <a href="https://gongsi.crefia.or.kr/portal/carddamoa/carddamoaList" target="_blank"><img src="https://gongsi.crefia.or.kr/assets/portal/images/common/logo.jpg" alt="여신금융협회"></a>
+                <a href="https://www.fsc.go.kr/index" target="_blank"><img src="https://www.fsc.go.kr/humanframe/theme/fscmain/assets/images/common/logo.png" alt="금융위원회"></a>
+                <a href="https://www.moj.go.kr/moj/index.do" target="_blank"><img src="https://www.moj.go.kr/sites/moj/images/logo_main_2.png" alt="법무부"></a>
+                <a href="http://www.molit.go.kr/portal.do" target="_blank"><img src="http://www.molit.go.kr/images/www2021/logo/logo.png" alt="국토교통부"></a>
+                <a href="https://www.reb.or.kr/reb/main.do" target="_blank"><img src="https://www.reb.or.kr/images/web/reb/layout/logo.png" alt="한국부동산원"></a>
+                <a href="https://www.koreaexim.go.kr/ir/HPHKIR020M01?apino=2&viewtype=C&searchselect=&searchword=" target="_blank"><img src="https://www.koreaexim.go.kr/humanframe/theme/resources/assets/img/content/gnb_logo.svg" alt="한국수출입은행"></a>
+                
+                <a href="https://open.law.go.kr/LSO/main.do" target="_blank"><img src="https://open.law.go.kr/LSO/images/logo.jpg" alt="국가법령정보 공동활용"></a>
+                <a href="https://www.naver.com" class="logo_naver" target="_balnk" data-clk="top.logo"><span class="blind"></span></a>
+                
+            </div>
+        </div>
+    </main>
+
+<footer th:replace="~{layout/footer :: #footer}"></footer>
+
+<th:block th:replace="layout/scripts :: scripts"></th:block>
+
+</body>
+
+</html>

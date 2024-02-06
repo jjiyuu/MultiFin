@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//KO" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.multi.multifin.bank.model.mapper.BankCardMapper">
+	<resultMap type="BankCreditCard" id="creditCardResultMap">
+		<result property="companyImg" column="COMPANY_IMG" />
+		<result property="companyNm" column="COMPANY_NM" />
+		<result property="productImg" column="PRODUCT_IMG" />
+		<result property="productNm" column="PRODUCT_NM" />
+		<result property="productChar" column="PRODUCT_CHAR" />
+		<result property="keyBenefit" column="KEY_BENEFIT" />
+		<result property="detailUrl" column="DETAIL_URL" />
+	</resultMap>
+	
+	<resultMap type="BankDebitCard" id="debitCardResultMap">
+		<result property="companyImg" column="COMPANY_IMG" />
+		<result property="companyNm" column="COMPANY_NM" />
+		<result property="productImg" column="PRODUCT_IMG" />
+		<result property="productNm" column="PRODUCT_NM" />
+		<result property="productChar" column="PRODUCT_CHAR" />
+		<result property="keyBenefit" column="KEY_BENEFIT" />
+		<result property="detailUrl" column="DETAIL_URL" />
+	</resultMap>
+	
+	<!-- 체크카드 전체 -->
+	<select id="selectCreditList" resultMap="creditCardResultMap" parameterType="map">
+		SELECT COMPANY_IMG, COMPANY_NM, PRODUCT_IMG, PRODUCT_NM, PRODUCT_CHAR, KEY_BENEFIT, DETAIL_URL
+		FROM CREDITCARD C
+		WHERE 1=1
+		<if test="companyNm != null">
+			AND(
+				C.COMPANY_NM like '%${companyNm}%' 
+			)
+		</if>
+		LIMIT ${limit} OFFSET ${offset}
+	</select>
+	
+	<select id="selectCreditCount" resultType="int" parameterType="map">
+		SELECT COUNT(PRODUCT_NM)
+		FROM CREDITCARD C
+		WHERE 1=1
+		<if test="companyNm != null">
+			AND(
+				C.COMPANY_NM like '%${companyNm}%' 
+			)
+		</if>
+	</select>
+	
+	<select id="selectCreditLotte" resultMap="creditCardResultMap">
+		SELECT COMPANY_IMG, COMPANY_NM, PRODUCT_IMG, PRODUCT_NM, PRODUCT_CHAR, KEY_BENEFIT, DETAIL_URL
+		FROM CREDITCARD
+		WHERE COMPANY_NM='롯데카드'
+	</select>
+	
+	<select id="selectCreditBC" resultMap="creditCardResultMap">
+		SELECT COMPANY_IMG, COMPANY_NM, PRODUCT_IMG, PRODUCT_NM, PRODUCT_CHAR, KEY_BENEFIT, DETAIL_URL
+		FROM CREDITCARD
+		WHERE COMPANY_NM='비씨카드'
+	</select>
+	
+	<select id="selectCreditSamsung" resultMap="creditCardResultMap">
+		SELECT COMPANY_IMG, COMPANY_NM, PRODUCT_IMG, PRODUCT_NM, PRODUCT_CHAR, KEY_BENEFIT, DETAIL_URL
+		FROM CREDITCARD
+		WHERE COMPANY_NM='삼성카드'
+	</select>
+	
+	<select id="selectCreditSinhan" resultMap="creditCardResultMap">
+		SELECT COMPANY_IMG, COMPANY_NM, PRODUCT_IMG, PRODUCT_NM, PRODUCT_CHAR, KEY_BENEFIT, DETAIL_URL
+		FROM CREDITCARD
+		WHERE COMPANY_NM='신한카드'
+	</select>
+	
+	<select id="selectCreditWoori" resultMap="creditCardResultMap">
+		SELECT COMPANY_IMG, COMPANY_NM, PRODUCT_IMG, PRODUCT_NM, PRODUCT_CHAR, KEY_BENEFIT, DETAIL_URL
+		FROM CREDITCARD
+		WHERE COMPANY_NM='우리카드'
+	</select>
+	
+	<select id="selectCreditHana" resultMap="creditCardResultMap">
+		SELECT COMPANY_IMG, COMPANY_NM, PRODUCT_IMG, PRODUCT_NM, PRODUCT_CHAR, KEY_BENEFIT, DETAIL_URL
+		FROM CREDITCARD
+		WHERE COMPANY_NM='하나카드'
+	</select>
+	
+	<select id="selectCreditHyundai" resultMap="creditCardResultMap">
+		SELECT COMPANY_IMG, COMPANY_NM, PRODUCT_IMG, PRODUCT_NM, PRODUCT_CHAR, KEY_BENEFIT, DETAIL_URL
+		FROM CREDITCARD
+		WHERE COMPANY_NM='현대카드'
+	</select>
+	
+	<select id="selectCreditKb" resultMap="creditCardResultMap">
+		SELECT COMPANY_IMG, COMPANY_NM, PRODUCT_IMG, PRODUCT_NM, PRODUCT_CHAR, KEY_BENEFIT, DETAIL_URL
+		FROM CREDITCARD
+		WHERE COMPANY_NM='국민카드'
+	</select>
+	
+	<!-- 신용카드 전체 -->
+	<select id="selectDebitList" resultMap="debitCardResultMap" parameterType="map">
+		SELECT COMPANY_IMG, COMPANY_NM, PRODUCT_IMG, PRODUCT_NM, PRODUCT_CHAR, KEY_BENEFIT, DETAIL_URL
+		FROM DEBITCARD D
+		WHERE 1=1
+		<if test="companyNm != null">
+			AND(
+				D.COMPANY_NM like '%${companyNm}%' 
+			)
+		</if>
+		LIMIT ${limit} OFFSET ${offset}
+	</select>
+	
+	<select id="selectDebitCount" resultType="int" parameterType="map">
+		SELECT COUNT(PRODUCT_NM)
+		FROM DEBITCARD D
+		WHERE 1=1
+		<if test="companyNm != null">
+			AND(
+				D.COMPANY_NM like '%${companyNm}%' 
+			)
+		</if>
+	</select>
+	
+	<select id="selectDebitLotte" resultMap="debitCardResultMap">
+		SELECT COMPANY_IMG, COMPANY_NM, PRODUCT_IMG, PRODUCT_NM, PRODUCT_CHAR, KEY_BENEFIT, DETAIL_URL
+		FROM DEBITCARD
+		WHERE COMPANY_NM='롯데카드'
+	</select>
+	
+	<select id="selectDebitBC" resultMap="debitCardResultMap">
+		SELECT COMPANY_IMG, COMPANY_NM, PRODUCT_IMG, PRODUCT_NM, PRODUCT_CHAR, KEY_BENEFIT, DETAIL_URL
+		FROM DEBITCARD
+		WHERE COMPANY_NM='비씨카드'
+	</select>
+	
+	<select id="selectDebitSamsung" resultMap="debitCardResultMap">
+		SELECT COMPANY_IMG, COMPANY_NM, PRODUCT_IMG, PRODUCT_NM, PRODUCT_CHAR, KEY_BENEFIT, DETAIL_URL
+		FROM DEBITCARD
+		WHERE COMPANY_NM='삼성카드'
+	</select>
+	
+	<select id="selectDebitSinhan" resultMap="debitCardResultMap">
+		SELECT COMPANY_IMG, COMPANY_NM, PRODUCT_IMG, PRODUCT_NM, PRODUCT_CHAR, KEY_BENEFIT, DETAIL_URL
+		FROM DEBITCARD
+		WHERE COMPANY_NM='신한카드'
+	</select>
+	
+	<select id="selectDebitWoori" resultMap="debitCardResultMap">
+		SELECT COMPANY_IMG, COMPANY_NM, PRODUCT_IMG, PRODUCT_NM, PRODUCT_CHAR, KEY_BENEFIT, DETAIL_URL
+		FROM DEBITCARD
+		WHERE COMPANY_NM='우리카드'
+	</select>
+	
+	<select id="selectDebitHana" resultMap="debitCardResultMap">
+		SELECT COMPANY_IMG, COMPANY_NM, PRODUCT_IMG, PRODUCT_NM, PRODUCT_CHAR, KEY_BENEFIT, DETAIL_URL
+		FROM DEBITCARD
+		WHERE COMPANY_NM='하나카드'
+	</select>
+	
+	<select id="selectDebitHyundai" resultMap="debitCardResultMap">
+		SELECT COMPANY_IMG, COMPANY_NM, PRODUCT_IMG, PRODUCT_NM, PRODUCT_CHAR, KEY_BENEFIT, DETAIL_URL
+		FROM DEBITCARD
+		WHERE COMPANY_NM='현대카드'
+	</select>
+	
+	<select id="selectDebitKb" resultMap="debitCardResultMap">
+		SELECT COMPANY_IMG, COMPANY_NM, PRODUCT_IMG, PRODUCT_NM, PRODUCT_CHAR, KEY_BENEFIT, DETAIL_URL
+		FROM DEBITCARD
+		WHERE COMPANY_NM='국민카드'
+	</select>
+	
+</mapper>

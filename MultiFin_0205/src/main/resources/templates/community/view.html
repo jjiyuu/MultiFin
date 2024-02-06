@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="layout/head :: config"></th:block>
+	<title>MultiFin:게시글 보기</title>
+	<!-- 현재 페이지에서만 쓰는 css, script -->
+	<link type="text/css" th:href="@{/css/community/view.css}" rel="stylesheet">
+</head>
+<body>
+<header th:replace="~{layout/header :: #header}"></header>
+    <main>
+        <section class="section section-header bg-primary overlay-primary text-white pb-8" data-background="/assets/img/board/team-hero.jpg">
+            <div class="container">
+               <div class="row justify-content-center">
+                  <div class="col-12 col-md-8 text-center">
+                  	<th:block th:if="${type == '공지사항'}">
+                        <h1 class="display-2 mb-4 title">공지사항</h1>
+                        <p class="lead px-lg-5 mainSubtitle">경제 · 금융에 관한 공지사항을 확인해 보세요!</p>
+                    </th:block>
+                  	<th:block th:if="${type == '자유게시판'}">
+                        <h1 class="display-2 mb-4 title">자유게시판</h1>
+                        <p class="lead px-lg-5 mainSubtitle">MULTIFIN에서 경제 · 금융에 관한 이야기들을 자유롭게 나눠 보세요!</p>
+                    </th:block>
+                  </div>
+               </div>
+            </div>
+            <figure class="position-absolute bottom-0 left-0 w-100 d-none d-md-block mb-n2">
+                <svg class="fill-white" enable-background="new 0 0 1504 131.3" viewBox="0 0 1504 131.3" xmlns="http://www.w3.org/2000/svg"><path d="m877.8 85c139.5 24.4 348 33.5 632.2-48.2-.2 32.5-.3 65-.5 97.4-505.9 0-1011.6 0-1517.5 0 0-33.3 0-66.7 0-100.1 54.2-11.4 129.5-23.9 220-28.2 91-4.3 173.6 1 307.4 18.6 183.2 24.2 295.2 49.4 358.4 60.5z"/></svg>
+            </figure>
+        </section>
+        <section class="view mt-6 mb-5">
+            <div class="bnts">
+               <th:block th:if="${session.loginMember != null && 
+					(session.loginMember.id == board.id || session.loginMember.role == 'ROLE_ADMIN')}">
+                   <button class="board_btn" type="button" id="btnUpdate">수정</button>
+                   <button class="board_btn" type="button" id="btnDelete">삭제</button>
+                </th:block>
+              	<th:block th:if="${board.type} == '자유게시판'">
+                	<button class="board_btn"  id="btnDelete" onclick="location.href='/community/freeList'">목록</button>
+            	<th:block>
+            	<th:block th:if="${board.type} == '공지사항'">
+                	<button class="board_btn"  id="btnDelete" onclick="location.href='/community/noticeList'">목록</button>
+            	<th:block>
+            </div>
+            <table id="tbl-board" class="board-table">
+              <tr>
+                <td class="board-title" colspan="3">
+                    <h5 class="category mb-0">[[${board.title}]]</h5>
+                </td>
+              </tr>
+              <tr class="board-info">
+                <td colspan="2" class="info-main">작성자 : [[${board.id}]]</td>
+                <td class="info-sub"> 
+                  등록일 : [[${#dates.format(board.createDate, 'yyyy/MM/dd')}]] &nbsp; &nbsp;
+                  조회수 : [[${board.readCount}]]&nbsp; &nbsp;
+                  첨부파일 : 
+					<th:block th:if="${board.originalFileName != null}">
+						<a th:href="|javascript:fileDownload('${board.originalFileName}','${board.renamedFileName}')|">
+							<span>📁</span>
+							[[${board.originalFileName}]]				
+						</a><br>
+						<img alt="" style="width: 300px" th:src="|/board/file/${board.renamedFileName}|">
+						<script>
+							function fileDownload(oriname, rename) {
+								const url = "/community/fileDown";
+								
+								let oName = encodeURIComponent(oriname);
+								let rName = encodeURIComponent(rename);
+								
+								location.assign(url + "?oriname=" + oName + "&rename=" + rName);
+							}
+						</script>	
+					</th:block>
+					<th:block th:if="${board.originalFileName == null}">
+						<span> - </span>
+					</th:block>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3" >
+                  <div class="board-contents m-0 mb-4">
+                    <textarea  rows="15" cols="100" readonly class="textarea" disabled >[[${board.content}]]</textarea>
+                  </div>
+                </td>
+              </tr>
+            </table>
+               <!-- 리플 출력 -->
+            <table id="tbl-comment">
+            	<tr>
+                	<td class="comment-count" colspan="2" style="border-color: none;">댓글 [[${board.getReplyCount()}]]개</td>
+              	</tr>
+	             <th:block th:if="${replyList != null}">
+		              <th:block  th:each="reply : ${replyList}"> 
+			              <tr class="comments">
+			                    <td class="comment">
+			                        <sub class="comment-writer" id="comment-id">[[${reply.id}]]</sub> &nbsp; &nbsp;
+			                        <sub class="comment-date">[[${#dates.format(reply.createDate, 'YY/MM/dd hh:mm')}]]</sub><br>
+			                        <span class="comment-detail font-weight-bold" id="comment-content">[[${reply.content}]]</span>
+			                    </td>
+			                    <td class="comment comment-btn">
+			                    	<th:block th:if="${session.loginMember != null && (session.loginMember.id == reply.id || session.loginMember.role == 'ROLE_ADMIN')}">
+				                        <div class="btn-container">
+				                            <button class="btn-delete mr-3" th:onclick="|deleteReply(${reply.rNo},${board.bNo});|" >삭제</button>
+				                        </div>
+			                        </th:block>
+			                    </td>
+			          	   	 </tr>
+		             	 </th:block>
+					  </th:block>
+					  <th:block th:if="${replyList == null}">
+						<tr>
+							<td colspan="3" style="text-align: center;">등록된 리플이 없습니다.</td>
+						</tr>
+					</th:block>
+			</table>
+            <!-- 리플 작성 Form -->
+            <div id="comment-container">
+                <div class="comment-editor">
+                    <form action="/community/reply" method="post" class="comment-inputer">
+                    
+                        <input type="hidden" name="bNo" th:value="${board.bNo}" />
+                        <input type="hidden" name="type" th:value="${type}" />
+                        <!-- <input type="hidden" name="Id" value="${loginMember.id}" /> -->
+                          <textarea name="content" id="replyContent"  cols="135" rows="3"></textarea>
+                          <button type="submit" id="btn-insert">등록</button>	  	
+                    </form>
+                </div>
+            </div>
+          </section>
+    </main>
+<footer th:replace="~{layout/footer :: #footer}"></footer>
+<th:block th:replace="layout/scripts :: scripts"></th:block>
+<script>
+$(document).ready(() => {
+	$("#btnUpdate").on("click", (e) => {
+		location.href = "/community/update?no=[[${board.bNo}]]";
+	});
+	
+	$("#btnDelete").on("click", (e) => {
+		if(confirm("정말로 게시글을 삭제 하시겠습니까?")) {
+			location.replace("/community/delete?boardNo=[[${board.bNo}]]");
+		}
+	});
+});
+
+	
+	
+function deleteReply(replyNo, boardNo){
+	var url = "/community/replyDel?replyNo=";
+	var requestURL = url + replyNo +"&boardNo=" + boardNo;
+	location.replace(requestURL);
+}
+</script>
+</body>
+</html>

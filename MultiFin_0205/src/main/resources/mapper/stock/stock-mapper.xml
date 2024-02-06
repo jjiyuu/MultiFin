@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//KO" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.multi.multifin.stock.model.mapper.StockPriceMapper">
+	<resultMap type="StockPrice" id="StockPriceResultMap">
+		<id property="sno" column="sno"/>
+		<result property="basDt" column="basDt"/>
+		<result property="srtnCd" column="srtnCd"/>
+		<result property="isinCd" column="isinCd"/>
+		<result property="itmsNm" column="itmsNm"/>
+		<result property="mrktCtg" column="mrktCtg"/>
+		<result property="clpr" column="clpr"/>
+		<result property="vs" column="vs"/>
+		<result property="fltRt" column="fltRt"/>
+		<result property="mkp" column="mkp"/>
+		<result property="hipr" column="hipr"/>
+		<result property="lopr" column="lopr"/>
+		<result property="trqu" column="trqu"/>
+		<result property="trPrc" column="trPrc"/>
+		<result property="lstgStCnt" column="lstgStCnt"/>
+		<result property="mrktTotAmt" column="mrktTotAmt"/>
+	</resultMap>
+	
+	<select id="KospiList"  resultMap="StockPriceResultMap" parameterType="map">
+		select 
+			sno,basDt,srtnCd,
+			isinCd,itmsNm,mrktCtg,
+			mrktCtg,clpr,vs,
+			fltRt,mkp,hipr,lopr,
+			trqu,trPrc,lstgStCnt,mrktTotAmt
+		from(
+		   select *
+		   from stockprice s
+		   order by basDt DESC
+		)sp
+		where sp.mrktCtg like 'kospi'
+		AND basDt IN (SELECT MAX(basDt) FROM stockprice)
+		order by mrktTotAmt desc LIMIT ${limit} OFFSET ${offset}
+	</select>
+	
+	<select id="KosdaqList"  resultMap="StockPriceResultMap" parameterType="map">
+		select 
+			sno,basDt,srtnCd,
+			isinCd,itmsNm,mrktCtg,
+			mrktCtg,clpr,vs,
+			fltRt,mkp,hipr,lopr,
+			trqu,trPrc,lstgStCnt,mrktTotAmt
+		from(
+		   select *
+		   from stockprice s
+		   order by basDt DESC
+		)sp
+		where sp.mrktCtg like 'kosdaq'
+		AND basDt IN (SELECT MAX(basDt) FROM stockprice)
+		order by mrktTotAmt desc  LIMIT ${limit} OFFSET ${offset}
+	</select>
+	
+	
+	<select id="KospiRankingTop"  resultMap="StockPriceResultMap" parameterType="map">
+		select
+			sno,basDt,srtnCd,
+			isinCd,itmsNm,mrktCtg,
+			mrktCtg,clpr,vs,
+			fltRt,mkp,hipr,lopr,
+			trqu,trPrc,lstgStCnt,mrktTotAmt
+		from(
+		   select*
+		   from stockprice s
+		   order by basDt DESC
+		)sp
+		where sp.mrktCtg like 'kospi'
+		AND basDt IN (SELECT MAX(basDt) FROM stockprice)
+		order by mrktTotAmt desc
+        LIMIT ${limit}
+	</select>
+	
+	<select id="KosdaqRankingTop"  resultMap="StockPriceResultMap" parameterType="map">
+		select
+			sno,basDt,srtnCd,
+			isinCd,itmsNm,mrktCtg,
+			mrktCtg,clpr,vs,
+			fltRt,mkp,hipr,lopr,
+			trqu,trPrc,lstgStCnt,mrktTotAmt
+		from(
+		   select*
+		   from stockprice s
+		   order by basDt DESC
+		)sp
+		where sp.mrktCtg like 'kosdaq'
+		AND basDt IN (SELECT MAX(basDt) FROM stockprice)
+		order by mrktTotAmt desc
+        LIMIT ${limit}
+	</select>
+	
+	<select id="stockMoreList" resultMap="StockPriceResultMap" parameterType="int">
+		SELECT sno,basDt,srtnCd,
+			isinCd,itmsNm,mrktCtg,
+			mrktCtg,clpr,vs,
+			fltRt,mkp,hipr,lopr,
+			trqu,trPrc,lstgStCnt,mrktTotAmt
+		FROM stockprice 
+		where srtnCd LIKE '${srtnCd}' 
+		order by basDt desc
+        limit 7	
+	</select>
+	
+	<select id="selectListByno" parameterType="int" resultMap="StockPriceResultMap">
+		SELECT sno,basDt,srtnCd,
+			isinCd,itmsNm,mrktCtg,
+			mrktCtg,clpr,vs,
+			fltRt,mkp,hipr,lopr,
+			trqu,trPrc,lstgStCnt,mrktTotAmt
+		FROM stockprice
+		WHERE srtnCd = #{srtnCd}
+		ORDER BY BASDT DESC LIMIT 1
+		<!-- AND basDt IN (SELECT BASDT FROM stockprice WHERE BASDT='2023-02-13') -->
+	</select>
+	
+	
+	
+	<select id="selectStockList" resultMap="StockPriceResultMap" parameterType="map">
+		SELECT sno,basDt,srtnCd,
+			isinCd,itmsNm,mrktCtg,
+			mrktCtg,clpr,vs,
+			fltRt,mkp,hipr,lopr,
+			trqu,trPrc,lstgStCnt,mrktTotAmt
+		FROM stockprice 
+		WHERE basDt IN (SELECT MAX(basDt) FROM stockprice)
+		<if test="itmsNm != null">
+			AND itmsNm LIKE '%${itmsNm}%' 
+		</if>
+		order by mrktTotAmt desc  LIMIT ${limit} OFFSET ${offset}	
+	</select>
+	
+	
+	<select id="selectStockCount" resultType="int" parameterType="map">
+		SELECT  
+			count(distinct srtnCd)
+		FROM stockprice 
+		WHERE basDt IN (SELECT MAX(basDt) FROM stockprice)
+		<if test="itmsNm != null">
+			AND itmsNm LIKE '%${itmsNm}%' 
+		</if>			
+	</select>
+	
+	
+	<select id="stockPriceList"  parameterType="String" resultMap="StockPriceResultMap">
+		select * from stockprice 
+		where itmsNm like '${itmsNm}'	
+	</select>
+	<!-- 추천 주식 가져오기(시가 총액 가장 높은 것 기준) -->
+	<select id="selectRecStock" parameterType="map" resultMap="StockPriceResultMap">
+		SELECT * FROM STOCKPRICE
+		ORDER BY mrktTotAmt DESC LIMIT 3 
+	</select>
+	<!-- MRKTTOTAMT(시가총액)을 기준으로 내림차순 -->
+	<select id="selectAllStock" resultMap="StockPriceResultMap" parameterType="map">
+		SELECT sno, basDt, srtnCd, isinCd, itmsNm, mrktCtg, clpr, vs, fltRt, mkp, hipr, lopr, trqu, trPrc, lstgStCnt, mrktTotAmt
+		 FROM STOCKPRICE 
+		WHERE BASDT = (SELECT MAX(BASDT) FROM STOCKPRICE) AND SRTNCD > 0
+		<if test="itmsNm != null">
+		 AND itmsNm LIKE '%${itmsNm}%'
+		</if>
+		ORDER BY srtnCd ASC LIMIT ${limit} OFFSET ${offset}
+	</select>
+	
+	<select id="selectAllStockCount" parameterType="map" resultType="int">
+		SELECT 
+		COUNT(distinct s.srtnCd) 
+		FROM stockPrice as s
+		<if test="itmsNm != null">
+		 WHERE s.itmsNm LIKE '%${itmsNm}%' AND SRTNCD > 0
+		</if>
+	</select>
+</mapper>
+

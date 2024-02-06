@@ -1,0 +1,213 @@
+.section-header{
+padding-bottom: 30px;
+}
+.stock-mainTitle,.stock-mainSubtitle{
+  font-family: 'IBM Plex Sans KR', sans-serif;
+}
+.increase{ color: rgb(231, 76, 60);}
+.decrease{color:  rgb(52, 152, 219);}
+
+
+/*주식정보*/
+.future{margin-top: 50px;}
+.future-description{
+  width: 1230px;
+  justify-content: center;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+
+.stock_type{
+  width: 70px;
+  height: 30px;
+  border-radius: 30px 30px 30px 30px;
+  border: 2px solid  rgb(231, 76, 60);
+  color: rgb(231, 76, 60);
+  text-align: center;
+  line-height: 28px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+.stock_info,.money_info,.future-container{display: flex;}
+.stock-title,.stock-code,.money-description{  font-family: 'IBM Plex Sans KR', sans-serif;}
+.stock-title{margin-right: 20px; font-weight: 700;}
+.stock-code{margin-top: 13px;}
+.money{
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  margin-right: 30px;   
+  font-size: 25px;
+}
+.money-description{
+  margin-top: 8px;
+  font-size: 18px;
+}
+
+/*주식 그래프*/
+.stock_info_container{
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.stock_graph_card{
+  width: 900px;
+  height: 400px;
+  padding: 30px;
+  margin-right: 20px;
+  padding-bottom: 20px;
+}
+.stock_graph{
+  width: 840px;
+  height: 303px;
+}
+.now{ 
+  display: flex; 
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  width: 840px;
+  justify-content: right;
+  margin: 0 auto;
+  margin-top: 15px;
+}
+.now-title{
+  width: 100px;
+  height: 30px;
+  border-radius: 30px 30px 30px 30px;
+  border: 2px solid  rgb(231, 76, 60);
+  color: rgb(231, 76, 60);
+  text-align: center;
+  line-height: 28px;
+  margin-right: 15px;
+  font-weight: 500;
+}
+.now-sub{
+  line-height: 28px;
+  font-weight: 500;
+}
+/*투자정보*/
+.stock_detail_info{
+  width: 300px;
+  height: 400px;
+  padding: 30px;
+}
+.stock-info-title{
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+.stock_detail_infoes{
+  display: flex;
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  justify-content: space-between;
+  padding: 2px;
+}
+.stock_detail_info_title,
+.stock_detail_info_sub{
+  font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
+
+/*투자거래현황*/
+
+.stock_description_container{
+  margin-bottom: 20px;
+}
+.stock_details{
+  background-color: white;
+  width: 1228px;
+  height: 380px;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 40px;
+}
+.stock_details_title{
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.stock_table{
+  margin: 0px auto;
+  width: 1140px;
+  padding: 30px;
+  font-family: 'IBM Plex Sans KR', sans-serif;
+}
+.stock_table td{ font-weight: 500;}
+.table_row{
+  height: 35px;
+    text-align: center;
+}
+.table_header{
+  background-color:rgb(13, 27, 72);
+  color: white;
+  text-align: center;
+}
+.stock_table tr:nth-child(2n){
+  background-color: rgb(248, 248, 248);
+}
+
+/*3번째 단락 최근검색&일자별정보*/
+.stock_future_container{
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+.adver{
+  width: 250px;
+  height: 355px;
+  margin-right: 15px;
+  padding: 30px;
+}
+.stock_description_card{
+  width: 960px;
+  height: 400px;
+  padding: 30px;
+}
+.adver_title,.stock_future_title{
+  font-weight: 700;
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  margin-bottom: 20px;
+}
+.day-info{
+  display: flex;
+  justify-content: space-between;
+}
+.day-info-sub{font-size: 15px;}
+.search-result{ font-family: 'IBM Plex Sans KR', sans-serif;}
+
+/*광고부분*/
+.adver_btn{
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  background-color: rgb(13, 27, 72);
+  color: white;
+  width: 100px;
+  height: 50px;
+  border-radius: 4px;
+  margin-top: 15px;
+}
+.adver_btn:hover{
+  border: 2px solid  rgb(13, 27, 72);
+  background-color: transparent;
+  color:  rgb(13, 27, 72);
+  transition: all .3s;
+}
+.adver i{
+  width: 5px;
+  height: 50px;
+  font-size: 50px;
+  margin-top: 70px;
+  color: rgb(13, 27, 72);
+  margin-left: 145px;
+}
+
+
+
+/*그래프*/
+.future_stock_graph{
+  width: 900px;
+  height: 300px;
+}
+
+
+

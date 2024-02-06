@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="layout/head :: config"></th:block>
+	<title>MultiFin:은행검색결과</title>
+	<!-- 현재 페이지에서만 쓰는 css, script -->
+	<link rel="stylesheet" th:href="@{/css/bank/bank.css}">
+</head>
+
+<body>
+<header th:replace="~{layout/header :: #header}"></header>
+    <!-- 상품 검색 시작 -->
+<section class="section section-lg pt-6 pb-6">
+    <div class="container" style="width: 1200px;">
+        <div class="row">
+            <div class="col-12  mb-3">
+            <th:block th:if="${depositList.size == 0 && savingList.size == 0}">
+                <p style="font-size: 25px;"  class="h3 font-weight-bolder m-0">검색결과가 없습니다.</p>
+            </th:block>
+            <th:block th:if="${depositList.size != 0 && savingList.size == 0}">
+                <p style="font-size: 25px;"  class="h3 font-weight-bolder m-0">[[${depositList[0].korCoNm}]] > [[${depositList[0].finPrdtNm}]]</p>
+            </th:block>
+            <th:block th:if="${savingList.size != 0 && depositList.size == 0}">
+                <p style="font-size: 25px;"  class="h3 font-weight-bolder m-0">[[${savingList[0].korCoNm}]] > [[${savingList[0].finPrdtNm}]]</p>
+            </th:block>
+            </div>
+            <div class="col-sm-12 border-gray-500 row">
+				<th:block th:if="${depositList.size == 0 && savingList.size == 0}">
+					<div>조회된 상품이 없습니다.</div>
+				</th:block>
+				<th:block th:if="${depositList.size != 0 && savingList.size == 0}">
+					<div class="col-8">
+						<table>
+							<tr>
+						    	<th class="table-header bg-info text-white" style="width:110px;border-top: 1px solid black;border-bottom: 1px solid black;">가입 대상</th>
+						    	<td class="board-content" style="border-top: 1px solid black;">[[${depositList[0].joinMember}]]</td>
+						  	</tr>
+						  	<tr>
+						    	<th class="table-header bg-info text-white" style="border-bottom: 1px solid black;">가입 방법</th>
+						    	<td class="board-content">[[${depositList[0].joinWay}]]</td>
+						  	</tr>
+						  	<tr>
+						    	<th class="table-header bg-info text-white" style="border-bottom: 1px solid black;">만기이자</th>
+						    	<td class="board-content">[[${depositList[0].mtrtInt}]]</td>
+						  	</tr>
+						  	<tr>
+						    	<th class="table-header bg-info text-white" style="border-bottom: 1px solid black;">우대조건</th>
+						    	<td class="board-content">[[${depositList[0].spclCnd}]]</td>
+						  	</tr>
+						  	<tr>
+						    	<th class="table-header bg-info text-white" style="border-bottom: 1px solid black;">기타 유의사항</th>
+						    	<td class="board-content">[[${depositList[0].etcNote}]]</td>
+						  	</tr>
+						</table>
+					</div>
+	            	<div class="col-3" id="">
+		            	<table>
+		            		<tr class="text-center bg-info text-white">
+		                        <th class="table-header">저축 기간</th>
+		                        <th class="table-header">저축 금리</th>
+		                        <th class="table-header" >최대 우대금리</th>
+		                    </tr>
+		                    <tr th:each="depositList, number : ${depositList}">
+		                        <td class="board-content">[[${depositList.saveTrm}]]개월</td>
+		                        <td class="board-content">[[${depositList.intrRate}]]%</td>
+		                        <td class="board-content">[[${depositList.intrRate2}]]%</td>
+		                    </tr>
+		            	</table>
+	            	</div>
+	            </th:block>
+            	<th:block th:if="${savingList.size != 0 && depositList.size == 0}">
+	                  <div class="col-8">
+						<table>
+							<tr>
+						    	<th class="table-header bg-info text-white" style="width:110px;border-top: 1px solid black;border-bottom: 1px solid black;">가입 대상</th>
+						    	<td class="board-content" style="border-top: 1px solid black;">[[${savingList[0].joinMember}]]</td>
+						  	</tr>
+						  	<tr>
+						    	<th class="table-header bg-info text-white" style="border-bottom: 1px solid black;">가입 방법</th>
+						    	<td class="board-content">[[${savingList[0].joinWay}]]</td>
+						  	</tr>
+						  	<tr>
+						    	<th class="table-header bg-info text-white" style="border-bottom: 1px solid black;">만기이자</th>
+						    	<td class="board-content">[[${savingList[0].mtrtInt}]]</td>
+						  	</tr>
+						  	<tr>
+						    	<th class="table-header bg-info text-white" style="border-bottom: 1px solid black;">우대조건</th>
+						    	<td class="board-content">[[${savingList[0].spclCnd}]]</td>
+						  	</tr>
+						  	<tr>
+						    	<th class="table-header bg-info text-white" style="border-bottom: 1px solid black;">기타 유의사항</th>
+						    	<td class="board-content">[[${savingList[0].etcNote}]]</td>
+						  	</tr>
+						</table>
+					</div>
+	            	<div class="col-3" id="">
+		            	<table>
+		            		<tr class="text-center bg-info text-white">
+		                        <th class="table-header">저축 기간</th>
+		                        <th class="table-header">저축 금리</th>
+		                        <th class="table-header" >최대 우대금리</th>
+		                    </tr>
+		                    <tr th:each="savingList, number : ${savingList}">
+		                        <td class="board-content">[[${savingList.saveTrm}]]개월</td>
+		                        <td class="board-content">[[${savingList.intrRate}]]%</td>
+		                        <td class="board-content">[[${savingList.intrRate2}]]%</td>
+		                    </tr>
+		            	</table>
+	            	</div>
+				</th:block>
+			</div>
+    	</div>
+	</div>
+</section>
+<!-- 상품 검색 끝 -->
+    
+<footer th:replace="~{layout/footer :: #footer}"></footer>
+
+<th:block th:replace="layout/scripts :: scripts"></th:block>
+
+</body>
+</html>

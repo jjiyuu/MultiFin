@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//KO" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.multi.multifin.stock.model.mapper.StockPriceIndexMapper">
+	<resultMap type="stockPriceIndex" id="StockPriceIndexResultMap">
+		<result property="stockType" column="stock_type"/>
+		<result property="stockDate" column="stock_date"/>
+		<result property="fin" column="fin"/>
+		<result property="open" column="open"/>
+		<result property="highLevel" column="highLevel"/>
+		<result property="lowLevel" column="lowLevel"/>
+		<result property="tradingVolume" column="trading_volume"/>
+		<result property="changePercent" column="change_percent"/>
+	</resultMap>
+	
+	<select id="getStockList"  parameterType="String" resultMap="StockPriceIndexResultMap">
+		select 
+			stock_type,fin,stock_date
+		from(
+		   select *
+		   from stockPriceIndex si
+		   order by stock_date DESC
+		)sp
+		where sp.stock_type = '${stockType}'
+	</select>
+	
+	
+	<select id="nowStockIndex" parameterType="String" resultMap="StockPriceIndexResultMap">
+		select 
+			stock_type,stock_date,fin,
+			open,highLevel,lowLevel,
+			trading_volume,change_percent
+		from(
+		   select *
+		   from stockPriceIndex si
+		   order by stock_date DESC
+		)sp
+		where sp.stock_type = '${stockType}'
+		limit 1
+	</select>
+	
+		
+	<select id="currentStockList" parameterType="String"  resultMap="StockPriceIndexResultMap">
+		select 
+			stock_type,stock_date,fin,
+			open,highLevel,lowLevel,
+			trading_volume,change_percent
+		from(
+		   select *
+		   from stockPriceIndex si
+		   order by stock_date DESC
+		)sp
+		where sp.stock_type = '${stockType}'
+		limit 6
+	</select>
+	
+	
+	
+	<select id="stockGraphList" parameterType="String" resultMap="StockPriceIndexResultMap">
+		select fin
+			from stockPriceIndex
+	        where stock_type = '${stockType}'
+	        order by stock_date
+	</select>
+	
+	
+</mapper>

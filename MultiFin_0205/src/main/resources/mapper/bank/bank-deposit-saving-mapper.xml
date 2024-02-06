@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//KO" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.multi.multifin.bank.model.mapper.BankDepsitSavingMapper">
+	<resultMap type="BankDeposit" id="depositResultMap">
+		<id property="bankDepositNo" column="bankDepositNo"/>
+		<result property="dclsMonth" column="dcls_month"/>
+		<result property="finCoNo" column="fin_co_no"/>
+		<result property="korCoNm" column="kor_co_nm"/>
+		<result property="finPrdtCd" column="fin_prdt_cd"/>
+		<result property="finPrdtNm" column="fin_prdt_nm"/>
+		<result property="joinWay" column="join_way"/>
+		<result property="mtrtInt" column="mtrt_int"/>
+		<result property="spclCnd" column="spcl_cnd"/>
+		<result property="joinDeny" column="join_deny"/>
+		<result property="joinMember" column="join_member"/>
+		<result property="etcNote" column="etc_note"/>
+		<result property="maxLimit" column="max_limit"/>
+		<result property="dclsStrtDay" column="dcls_strt_day"/>
+		<result property="dclsEndDay" column="dcls_end_day"/>
+		<result property="finCoSubmDay" column="fin_co_subm_day"/>
+		
+		<result property="intrRateType" column="intr_rate_type"/>
+		<result property="intrRateTypeNm" column="intr_rate_type_nm"/>
+		<result property="saveTrm" column="save_trm"/>
+		<result property="intrRate" column="intr_rate"/>
+		<result property="intrRate2" column="intr_rate2"/>
+	</resultMap>
+	
+	<resultMap type="BankSaving" id="savingResultMap">
+		<id property="bankSavingNo" column="bankDepositNo"/>
+		<result property="dclsMonth" column="dcls_month"/>
+		<result property="finCoNo" column="fin_co_no"/>
+		<result property="korCoNm" column="kor_co_nm"/>
+		<result property="finPrdtCd" column="fin_prdt_cd"/>
+		<result property="finPrdtNm" column="fin_prdt_nm"/>
+		<result property="joinWay" column="join_way"/>
+		<result property="mtrtInt" column="mtrt_int"/>
+		<result property="spclCnd" column="spcl_cnd"/>
+		<result property="joinDeny" column="join_deny"/>
+		<result property="joinMember" column="join_member"/>
+		<result property="etcNote" column="etc_note"/>
+		<result property="maxLimit" column="max_limit"/>
+		<result property="dclsStrtDay" column="dcls_strt_day"/>
+		<result property="dclsEndDay" column="dcls_end_day"/>
+		<result property="finCoSubmDay" column="fin_co_subm_day"/>
+		
+		<result property="intrRateType" column="intr_rate_type"/>
+		<result property="intrRateTypeNm" column="intr_rate_type_nm"/>
+		<result property="rsrvType" column="rsrv_type"/>
+		<result property="rsrvTypeNm" column="rsrv_type_nm"/>
+		<result property="saveTrm" column="save_trm"/>
+		<result property="intrRate" column="intr_rate"/>
+		<result property="intrRate2" column="intr_rate2"/>
+	</resultMap>
+	
+	<!-- 예금전체 -->
+	<select id="selectDepositList" resultMap="depositResultMap">
+		SELECT dcls_month,kor_co_nm,fin_prdt_nm,fin_prdt_cd,save_trm,join_way,join_member,etc_note,join_deny,dcls_strt_day,intr_rate_type,intr_rate_type_nm, MAX(intr_rate) as intr_rate, MAX(intr_rate2) as intr_rate2
+		FROM  BankDeposit BD
+		WHERE save_trm in (SELECT MAX(save_trm) FROM BankDeposit)
+		GROUP BY kor_co_nm,fin_prdt_nm,fin_prdt_cd,save_trm,dcls_month,join_way,join_member,etc_note,join_deny,dcls_strt_day,intr_rate_type,intr_rate_type_nm
+	</select>
+	
+	<select id="selectDepositListAll" resultMap="depositResultMap" parameterType="string">
+		SELECT * FROM BankDeposit BD
+		WHERE BD.fin_prdt_cd = #{finPrdtCd}
+	</select>
+	
+	<select id="selectDepositCountAll" resultType="int" parameterType="map">
+		SELECT COUNT(*) FROM BankDeposit BD
+		WHERE 1=1
+		<if test="korCoNm != null">
+			AND(
+				BD.kor_co_nm like '%${korCoNm}%' 
+			)
+		</if>
+	</select>
+	
+	<!-- 예금 상품별 1개씩 -->
+	<select id="selectDepositListUnique" resultMap="depositResultMap" parameterType="map">
+		SELECT dcls_month,kor_co_nm,fin_prdt_nm,fin_prdt_cd,save_trm,join_way,join_member,etc_note,join_deny,dcls_strt_day,intr_rate_type,intr_rate_type_nm, MAX(intr_rate) as intr_rate, MAX(intr_rate2) as intr_rate2
+		FROM  BankDeposit BD
+		WHERE save_trm in (SELECT MAX(save_trm) FROM BankDeposit)
+		<if test="korCoNm != null">
+			AND(
+				BD.kor_co_nm like '%${korCoNm}%' 
+			)
+		</if>
+		GROUP BY kor_co_nm,fin_prdt_nm,fin_prdt_cd,save_trm,dcls_month,join_way,join_member,etc_note,join_deny,dcls_strt_day,intr_rate_type,intr_rate_type_nm
+		LIMIT ${limit} OFFSET ${offset}
+	</select>
+	
+	<select id="selectDepositCountUnique" resultType="int" parameterType="map">
+		SELECT COUNT(DISTINCT fin_prdt_cd)
+		FROM  BankDeposit BD
+		WHERE 1=1
+		<if test="korCoNm != null">
+			AND(
+				BD.kor_co_nm like '%${korCoNm}%' 
+			)
+		</if>
+	</select>
+
+
+	<!-- 적금전체 -->
+	<select id="selectSavingList" resultMap="savingResultMap">
+		SELECT dcls_month,kor_co_nm,fin_prdt_nm,fin_prdt_cd,save_trm,join_way,join_member,etc_note,join_deny,dcls_strt_day,intr_rate_type,intr_rate_type_nm, MAX(intr_rate) as intr_rate, MAX(intr_rate2) as intr_rate2
+		FROM  BankSaving BS
+		WHERE save_trm in (SELECT MAX(save_trm) FROM BankSaving)
+		GROUP BY kor_co_nm,fin_prdt_nm,fin_prdt_cd,save_trm,dcls_month,join_way,join_member,etc_note,join_deny,dcls_strt_day,intr_rate_type,intr_rate_type_nm
+	</select>
+	
+	<select id="selectSavingListAll" resultMap="savingResultMap" parameterType="string">
+		SELECT * FROM BankSaving BS
+		WHERE BS.fin_prdt_cd  = #{finPrdtCd} 
+	</select>
+	
+	<select id="selectSavingCountAll" resultType="int" parameterType="map">
+		SELECT COUNT(*) FROM BankSaving BS
+		WHERE 1=1
+		<if test="korCoNm != null">
+			AND(
+				BS.kor_co_nm like '%${korCoNm}%' 
+			)
+		</if>
+	</select>
+	
+	<!-- 적금 상품별 1개씩 -->
+	<select id="selectSavingListUnique" resultMap="savingResultMap" parameterType="map">
+		SELECT dcls_month,kor_co_nm,fin_prdt_nm,fin_prdt_cd,save_trm,join_way,join_member,etc_note,join_deny,dcls_strt_day,intr_rate_type,intr_rate_type_nm, MAX(intr_rate) as intr_rate, MAX(intr_rate2) as intr_rate2
+		FROM  BankSaving BS
+		WHERE save_trm in (SELECT MAX(save_trm) FROM BankSaving)
+		<if test="korCoNm != null">
+			AND(
+				BS.kor_co_nm like '%${korCoNm}%' 
+			)
+		</if>
+		GROUP BY kor_co_nm,fin_prdt_nm,fin_prdt_cd,save_trm,dcls_month,join_way,join_member,etc_note,join_deny,dcls_strt_day,intr_rate_type,intr_rate_type_nm
+		LIMIT ${limit} OFFSET ${offset}
+	</select>
+	
+	<select id="selectSavingCountUnique" resultType="int" parameterType="map">
+		SELECT COUNT(DISTINCT fin_prdt_cd)
+		FROM  BankSaving BS
+		WHERE 1=1
+		<if test="korCoNm != null">
+			AND(
+				BS.kor_co_nm like '%${korCoNm}%' 
+			)
+		</if>
+	</select>
+		
+</mapper>

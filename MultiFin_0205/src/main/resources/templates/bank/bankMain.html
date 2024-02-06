@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="layout/head :: config"></th:block>
+	<title>MultiFin:은행메인</title>
+	<!-- 현재 페이지에서만 쓰는 css, script -->
+	<link rel="stylesheet" th:href="@{/css/bank/bank.css}">
+	<style>	.img-card{box-shadow: 0 40px 80px rgb(0 0 0 / 16%);}</style>
+</head>
+
+<body>
+<header th:replace="~{layout/header :: #header}"></header>
+<main>
+<!-- 배너 시작 -->
+    <!-- Hero -->
+    <section class="section section-header bg-soft pb-12 pt-6">
+        <div class="container">
+            <div class="row justify-content-between align-items-center bankMain">
+                <div class="col-12 col-md-5  bankMain_Title">
+                    <h1 class="main_maintitle">더 나은 금융</h1>
+                    <h5 class="font-weight-normal main_subtitle">은행별 예•적금, 대출, 카드 상품을 비교할 수 있습니다.<br>멀티핀을 통해 당신에게 맞는 상품을 선택하세요.</h5>
+                    <form autocomplete="off" class="row" method="get" th:action="@{/bank/bankSearch}">
+                        <div class="col-12 mb-3 mb-lg-4">
+                            <div class="form-group form-group-lg mb-0">
+                                <div class="input-group">
+                                    <input id="search-bank" type="text" class="mian_form-control autocomplete" placeholder="금융회사명 또는 카드사명을 입력해주세요" required th:value="${param.searchValue}" name="searchValue">
+                                    <input class="bankMainSubmit" type="submit" value="search">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="img_container">
+                   <!-- Image --> 
+                   <img th:src="@{/assets/img/ours/mobile-banking-vector-free-illustration.png}" class="img-fluid" alt="Forest Illustration">
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- 배너 끝 -->
+
+<!-- 배너쪽 은행상품 3개 시작 -->
+    <div class="section section-lg pt-0 pb-4">
+        <div class="container mt-n10">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="basic-carousel owl-carousel owl-theme">
+                        <!-- Item 1 -->
+                        <div class="item">
+                            <!-- Card -->
+                            <div class="card border-light mb-4 animate-up-5">
+                                <div class="bpcontainer">
+                                    <a th:href="|/bank/bankDeposit?searchValue=${depositList0[5].korCoNm}|" class="position-relative bpbanner">
+                                        <img th:src="${depositList0[5].logoUrl}" class="card-img-top rounded-xl bplogo" alt="은행 로고 이미지">
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <a th:href="|/bank/bankFind?no=${depositList0[5].finPrdtCd}|">
+                                        <h5 class="h5 font-weight-normal"></h5>
+                                        <h4 class="h4 font-weight-bolder">[[${depositList0[5].finPrdtNm}]]</h4>
+                                    </a>
+                                </div>
+                                <div class="card-footer bg-soft border-top">
+                                    <p class="text-muted d-block mb-2 h5 font-weight-normal">세전 이율</p>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="col-10 pl-0">
+                                            <span class="h3 text-dark font-weight-bolder">[[${depositList0[5].intrRate2}]]</span>
+                                            <span class="h5 text-dark font-weight-normal">%</span>
+                                        </div>
+                                        <div class="col pr-0">
+                                            <div class="heart h3 text-dark font-weight-bold text-right" id="heart1" value="false" onclick="onClickHeart('heart1');">♡</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End of Card -->
+                        </div>
+                        <!-- Item 2 -->
+                        <div class="item">
+                            <!-- Card -->
+                            <div class="card border-light mb-4 animate-up-5">
+                               <div class="bpcontainer">
+                                    <a th:href="|/bank/bankDeposit?searchValue=${depositList0[17].korCoNm}|" class="position-relative bpbanner">
+                                        <img th:src="${depositList0[17].logoUrl}" class="card-img-top rounded-xl bplogo" alt="은행 로고 이미지">
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <a th:href="|/bank/bankFind?no=${depositList0[17].finPrdtCd}|">
+                                        <h5 class="h5 font-weight-normal"></h5>
+                                        <h4 class="h4 font-weight-bolder">[[${depositList0[17].finPrdtNm}]]</h4>
+                                    </a>
+                                </div>
+                                <div class="card-footer bg-soft">
+                                    <p class="text-muted d-block mb-2 h5 font-weight-normal">세전 이율</p>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="col-10 pl-0">
+                                            <span class="h3 text-dark font-weight-bolder">[[${depositList0[17].intrRate2}]]</span>
+                                            <span class="h5 text-dark font-weight-normal">%</span>
+                                        </div>
+                                        <div class="col pr-0">
+                                            <div class="heart h3 text-dark font-weight-bold text-right" id="heart2" value="false" onclick="onClickHeart('heart2');">♡</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End of Card -->
+                        </div>
+                        <!-- Item 3 -->
+                        <div class="item">
+                            <!-- Card -->
+                            <div class="card border-light mb-4 animate-up-5">
+                               <div class="bpcontainer">
+                                    <a th:href="|/bank/bankDeposit?searchValue=${savingList0[7].korCoNm}|" class="position-relative bpbanner">
+                                        <img th:src="${savingList0[7].logoUrl}" class="card-img-top rounded-xl bplogo" alt="은행 로고 이미지">
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <a th:href="|/bank/bankFind?no=${savingList0[7].finPrdtCd}|">
+                                        <h5 class="h5 font-weight-normal"></h5>
+                                        <h4 class="h4 font-weight-bolder">[[${savingList0[7].finPrdtNm}]]</h4>
+                                    </a>
+                                </div>
+                                <div class="card-footer bg-soft">
+                                    <p class="text-muted d-block mb-2 h5 font-weight-normal">세전 이율</p>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="col-10 pl-0">
+                                            <span class="h3 text-dark font-weight-bolder">[[${savingList0[7].intrRate2}]]</span>
+                                            <span class="h4 text-dark font-weight-normal">%</span>
+                                        </div>
+                                        <div class="col pr-0">
+                                            <div class="heart h3 text-dark font-weight-bold text-right" id="heart3" value="false" onclick="onClickHeart('heart3');">♡</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End of Card -->
+                        </div>
+                        <!-- Item 4 -->
+                        <div class="item">
+                            <!-- Card -->
+                            <div class="card border-light mb-4 animate-up-5">
+                               <div class="bpcontainer">
+                                    <a th:href="|/bank/bankDeposit?searchValue=${savingList0[30].korCoNm}|" class="position-relative bpbanner">
+                                        <img th:src="${savingList0[30].logoUrl}" class="card-img-top rounded-xl bplogo" alt="은행 로고 이미지">
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <a th:href="|/bank/bankFind?no=${savingList0[30].finPrdtCd}|">
+                                        <h5 class="h5 font-weight-normal"></h5>
+                                        <h4 class="h4 font-weight-bolder">[[${savingList0[30].finPrdtNm}]]</h4>
+                                    </a>
+                                </div>
+                                <div class="card-footer bg-soft">
+                                    <p class="text-muted d-block mb-2 h5 font-weight-normal">세전 이율</p>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="col-10 pl-0">
+                                            <span class="h3 text-dark font-weight-bolder">[[${savingList0[30].intrRate2}]]</span>
+                                            <span class="h5 text-dark font-weight-normal">%</span>
+                                        </div>
+                                        <div class="col pr-0">
+                                            <div class="heart h3 text-dark font-weight-bold text-right" id="heart4" value="false" onclick="onClickHeart('heart4');">♡</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End of Card -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- 배너쪽 은행상품 3개 끝 -->
+
+<!-- 이달의 추천 금융상품 TOP4 시작 -->
+    <section class="section section-lg bg-lightgray pt-6 pb-4">
+        <div class="container">
+            <div class="row d-none d-lg-block">
+                <div class="col-12">
+                    <!-- Cities -->
+                    <div class="form-row">
+                        <div class="col-4">
+                                <p class="h3 font-weight-bolder recommend-title">이달의<br> 추천 금융 상품 <span style="color:rgb(243, 156, 18);">TOP4</span></p>
+                                <p class="font-weight-normal font-medium">MULTIFIN에서 추천하는<br>이달의 금융 상품을 확인해보세요!</p>
+                                <button class="bankMainMoreBtn" th:onclick="|location.href='/bank/bankDeposit'|">더보기</button>
+                        </div>
+                        <div class="col-8">
+                            <div class="form-row">
+                                <div class="col">
+                                    <!-- Card 1행 1열 -->
+                                    <a th:href="|/bank/bankFind?no=${depositList0[0].finPrdtCd}|" class="card img-card fh-220 border border-gray-500 outer-bg top4-card">
+                                        <div class="d-flex align-items-center top4_inner">
+                                            <img class="bank_logo" th:src="${depositList0[0].logoUrl}">
+                                            <div class="top4-text">
+                                                <h4 class="font-weight-bolder text-left top4-title">[[${depositList0[0].finPrdtNm}]]</h4>
+                                                <p class="top4-memo" style="color: red;">[[${depositList0[0].intrRate2}]]%</p>
+                                                <span class="top4-memo">[[${depositList0[0].saveTrm}]]개월</span>
+                                                <span class="top4-memo">[[${depositList0[0].intrRateTypeNm}]]</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <!-- End of Card -->
+                                </div>
+                                <div class="col">
+                                    <!-- Card 1행 2열 -->
+                                    <a th:href="|/bank/bankFind?no=${savingList0[1].finPrdtCd}|" class="card img-card fh-220 border border-gray-500 outer-bg top4-card">
+                                        <div class="d-flex align-items-center top4_inner">
+                                            <img class="bank_logo" th:src="${savingList0[1].logoUrl}">
+                                            <div class="top4-text">
+                                                <h4 class="font-weight-bolder text-left top4-title">[[${savingList0[1].finPrdtNm}]]</h4>
+                                                <p class="top4-memo" style="color: red;">[[${savingList0[1].intrRate2}]]%</p>
+                                                <span class="top4-memo">[[${savingList0[1].saveTrm}]]개월</span>
+                                                <span class="top4-memo">[[${savingList0[1].intrRateTypeNm}]]</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <!-- End of Card -->
+                                </div>
+                            </div> 
+                            <div class="form-row">
+                                <div class="col">
+                                    <!-- Card 2행 1열 -->
+                                    <a th:href="|/bank/bankFind?no=${depositList0[4].finPrdtCd}|" class="card img-card fh-220 border border-gray-500 outer-bg top4-card">
+                                        <div class="d-flex align-items-center top4_inner">
+                                            <img class="bank_logo" th:src="${depositList0[4].logoUrl}">
+                                            <div class="top4-text">
+                                                <h4 class="font-weight-bolder text-left top4-title">[[${depositList0[4].finPrdtNm}]]</h4>
+                                                <p class="top4-memo" style="color: red;">[[${depositList0[4].intrRate2}]]%</p>
+                                                <span class="top4-memo">[[${depositList0[4].saveTrm}]]개월</span>
+                                                <span class="top4-memo">[[${depositList0[4].intrRateTypeNm}]]</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <!-- End of Card -->
+                                </div>
+                                <div class="col">
+                                    <!-- Card 2행 2열 -->
+                                    <a th:href="|/bank/bankFind?no=${savingList0[6].finPrdtCd}|" class="card img-card fh-220 border border-gray-500 outer-bg top4-card">
+                                        <div class="d-flex align-items-center top4_inner">
+                                            <img class="bank_logo" th:src="${savingList0[6].logoUrl}">
+                                            <div class="top4-text">
+                                                <h4 class="font-weight-bolder text-left top4-title">[[${savingList0[6].finPrdtNm}]]</h4>
+                                                <p class="top4-memo" style="color: red;">[[${savingList0[6].intrRate2}]]%</p>
+                                                <span class="top4-memo">[[${savingList0[6].saveTrm}]]개월</span>
+                                                <span class="top4-memo">[[${savingList0[6].intrRateTypeNm}]]</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <!-- End of Card -->
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- 이달의 추천 금융상품 TOP4 끝 -->
+
+
+<!-- 카드 TOP5 시작 -->
+    <section class="section section-lg pt-6 pb-6 bank_card">
+        <div class="container" style="width: 1100px;">
+            <div class="row">
+                <div class="col-12 top5-title">
+                    <p class="h3 font-weight-bolder">카드 <span style="color:rgb(243, 156, 18);">TOP5</span></p>
+                    <div class="loan_btn_container">
+                        <a th:href="@{/bank/bankCard}" class="bankMainMore">
+                            <span class="bankMainMore_title">더보기</span>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="bmCard mb-4 mb-lg-0">
+                    <!-- Card -->
+                    <a th:href="${debitList[20].detailUrl}" class="card img-card fh-240 border-0 outer-bg">
+                        <div class="card-img-overlay d-flex align-items-center bg-dark p-0">
+                            <img th:src="${debitList[20].productImg}">
+                        </div>
+                    </a>
+                    <div class="real_card_title text-dark p-2 text-center">
+                        [[${debitList[20].productNm}]]
+                    </div>
+                    <!-- End of Card -->
+                </div>
+                <div class="bmCard mb-4 mb-lg-0">
+                    <!-- Card -->
+                    <a th:href="${creditList[18].detailUrl}" class="card img-card fh-240 border-0 outer-bg">
+                        <div class="card-img-overlay d-flex align-items-center bg-dark p-0">
+                            <img th:src="${creditList[18].productImg}">
+                        </div>
+                    </a>
+                    <div class="real_card_title text-dark p-2 text-center">
+                        [[${creditList[18].productNm}]]
+                    </div>
+                    <!-- End of Card -->
+                </div>
+                <div class="bmCard mb-4 mb-lg-0">
+                    <!-- Card -->
+                    <a th:href="${creditList[21].detailUrl}" class="card img-card fh-240 border-0 outer-bg">
+                        <div class="card-img-overlay d-flex align-items-center bg-dark p-0">
+                           <img th:src="${creditList[21].productImg}" class="rotate90" style="width: 240px;height: 160px;max-width: 240px;margin-left: -40px;">
+                        </div>
+                    </a>
+                    <div class="real_card_title text-dark p-2 text-center">
+                        [[${creditList[21].productNm}]]
+                    </div>
+                    <!-- End of Card -->
+                </div>
+                <div class="bmCard mb-4 mb-lg-0">
+                    <!-- Card -->
+                    <a th:href="${debitList[22].detailUrl}" class="card img-card fh-240 border-0 outer-bg">
+                        <div class="card-img-overlay d-flex align-items-center bg-dark p-0">
+                            <img th:src="${debitList[22].productImg}" class="rotate90" style="width: 240px;height: 160px;max-width: 240px;margin-left: -40px;">
+                        </div>
+                    </a>
+                    <div class="real_card_title text-dark p-2 text-center">
+                        [[${debitList[22].productNm}]]
+                    </div>
+                    <!-- End of Card -->
+                </div>
+                <div class="bmCard mb-4 mb-lg-0">
+                    <!-- Card -->
+                    <a th:href="${debitList[15].detailUrl}" class="card img-card fh-240 border-0 outer-bg">
+                        <div class="card-img-overlay d-flex align-items-center bg-dark p-0">
+                            <img th:src="${debitList[15].productImg}">
+                        </div>
+                    </a>
+                    <div class="real_card_title text-dark p-2 text-center">
+                        [[${debitList[15].productNm}]]
+                    </div>
+                    <!-- End of Card -->
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- 카드 TOP5 끝 -->
+
+<!-- 저금리 대출상품 시작 -->
+<section class="section section-lg pt-0 pb-6 loan_card">
+    <div class="container" style="width: 1100px;">
+        <div class="row">
+            <div class="col-12 loan-title mb-3">
+                <div class="main_loan_title">
+                    <div class="main_goods_title">
+                        <p class="h3 font-weight-bolder goods_title">저금리 대출 상품</p>
+                        <span class="pointBox pl-2 pr-2">BEST</span>
+                    </div>
+                </div>
+                <div class="loan_btn_container">
+                    <a th:href="@{/bank/bankLoan}" class="bankMainMore">
+                        <span class="loanMainMore_title">더보기</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="card-container">
+                <a href="#" class="card img-card fh-220 outer-bg border-gray-500 lowRateCard">
+                    <div class="align-items-center fh-220">
+                        <div class="card-body text-dark p-3">
+                            <h5 class="text-center">[[${loanCreditList0[0].finPrdtNm}]]</h5>
+                            <hr style="border-color: black;margin: 0;">
+                            <p class="text-dark mt-3">
+                                * 금융회사 : [[${loanCreditList0[0].korCoNm}]]<br>
+                                * 대출종류 : [[${loanCreditList0[0].crdtPrdtTypeNm}]]<br>
+                                * 가입 : [[${loanCreditList0[0].joinWay}]]<br>
+                            </p>
+                            <hr style="border-color: black;margin: 0;">
+                            <h5 class="text-right mt-3">[[${loanCreditList0[0].crdtGradAvg}]]%</h5>
+                        </div>
+                    </div>
+                </a>
+                <a href="#" class="card img-card fh-220 outer-bg border-gray-500 lowRateCard">
+                    <div class="align-items-center fh-220">
+                            <div class="card-body text-dark p-3">
+                                <h5 class="text-center">[[${loanMortgageList0[0].finPrdtNm}]]</h5>
+	                            <hr style="border-color: black;margin: 0;">
+	                            <p class="text-dark mt-3">
+	                                * 금융회사 : [[${loanMortgageList0[0].korCoNm}]]<br>
+	                                * 담보유형 : [[${loanMortgageList0[0].mrtgTypeNm}]]<br>
+	                                * 가입 : [[${loanMortgageList0[0].joinWay}]]<br>
+	                            </p>
+	                            <hr style="border-color: black;margin: 0;">
+	                            <h5 class="text-right mt-3">[[${loanMortgageList0[0].lendRateAvg}]]%</h5>
+                            </div>
+                    </div>
+                </a>
+                <a href="#" class="card img-card fh-220 outer-bg border-gray-500 lowRateCard">
+                    <div class="align-items-center fh-220">
+                        <div class="card-body text-dark p-3">
+                            <h5 class="text-center">[[${loanRentHoustList0[0].finPrdtNm}]]</h5>
+                            <hr style="border-color: black;margin: 0;">
+                            <p class="text-dark mt-3">
+                                * 금융회사 : [[${loanRentHoustList0[0].korCoNm}]]<br>
+                                * 대출종류 : 전세자금대출<br>
+                                * 가입 : [[${loanRentHoustList0[0].joinWay}]]<br>
+                            </p>
+                            <hr style="border-color: black;margin: 0;">
+                            <h5 class="text-right mt-3">[[${loanRentHoustList0[0].lendRateAvg}]]%</h5>
+                        </div>
+                    </div>
+                </a>
+                <a href="#" class="card img-card fh-220 outer-bg border-gray-500 lowRateCard">
+                    <div class="align-items-center fh-220">
+                        <div class="card-body text-dark p-3">
+                            <h5 class="text-center">[[${loanRentHoustList0[1].finPrdtNm}]]</h5>
+                            <hr style="border-color: black;margin: 0;">
+                            <p class="text-dark mt-3">
+                                * 금융회사 : [[${loanRentHoustList0[1].korCoNm}]]<br>
+                                * 대출종류 : 전세자금대출<br>
+                                * 가입 : [[${loanRentHoustList0[1].joinWay}]]<br>
+                            </p>
+                            <hr style="border-color: black;margin: 0;">
+                            <h5 class="text-right mt-3">[[${loanRentHoustList0[1].lendRateAvg}]]%</h5>
+                        </div>
+                    </div>
+                 </a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- 저금리 대출상품 끝 -->
+</main>
+
+<footer th:replace="~{layout/footer :: #footer}"></footer>
+
+<th:block th:replace="layout/scripts :: home_scripts"></th:block>
+
+<!-- 찜하기 버튼 -->
+<script>
+    // 초기화 문구
+    $(function(){
+        // 하트 class 초기화
+        heartItems = document.getElementsByClassName('heart');
+        for(i = 0; i < heartItems.length; i++){
+            heartValue = JSON.parse(heartItems[i].getAttribute('value'));
+
+            if(heartValue == true){
+                heartItems[i].innerHTML = '♥';
+            }else{
+                heartItems[i].innerHTML = '♡';
+            }
+        }
+    });
+
+
+
+    function onClickHeart(id){
+        heartValue = JSON.parse($('#'+id).attr('value'));
+        heartValue = !heartValue;
+        // 여기에 AJAX로 DB 업데이트하는 코드 있어야함!!
+
+        $('#'+id).attr('value', ''+heartValue);
+        if(heartValue == true){
+            $('#'+id).text('♥');
+        }else{
+            $('#'+id).text('♡');
+        }
+    }
+</script>
+
+
+</body>
+
+</html>

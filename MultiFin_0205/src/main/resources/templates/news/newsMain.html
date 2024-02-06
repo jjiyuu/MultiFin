@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="layout/head :: config"></th:block>
+	<title>MultiFin:뉴스</title>
+	<link type="text/css" th:href="@{/css/news/newsMain.css}"rel="stylesheet">
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+<header th:replace="~{layout/header :: #header}"></header>
+	<section class="section-header section-image bg-primary overlay-primary text-white"  data-background="/assets/img/common/network.jpg">
+		<div>
+			<div class="row justify-content-center mb-5 mb-lg-6">
+				<div class="col-12 text-center">
+					<h2 class="h1 px-lg-5">한 손에 잡히는 뉴스</h2>
+					<p class="p50 lead px-lg-10 mb-5">다양한 언론매체의 기사를 통해 국내 경제 소식을 전달합니다.</p>
+					<form  style="width:1000px; margin:0 auto;" action="/news/newsMain">
+						<div class="form-group bg-white shadow-soft rounded-pill mb-4 px-3 py-2 animate-up-5">
+							<div class="row align-items-center">
+								<div class="col">
+									<div class="input-group input-group-merge shadow-none">
+										<div class="input-group-prepend" >
+											<span class="input-group-text bg-transparent border-0">
+											<i class="fas fa-search"></i></span>
+										</div>
+										<input type="text"
+											name="searchValue"
+											class="form-control border-0 form-control-flush shadow-none"
+											placeholder="뉴스 기사를 검색해주세요" required>
+									</div>
+								</div>
+								<div class="col-auto animate-up-5">
+									<button style="width: 150px;" type="submit"
+										class="btn btn-block btn-primary rounded-pill search_btn">Search</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="news mt-7 mb-6">
+		<div class="container p-0 m-0">
+			<th:block th:if="${newsList1.size == 0}">
+				<h4 class="text-center">조회된 결과가 없습니다.</h4>			
+			</th:block>
+			<th:block th:if="${newsList1.size != 0}">
+				<div class="news_main animate-up-3">
+					<div class="news_pic ml-3 mr-5">
+						<a href="https://www.ciokorea.com/news/278281">
+							<img src="/assets/img/news/news9.jpg" width="1000" alt="Front pages overview">
+						</a>
+					</div>
+					<div class="news_article"> 
+						<img class="logo mt-2 mb-3" src="/assets/img/newslogo/news_main_logo.png"> 
+						<a th:href="${newsList1[4].originallink}">
+							<h4>[[${newsList1[4].title}]]</h4>
+							<p>[[${newsList1[4].description}]]</p>
+						</a>
+					</div>
+				</div>
+			</th:block>
+		</div>
+		<div class="news_containers mt-6">
+			<th:block th:if="${newsList2.size == 0}">
+				<!-- 조회 결과가 없습니다 -->
+			</th:block>
+			
+			<th:block th:if="${newsList2.size != 0}">
+			<th:block th:each="news, status : ${newsList2}" >
+				<div class="mb-3 newsCard">
+	                <a th:href="${news.originallink}" class="card border-light animate-up-3 shadow-soft p-4 pl-5 pr-5">     
+				        <div class="news_sub_container">
+							<div class="news_pic_sub mr-5">
+								<img class="middle-news" th:src="|/assets/img/news/news${status.count}.jpg|" alt="Dashboard Preview">
+							</div>
+							<div class="news_article_sub">
+								<img class="news_sub mb-3" th:src="|/assets/img/newslogo/news${status.count}.png|"> 
+								<h4>[[${news.title}]]<h4>
+								<p>[[${news.description}]]</p>
+							</div>
+						</div>
+	                </a>
+          	 	</div>
+          	 </th:block>
+          	 </th:block>
+		</div>
+	</section>
+	<section class="movie-info mt-6 mb-6">
+		<div class="bottom_news">
+			<div class="movie">
+				<h3 class="mb-4">영상 기사</h3>		
+				  <div id="slideShow">
+				    <ul class="slides">
+				      <li class="sildes-container">
+					       <iframe width="500" height="300" src="https://www.youtube.com/embed/HnyvkVvmQOc" 
+					       title="YouTube video player" 
+					       frameborder="0" 
+					       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+					       allowfullscreen></iframe>
+				      </li>
+				      <li class="sildes-container">
+					        <iframe width="500" height="300" 
+					        src="https://www.youtube.com/embed/LKywEayCVvs" 
+					        title="YouTube video player" frameborder="0"
+					        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
+					        </iframe>
+				      </li>
+				      <li class="sildes-container">
+				      	<iframe width="500" height="300" src="https://www.youtube.com/embed/DlJjxQyenoM" 
+				      	title="YouTube video player" 
+				      	frameborder="0" 
+				      	allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+				      	allowfullscreen></iframe>
+				      </li>
+				      <li class="sildes-container">
+						<iframe width="500" height="300" src="https://www.youtube.com/embed/dMHIxjVzH8I" 
+						title="YouTube video player"
+						 frameborder="0" 
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+						allowfullscreen></iframe>
+				      </li>
+				    </ul>  
+				  </div>
+				  <div class="btns">
+				  	 <div class="prev"><i class="fa-solid fa-chevron-left"></i></div>  
+				  	 <div class="space"></div>  
+				     <div class="next"><i class="fa-solid fa-chevron-right"></i></div>
+				  </div>
+			</div>
+			<div class = "popular">
+				<h3 class="mb-4">한줄 기사</h3>
+				<table class="table">
+					<th:block th:each="news, status : ${newsList3}" >
+						<tr class="table-content">
+							<td class="rank" th:text="${status.index}+1"></td>
+							<td>
+								<a th:href="${news.originallink}">
+									<div class="animate-up-2">
+										<h5 class="mb-2 news_b_title">[[${news.title}]]</h5>
+									</div>
+								</a>
+							</td>
+						</tr>
+					</th:block>
+				</table>
+			</div>
+			
+		</div>
+	</section>
+	<footer th:replace="~{layout/footer :: #footer}"></footer>
+	<th:block th:replace="layout/scripts :: home_scripts"></th:block>
+	<script>
+	  const slides = document.querySelector('.slides'); 
+	  const slideImg = document.querySelectorAll('.slides li'); 
+	  let currentIdx = 0; 
+	  const slideCount = slideImg.length; 
+	  const prev = document.querySelector('.prev'); 
+	  const next = document.querySelector('.next');
+	  const slideWidth = 500; 
+	  const slideMargin = 0;
+	  slides.style.width = (slideWidth + slideMargin) * slideCount + 'px';
+	  function moveSlide(num) {
+	    slides.style.left = -num * 500 + 'px';
+	    currentIdx = num;
+	  }
+	  prev.addEventListener('click', function () {
+	    if (currentIdx !== 0) moveSlide(currentIdx - 1);
+	  });
+	  next.addEventListener('click', function () {
+	    if (currentIdx !== slideCount - 1) {
+	      moveSlide(currentIdx + 1);
+	    }
+	  });
+	</script>
+</body>
+</html>
+
+

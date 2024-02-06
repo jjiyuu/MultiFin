@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="layout/head :: config"></th:block>
+	<title>MultiFin:대출상품</title>
+	<!-- 현재 페이지에서만 쓰는 css, script -->
+	<link rel="stylesheet" th:href="@{/css/bank/bank.css}">
+	<style>
+	.checkedMenu{background-color: #0d1b48; color: white !important;}
+	</style>
+</head>
+
+<body>
+<header th:replace="~{layout/header :: #header}"></header>
+<main>
+<!-- 배너 시작 -->
+        <!-- Hero -->
+        <section class="section section-header bg-soft pb-0 pt-6">
+            <div class="container">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-12 col-md-5 order-lg-1 mt-6">
+                        <h1 class="display-3 lh-100 font-weight-bolder mb-0">대출 상품</h1>
+                        <p class="lead my-4">
+                            <span class="font-weight-normal">주택담보대출부터 전세자금대출까지!<br>대출의 모든 것을 MULTIFIN에서 비교해 보세요</span>
+                        </p>
+                    </div>
+                    <div class="col-12 col-md-7 order-lg-2 d-none d-md-block">
+                       <!-- Image --> <img src="../../assets/img/ours/bank-deposit-free-flat-illustration.png" class="img-fluid mr-3" style="width: 80%;float: right;" alt="Forest Illustration">
+                    </div>
+                </div>
+            </div>
+        </section>
+<!-- 배너 끝 -->
+
+
+<!-- 저금리 대출상품 시작 -->
+<section class="section section-lg pt-0 pb-6 loan_main_card">
+    <div class="container" style="width: 1200px;">
+        <div class="row">
+            <div class="col-12 loan-title mb-2">
+                <div class="main_loan_title">
+                    <div class="loans_title_container">
+                        <p style="font-size: 26px;"  class="h3 font-weight-bolder loan_here_title">저금리 대출 상품</p>
+                        <span class="pointBox pl-2 pr-2">BEST</span>
+                    </div>
+                </div>
+            </div>
+            <div class="loain_main_card-container">
+                <a href="#" class="card img-card fh-220 outer-bg border-gray-500 lowRateCard loan_card_main">
+                    <div class="align-items-center fh-220">
+                        <div class="loan_card-body text-dark p-3" th:onclick="|location.href='/bank/bankDetail?no=@{${loanCreditList0[0].finPrdtCd}}'|">
+                            <h5 class="text-center">[[${loanCreditList0[0].finPrdtNm}]]</h5>
+                            <hr style="border-color: black;margin: 0;">
+                            <p class="text-dark mt-3">
+                                * 금융회사 : [[${loanCreditList0[0].korCoNm}]]<br>
+                                * 대출종류 : [[${loanCreditList0[0].crdtPrdtTypeNm}]]<br>
+                                * 가입 : [[${loanCreditList0[0].joinWay}]]<br>
+                            </p>
+                            <hr style="border-color: black;margin: 0;">
+                            <h5 class="text-right mt-3">[[${loanCreditList0[0].crdtGradAvg}]]%</h5>
+                        </div>
+                    </div>
+                </a>
+                <a href="#" class="card img-card fh-220 outer-bg border-gray-500 lowRateCard loan_card_main">
+                    <div class="align-items-center fh-220">
+                            <div class="loan_card-body text-dark p-3" th:onclick="|location.href='/bank/bankDetail?no=@{${loanMortgageList0[0].finPrdtCd}}'|">
+                                <h5 class="text-center">[[${loanMortgageList0[0].finPrdtNm}]]</h5>
+	                            <hr style="border-color: black;margin: 0;">
+	                            <p class="text-dark mt-3">
+	                                * 금융회사 : [[${loanMortgageList0[0].korCoNm}]]<br>
+	                                * 담보유형 : [[${loanMortgageList0[0].mrtgTypeNm}]]<br>
+	                                * 가입 : [[${loanMortgageList0[0].joinWay}]]<br>
+	                            </p>
+	                            <hr style="border-color: black;margin: 0;">
+	                            <h5 class="text-right mt-3">[[${loanMortgageList0[0].lendRateAvg}]]%</h5>
+                            </div>
+                    </div>
+                </a>
+                <a href="#" class="card img-card fh-220 outer-bg border-gray-500 lowRateCard loan_card_main">
+                    <div class="align-items-center fh-220">
+                        <div class="loan_card-body text-dark p-3" th:onclick="|location.href='/bank/bankDetail?no=@{${loanRentHoustList0[0].finPrdtCd}}'|">
+                            <h5 class="text-center">[[${loanRentHoustList0[0].finPrdtNm}]]</h5>
+                            <hr style="border-color: black;margin: 0;">
+                            <p class="text-dark mt-3">
+                                * 금융회사 : [[${loanRentHoustList0[0].korCoNm}]]<br>
+                                * 대출종류 : 전세자금대출<br>
+                                * 가입 : [[${loanRentHoustList0[0].joinWay}]]<br>
+                            </p>
+                            <hr style="border-color: black;margin: 0;">
+                            <h5 class="text-right mt-3">[[${loanRentHoustList0[0].lendRateAvg}]]%</h5>
+                        </div>
+                    </div>
+                </a>
+                <a href="#" class="card img-card fh-220 outer-bg border-gray-500 lowRateCard loan_card_main">
+                    <div class="align-items-center fh-220">
+                        <div class="loan_card-body text-dark p-3" th:onclick="|location.href='/bank/bankDetail?no=@{${loanRentHoustList0[1].finPrdtCd}}'|">
+                            <h5 class="text-center">[[${loanRentHoustList0[1].finPrdtNm}]]</h5>
+                            <hr style="border-color: black;margin: 0;">
+                            <p class="text-dark mt-3">
+                                * 금융회사 : [[${loanRentHoustList0[1].korCoNm}]]<br>
+                                * 대출종류 : 전세자금대출<br>
+                                * 가입 : [[${loanRentHoustList0[1].joinWay}]]<br>
+                            </p>
+                            <hr style="border-color: black;margin: 0;">
+                            <h5 class="text-right mt-3">[[${loanRentHoustList0[1].lendRateAvg}]]%</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- 저금리 대출상품 끝 -->
+
+<!-- 상품 검색 시작 -->
+<section class="section section-lg pt-0 pb-6">
+    <div class="container" style="width: 1200px;">
+        <div class="row">
+            <div class="col-12  mb-3">
+                <p style="font-size: 26px;"  class="h3 font-weight-bolder m-0">상품검색</p>
+            </div>
+            <div class="col-sm-3 border-gray-500 text-center bankSearch fh-320 rounded">
+                <div class="border-gray-500 border rounded selector">
+                    <ul class="list-style-none text-dark blSearchTap">
+                        <li>
+                        	<th:block th:if="${check} == '0'">
+                            	<a href="#" class="tapbtnLc checkedMenu">개인신용대출</a>
+                            </th:block>
+                        	<th:block th:if="${check} != '0'">
+                            	<a href="#" class="tapbtnLc">개인신용대출</a>
+                            </th:block>
+                        </li>
+                        <li>
+                        	<th:block th:if="${check} == '1'">
+                            	<a href="#" class="tapbtnLm checkedMenu">주택담보대출</a>
+                            </th:block>
+                        	<th:block th:if="${check} != '1'">
+                            	<a href="#" class="tapbtnLm">주택담보대출</a>
+                            </th:block>
+                        </li>
+                        <li class="border-0">
+                            <th:block th:if="${check} == '2'">
+                            	<a href="#" class="tapbtnLrh checkedMenu">전세자금대출</a>
+                            </th:block>
+                            <th:block th:if="${check} != '2'">
+                            	<a href="#" class="tapbtnLrh">전세자금대출</a>
+                            </th:block>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-soft text-center bankSearch fh-260 rounded">
+                    <a th:href="@{/common/chatbot}" target="_blank"><i class="fa-solid fa-comments fa-2x onlineChatBtn m-4"></i></a>
+                    <p class="font-weight-bolder">궁금한 것이 있으신가요?</p>
+                    <p>멀티핀 챗봇을 통해 궁금한 것을<br>한 번에 해결해 보세요!</p>
+                </div>
+            </div>
+            <div class="col-sm-9 border-gray-500">
+                <form autocomplete="off" class="row search" method="get" action="#">
+                    <div class="col-12 mb-3 mb-lg-4">
+                        <div class="form-group form-group-lg mb-0">
+                            <div class="input-group">
+                                <input id="search-bank" type="text" class="form-control autocomplete border-gray-500 border-right-0" placeholder="금융회사명을 입력하세요" th:value="${param.searchValue}" name="searchValue">
+                                <button class="bankMainSubmit border border-gray-500 border-left-0 bg-white text-dark fw-60" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+              <th:block th:if="${check} == '0'">
+            	<div class="tapMenu slideOpen" id="lc">
+	          </th:block>
+	          <th:block th:if="${check} != '0'">
+	            <div class="tapMenu" id="lc">
+	          </th:block>
+                <table id="tbl-board" class="board-table">
+                    <tr class="text-center bg-info text-white">
+                        <th class="table-header">번호</th>
+                        <th class="table-header" >금융회사명</th>
+                        <th class="table-header" >금융상품</th>
+                        <th class="table-header">대출종류명</th>
+                        <th class="table-header">금리구분</th>
+                        <th class="table-header">평균금리</th>
+                    </tr>
+                    <th:block th:if="${lcList == null}">
+						<tr>
+							<td colspan="6">조회된 상품이 없습니다.</td>
+						</tr>
+					</th:block>
+        	        <th:block th:if="${lcList != null}">
+        	            <tr th:each="lcList, number : ${lcList}" th:onclick="|location.href='/bank/bankDetail?no=@{${lcList.finPrdtCd}}'|">
+            	           <td class="board-content">[[(${pageLcInfo.currentPage}-1)*10+${number.index}+1]]</td>
+		                        <td class="board-content board-title" style="width:190px;">[[${lcList.korCoNm}]]</td>
+		                        <td class="board-content board-title" style="width:240px;">[[${lcList.finPrdtNm}]]</td>
+		                        <td class="board-content">[[${lcList.crdtPrdtTypeNm}]]</td>
+		                        <td class="board-content">[[${lcList.crdtLendRateTypeNm}]]</td>
+		                        <td class="board-content" style="width:72px;">[[${lcList.crdtGradAvg}]]</td>
+                    	</tr>
+                </table>
+                <div class="table-buttons">
+                    <button th:onclick="|movePage('/bank/bankLoan?pageLc=1','0');|" class="table-button">&lt;</button>
+                    <button th:onclick="|movePage('/bank/bankLoan?pageLc=${pageLcInfo.prevPage}','0');|" class="table-button">&lt;</button>
+                    <th:block th:each="num, status : ${#numbers.sequence(pageLcInfo.startPage, pageLcInfo.endPage)}">
+						<th:block th:if="${status.current == pageLcInfo.currentPage}">
+							<button class="table-button" disabled >[[${status.current}]]</button>
+						</th:block>
+						<th:block th:if="${status.current != pageLcInfo.currentPage}">
+							<button th:onclick="|movePage('/bank/bankLoan?pageLc=${status.current}','0');|" class="table-button">
+								[[${status.current}]]
+							</button>
+						</th:block>
+					</th:block>
+                    <button th:onclick="|movePage('/bank/bankLoan?pageLc=${pageLcInfo.nextPage}','0');|" class="table-button">&gt;</button>
+                    <button th:onclick="|movePage('/bank/bankLoan?pageLc=${pageLcInfo.maxPage}','0');|" class="table-button">&gt;&gt;</button>
+				</div>
+            </div> <!-- 탭1 끝 -->
+            <th:block th:if="${check} == '1'">
+            	<div class="tapMenu slideOpen" id="lm">
+	          </th:block>
+	          <th:block th:if="${check} != '1'">
+	            <div class="tapMenu" id="lm">
+	          </th:block>
+                <table id="tbl-board" class="board-table">
+                    <tr class="text-center bg-info text-white">
+                        <th class="table-header">번호</th>
+                        <th class="table-header" >금융회사명</th>
+                        <th class="table-header" >금융상품</th>
+                        <th class="table-header">대출상환유형</th>
+                        <th class="table-header">대출금리(최저/최고)</th>
+                        <th class="table-header">평균금리</th>
+                    </tr>
+                    <th:block th:if="${lmList == null}">
+						<tr>
+							<td colspan="6">조회된 상품이 없습니다.</td>
+						</tr>
+					</th:block>
+        	        <th:block th:if="${lmList != null}">
+        	            <tr th:each="lmList, number : ${lmList}" th:onclick="|location.href='/bank/bankDetail?no=@{${lmList.finPrdtCd}}'|">
+            	           <td class="board-content">[[(${pageLmInfo.currentPage}-1)*10+${number.index}+1]]</td>
+		                        <td class="board-content board-title" style="width:190px;">[[${lmList.korCoNm}]]</td>
+		                        <td class="board-content board-title" style="width:240px;">[[${lmList.finPrdtNm}]]</td>
+		                        <td class="board-content">[[${lmList.rpayTypeNm}]]</td>
+		                        <td class="board-content">[[${lmList.lendRateMin}]]/[[${lmList.lendRateMax}]]</td>
+		                        <td class="board-content" style="width:72px;">[[${lmList.lendRateAvg}]]</td>
+                    	</tr>
+                </table>
+                <div class="table-buttons">
+                    <button th:onclick="|movePage('/bank/bankLoan?pageLm=1','1');|" class="table-button">&lt;</button>
+                    <button th:onclick="|movePage('/bank/bankLoan?pageLm=${pageLmInfo.prevPage}','1');|" class="table-button">&lt;</button>
+                    <th:block th:each="num, status : ${#numbers.sequence(pageLmInfo.startPage, pageLmInfo.endPage)}">
+						<th:block th:if="${status.current == pageLmInfo.currentPage}">
+							<button class="table-button" disabled >[[${status.current}]]</button>
+						</th:block>
+						<th:block th:if="${status.current != pageLmInfo.currentPage}">
+							<button th:onclick="|movePage('/bank/bankLoan?pageLm=${status.current}','1');|" class="table-button">
+								[[${status.current}]]
+							</button>
+						</th:block>
+					</th:block>
+                    <button th:onclick="|movePage('/bank/bankLoan?pageLm=${pageLmInfo.nextPage}','1');|" class="table-button">&gt;</button>
+                    <button th:onclick="|movePage('/bank/bankLoan?pageLm=${pageLmInfo.maxPage}','1');|" class="table-button">&gt;&gt;</button>
+				</div>
+            </div> <!-- 탭2 끝 -->
+            <th:block th:if="${check} == '2'">
+            	<div class="tapMenu slideOpen" id="lrh">
+	          </th:block>
+	          <th:block th:if="${check} != '2'">
+	            <div class="tapMenu" id="lrh">
+	          </th:block>
+                <table id="tbl-board" class="board-table">
+                    <tr class="text-center bg-info text-white">
+                        <th class="table-header">번호</th>
+                        <th class="table-header" >금융회사명</th>
+                        <th class="table-header" >금융상품</th>
+                        <th class="table-header">대출상환유형</th>
+                        <th class="table-header">대출금리유형</th>
+                        <th class="table-header">평균금리</th>
+                    </tr>
+                    <th:block th:if="${lrhList == null}">
+						<tr>
+							<td colspan="6">조회된 상품이 없습니다.</td>
+						</tr>
+					</th:block>
+        	        <th:block th:if="${lrhList != null}">
+        	            <tr th:each="lrhList, number : ${lrhList}" th:onclick="|location.href='/bank/bankDetail?no=@{${lrhList.finPrdtCd}}'|">
+            	           <td class="board-content">[[(${pageLrhInfo.currentPage}-1)*10+${number.index}+1]]</td>
+		                        <td class="board-content board-title" style="width:190px;">[[${lrhList.korCoNm}]]</td>
+		                        <td class="board-content board-title" style="width:240px;">[[${lrhList.finPrdtNm}]]</td>
+		                        <td class="board-content">[[${lrhList.rpayTypeNm}]]</td>
+		                        <td class="board-content">[[${lrhList.lendRateTypeNm}]]</td>
+		                        <td class="board-content" style="width:72px;">[[${lrhList.lendRateAvg}]]</td>
+                    	</tr>
+                </table>
+                <div class="table-buttons">
+                    <button th:onclick="|movePage('/bank/bankLoan?pageLrh=1','2');|" class="table-button">&lt;</button>
+                    <button th:onclick="|movePage('/bank/bankLoan?pageLrh=${pageLrhInfo.prevPage}','2');|" class="table-button">&lt;</button>
+                    <th:block th:each="num, status : ${#numbers.sequence(pageLrhInfo.startPage, pageLrhInfo.endPage)}">
+						<th:block th:if="${status.current == pageLrhInfo.currentPage}">
+							<button class="table-button" disabled >[[${status.current}]]</button>
+						</th:block>
+						<th:block th:if="${status.current != pageLrhInfo.currentPage}">
+							<button th:onclick="|movePage('/bank/bankLoan?pageLrh=${status.current}','2');|" class="table-button">
+								[[${status.current}]]
+							</button>
+						</th:block>
+					</th:block>
+                    <button th:onclick="|movePage('/bank/bankLoan?pageLrh=${pageLrhInfo.nextPage}','2');|" class="table-button">&gt;</button>
+                    <button th:onclick="|movePage('/bank/bankLoan?pageLrh=${pageLrhInfo.maxPage}','2');|" class="table-button">&gt;&gt;</button>
+				</div>
+            </div> <!-- 탭3 끝 -->
+        </div>
+    </div>
+</section>
+<!-- 상품 검색 끝 -->
+
+</main>
+
+<footer th:replace="~{layout/footer :: #footer}"></footer>
+
+<th:block th:replace="layout/scripts :: scripts"></th:block>
+<!-- 테이블 탭 -->
+<script>
+    const tapbtnLc = document.querySelector('.tapbtnLc');
+    const tapbtnLm = document.querySelector('.tapbtnLm');
+    const tapbtnLrh = document.querySelector('.tapbtnLrh');
+	const lc = document.querySelector('#lc');
+    const lm = document.querySelector('#lm');
+    const lrh = document.querySelector('#lrh');
+    /* 메뉴 클릭하면 함수 실행 */
+    tapbtnLc.addEventListener("click",()=>{
+    	lm.classList.remove("slideOpen");
+    	tapbtnLm.classList.remove("checkedMenu");
+    	lrh.classList.remove("slideOpen");
+    	tapbtnLrh.classList.remove("checkedMenu");
+    	lc.classList.add("slideOpen");
+    	tapbtnLc.classList.add("checkedMenu");
+    });
+    tapbtnLrh.addEventListener("click",()=>{
+    	lc.classList.remove("slideOpen");
+    	tapbtnLc.classList.remove("checkedMenu");
+    	lm.classList.remove("slideOpen");
+    	tapbtnLm.classList.remove("checkedMenu");
+    	lrh.classList.add("slideOpen");
+    	tapbtnLrh.classList.add("checkedMenu");
+    });
+    tapbtnLm.addEventListener("click",()=>{
+    	lc.classList.remove("slideOpen");
+    	tapbtnLc.classList.remove("checkedMenu");
+    	lrh.classList.remove("slideOpen");
+    	tapbtnLrh.classList.remove("checkedMenu");
+    	lm.classList.add("slideOpen");
+    	tapbtnLm.classList.add("checkedMenu");
+    });
+   
+</script>
+<!-- 테이블 페이징 -->
+<script type="text/javascript">
+	function movePage(pageUrl, isCheck){
+		var searchValue = document.getElementById("search-bank"); // 갤럭시
+		if(searchValue.value.length != 0){
+			pageUrl = pageUrl + '&searchValue=' + searchValue.value; 
+		}
+		pageUrl = pageUrl + '&check='+isCheck;
+		location.href = encodeURI(pageUrl);
+	}
+</script>
+
+</body>
+
+</html>

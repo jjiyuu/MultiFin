@@ -1,0 +1,134 @@
+.section-header{padding-bottom: 30px;}
+.fund-mainTitle,.fund-detail-title,.tabContent__title,.blue02{
+  font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
+
+
+
+.fund-tab{
+    width: 1200px;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+/*탭메뉴*/
+.tabs{display: flex;
+    padding: 0px;
+    list-style: none;
+}
+.tabs li{
+  display: inline-block;
+  width: 400px;
+  background: #0d1b48;
+  padding: 15px;
+  cursor: pointer;
+  color: white;
+}
+.tabs li.current{ 
+    background:rgb(245, 249, 254);
+    border: 1px solid rgb(211, 211, 211);
+    color: #0d1b48;
+}
+.font-weight-bolder{
+    font-size: 20px;
+    margin-bottom: 0px;
+    text-align: center;
+}
+
+
+  .tab-content{
+    display: none;
+    background:white;
+    border-radius: 0px 0px 10px 10px ;
+  }
+  
+  .tab-content.current{
+      display: inherit;
+    border-radius: 0px 0px 10px 10px ;
+  }
+
+  
+
+
+/* content 부분 */
+.tabContents-Title{
+    border: 1px solid lightgray;
+    padding: 20px;
+    background: url(http://kim.koreainvestment.com/images/common/stit_boxBg.gif) left top no-repeat #fff;
+}
+.tabContent__title{
+    font-size: 20px;
+    padding: 0px 15px;
+}
+.con_detailBox{
+    border: 1px solid lightgray;
+    padding: 0px 25px;
+}
+.leftBox{width: 400px;}
+.rightBox{width: 600px;}
+.fund_box.clearfix{display: flex; justify-content: space-between;}
+
+
+
+.rightBox.txt_area a{
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+.text_title{list-style: none;}
+
+
+
+
+div.stit_box {
+    position: relative;
+    height: 60px;
+    margin-bottom: 5px;
+    padding: 15px 30px 13px 30px;
+    background: url(http://kim.koreainvestment.com/images/common/stit_boxBg.gif) left top no-repeat #fff;
+    border: 1px solid #bcbdbd;
+}
+div.fund_box {
+    border-bottom: 1px dashed #b2b2b2;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+div.fund_box p.leftBox {
+    padding: 0;
+    width: 430px;
+    position: relative;
+}
+
+.leftBox span.thumbSimsa {
+    color: #222;
+    font-size: 12px;
+    letter-spacing: -.7px;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+    position: absolute;
+    bottom: 5px;
+    left: 11px;
+}
+
+
+div.fund_box .theme_tit {
+    color: #000;
+    font-size: 26px;
+}
+
+.mb10 {margin-bottom: 10px!important;}
+.brown02 {color: #2f140c!important;}
+.blue02 {color: #1a659c!important;}
+
+ul.dot_gray023 li {
+    font-weight: 500;
+    color: rgb(49, 49, 49);
+    font-size: 17px;
+    letter-spacing: -1px;
+    padding-top: 5px;
+    padding-bottom: 3px;
+    height: auto;
+    font-family: 'IBM Plex Sans KR', sans-serif;
+}

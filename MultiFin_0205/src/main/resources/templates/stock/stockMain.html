@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="layout/head :: config"></th:block>
+	<title>Multifin:증권메인</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/stock/stockMain.css}">
+		<!--주식차트-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+
+<body>
+<header th:replace="~{layout/header :: #header}"></header>
+    <main>
+        <section class="section section-header section-image bg-primary overlay-primary pb-9 pb-lg-10 text-white"  data-background="../../assets/img/stock/earth.jpg">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-10 text-center">
+                        <h1 class="mb-3 stock-mainTitle">한 눈에 보이는 증권</h1>
+                        <p class="lead px-lg-5 mb-5 stock-mainSubtitle">MULTIFIN에서 국내 · 미국 주식 정보를 비교해보고 투자 전략을 세워보세요!</p>
+                        <form th:action="@{/common/searchTotal}" method="get">
+                            <div class="form-group bg-white shadow-soft rounded-pill mb-4 px-3 py-2">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <div class="input-group input-group-merge shadow-none">
+                                            <div class="input-group-prepend"><span class="input-group-text bg-transparent border-0"><i class="fas fa-search"></i></span></div>
+                                            <input id="search-location"  type="text" class="form-control border-0 form-control-flush shadow-none pb-2" placeholder="검색할 내용을 입력해주세요"  required th:value="${param.searchValue}" name="searchValue">
+                                            <input id="checkType"  type="text" required th:value="1" name="check" style="display: none;">
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <button type="submit" class="btn btn-block btn-primary rounded-pill pr-5 pl-5">Search</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section section-md">
+            <div class="container z-2 mt-n9 mt-lg-n10">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                        <a href="/stock/stockList" class="card text-center shadow-soft border-light animate-up-3">
+                            <div class="card-body">
+                              <h5 class="text-gray card-name font-weight-bolder">[[${kospiIndex.stockType}]]</h5>
+                              <div class="card-numbers">
+                                <h6 class="text-gray number">[[${kospiIndex.fin}]]</h6>
+                                <th:block th:if="${#strings.contains(kospiIndex.changePercent, '-') == true } ">
+		                              <h6 class="increase">▼ [[${kospiIndex.changePercent}]]</h6>
+								</th:block>	                                    
+								<th:block th:if="${#strings.contains(kospiIndex.changePercent, '-') == false } ">
+		                              <h6 class="increase">▲ [[${kospiIndex.changePercent}]]</h6>
+								</th:block>	 
+                              </div>
+                              <div class="main_graph">
+                                <canvas id="KOSPI" style="width: 220px; height: 85px;"></canvas>
+                              </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                        <!-- Card -->
+                        <a id="kosdaqURl" class="card text-center shadow-soft border-light animate-up-3">
+                            <div class="card-body">
+                              <h5 class="text-gray card-name font-weight-bolder">[[${kosdaqIndex.stockType}]]</h5>
+                              <div class="card-numbers">
+                                <h6 class="text-gray number">[[${kosdaqIndex.fin}]]</h6>
+                                <th:block th:if="${#strings.contains(kosdaqIndex.changePercent, '-') == true } ">
+		                              <h6 class="increase">▼ [[${kosdaqIndex.changePercent}]]</h6>
+								</th:block>	                                    
+								<th:block th:if="${#strings.contains(kosdaqIndex.changePercent, '-') == false } ">
+		                              <h6 class="increase">▲ [[${kosdaqIndex.changePercent}]]</h6>
+								</th:block>	 
+                              </div>
+                              <div class="main_graph">
+                                <canvas id="KOSDAQ" style="width: 220px; height: 90px;"></canvas>
+                              </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                        <!-- Card -->
+                        <a href="#" class="card text-center shadow-soft border-light animate-up-3">
+                            <div class="card-body">
+                              <h5 class="text-gray card-name font-weight-bolder">$ USD/KRW</h5>
+                              <div class="card-numbers">
+                                <h6 class="text-gray number">[[${#dates.format(USD.recorddate, 'YY/MM/dd')}]]</h6>
+                                <h6 class="text-gray number">[[${USD.dealBasR}]] 원</h6>
+                              </div>
+                              <div class="main_graph">
+                                <canvas id="USD" style="width: 220px; height: 85px;"></canvas>
+                              </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <!-- Card -->
+                        <a href="#" class="card text-center shadow-soft border-light animate-up-3">
+                            <div class="card-body">
+                              <h5 class="text-gray card-name font-weight-bolder">￥ JPY/KRW</h5>
+                              <div class="card-numbers">
+                                <h6 class="text-gray number">[[${#dates.format(JPY.recorddate, 'YY/MM/dd')}]]</h6>
+                                <h6 class="text-gray number">[[${JPY.dealBasR}]] 원</h6>
+                              </div>
+                              <div class="main_graph">
+                                <canvas id="JPY" style="width: 220px; height: 85px;"></canvas>
+                              </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+  </main>
+  <section class="funds">
+   <div class="fund_section">
+      <h3 class="fund_main_title">MULTIFIN에서 <span style="color: orange;">펀드 상품</span>을 확인해 보세요</h3>
+      <h5 class="fund_main_subtitle"> <a class="fund_main_subtitle" href="/stock/stockFund">더 많은 펀드상품 &nbsp;  ></a></h5>
+      <div class="fund__container">
+        <div class="fund__info shadow-soft">
+            <h4 class="card__title">이달의 펀드</h4>
+            <small class="fund_description">MULTIFIN 전문가가<br>선택한 이달의 펀드</small>
+            <div class="fund-icons">
+                <i class="fa-regular fa-calendar"></i>
+            </div>
+        </div>
+        <div class="fund__info shadow-soft">
+          <h4 class="card__title">수익률 BEST</h4>
+          <small class="fund_description">투자 결과로 살펴보는<br>수익률 BEST 펀드</small>
+          <div class="fund-icons"> <i class="fa-regular fa-thumbs-up"></i> </div>
+        </div>
+        <div class="fund__info shadow-soft">
+          <h4 class="card__title">새로 나온 펀드</h4>
+          <small class="fund_description">MULTIFIN에서 모아보는<br>신규 출시 펀드</small>
+          <div class="fund-icons"> <i class="fa-sharp fa-solid fa-chart-simple"></i> </div>
+        </div>
+      </div>
+   </div>
+  </section>
+  <section class="section section-md bg-white">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 mb-2">
+                <h3 class="stock_info_title">주가 동향 예측</h3>
+                <div class="stock__description">
+                  <h5 class="stock__description">
+                    MULTIFIN 에서는 내가 보고 싶은 주식의 주가 동향 예측을 확인할 수 있습니다. <br>
+                    동향 예측 프로그램을 확인하며 안전한 투자 생활을 즐겨보세요.
+                  </h5>
+                  <button class="stock_btns shadow-soft" onclick="location.href='/stock/stockList'"> 더보기 </button>
+                </div>
+            </div>
+            <div class="col-lg-10 mb-3">
+                <a class="card border-light animate-up-3 shadow-soft p-0 p-lg-4" th:href="|/stock/stockFuture?no=${ss.srtnCd}|">     
+                    <div class="card-body stock-graph">
+                        <div class="description_container">
+                            <div class="stock_information">
+                                <div class="company_name">[[${ss.itmsNm}]]</div>
+                                <div class="company_code">005930</div>
+                           </div>
+                           <div class="company_values">
+                                <div class="company_money">
+                                    <div class="money mb-1">[[${#numbers.formatInteger(ss.clpr, 0, 'COMMA')}]] 원</div>
+                                     <th:block th:if="${#strings.contains(ss.vs, '-') == true } ">
+			                              <div class="percent-money decrease">▼ [[${#numbers.formatInteger(ss.vs, 0, 'COMMA')}]] 원</div>
+									 </th:block>	                                    
+									 <th:block th:if="${#strings.contains(ss.vs, '-') == false } ">
+			                             <div class="percent-money increase">▲ [[${#numbers.formatInteger(ss.vs, 0, 'COMMA')}]] 원</div>
+									 </th:block>	 
+                                </div>
+                                <th:block th:if="${#strings.contains(ss.vs, '-') == true } ">
+			                             <div class="decrease-block"> [[${ss.fltRt}]] %</div>
+								</th:block>	                                    
+								<th:block th:if="${#strings.contains(ss.vs, '-') == false } ">
+			                             <div class="increase-block">+ [[${ss.fltRt}]] %</div>
+								</th:block>	
+                           </div>
+                        </div>
+                        <div class="stock-graph-section">
+                            <canvas id="SS" style="width:500px; height: 150px; padding-top: 20px;"></canvas>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-10 mb-3">
+                <a class="card border-light animate-up-3 shadow-soft p-0 p-lg-4" th:href="|/stock/stockFuture?no=${sk.srtnCd}|">     
+                    <div class="card-body stock-graph">
+                        <div class="description_container">
+                            <div class="stock_information">
+                                <div class="company_name">[[${sk.itmsNm}]]</div>
+                                <div class="company_code">000660</div>
+                           </div>
+                           <div class="company_values">
+                                <div class="company_money">
+                                    <div class="money mb-1">[[${#numbers.formatInteger(sk.clpr, 0, 'COMMA')}]] 원</div>
+									 <th:block th:if="${#strings.contains(sk.vs, '-') == true } ">
+			                              <div class="percent-money decrease">▼ [[${#numbers.formatInteger(sk.vs, 0, 'COMMA')}]] 원</div>
+									 </th:block>	                                    
+									 <th:block th:if="${#strings.contains(sk.vs, '-') == false } ">
+			                             <div class="percent-money increase">▲ [[${#numbers.formatInteger(sk.vs, 0, 'COMMA')}]] 원</div>
+									 </th:block>	
+                                </div>
+                                <th:block th:if="${#strings.contains(sk.fltRt, '-') == true } ">
+			                             <div class="decrease-block"> [[${sk.fltRt}]] %</div>
+								</th:block>	                                    
+								<th:block th:if="${#strings.contains(sk.fltRt, '-') == false } ">
+			                             <div class="increase-block">+ [[${sk.fltRt}]] %</div>
+								</th:block>	
+                           </div>
+                        </div>
+                        <div class="stock-graph-section">
+                            <canvas id="SK" style="width:500px; height: 150px; padding-top: 20px;"></canvas>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-10 mb-3">
+              <a class="card border-light animate-up-3 shadow-soft p-0 p-lg-4" th:href="|/stock/stockFuture?no=${lg.srtnCd}|">     
+                <div class="card-body stock-graph">
+                    <div class="description_container">
+                        <div class="stock_information">
+                            <div class="company_name">[[${lg.itmsNm}]]</div>
+                            <div class="company_code">[[${lg.srtnCd}]]</div>
+                       </div>
+                       <div class="company_values">
+                            <div class="company_money">
+                                <div class="money mb-1">[[${#numbers.formatInteger(lg.clpr, 0, 'COMMA')}]] 원</div>
+                                 <th:block th:if="${#strings.contains(lg.vs, '-') == true } ">
+			                              <div class="percent-money decrease">▼ [[${#numbers.formatInteger(lg.vs, 0, 'COMMA')}]] 원</div>
+									 </th:block>	                                    
+									 <th:block th:if="${#strings.contains(lg.vs, '-') == false } ">
+			                             <div class="percent-money increase">▲ [[${#numbers.formatInteger(lg.vs, 0, 'COMMA')}]] 원</div>
+								  </th:block>
+                            </div>
+                            <th:block th:if="${#strings.contains(lg.fltRt, '-') == true } ">
+			                             <div class="decrease-block"> [[${lg.fltRt}]] %</div>
+								</th:block>	                                    
+								<th:block th:if="${#strings.contains(lg.fltRt, '-') == false } ">
+			                             <div class="increase-block">+ [[${lg.fltRt}]] %</div>
+							</th:block>	
+                       </div>
+                    </div>
+                    <div class="stock-graph-section">
+                        <canvas id="LG" style="width:500px; height: 150px; padding-top: 20px;"></canvas>
+                    </div>
+                </div>
+              </a>
+          </div>
+        </div>
+    </div>
+</section>
+<section class="stock__total pb-4">
+  <div class="stock__total_table">
+    <div class="kr_stock">
+      <div class="stock__table mb-3 mr-1">
+        <h5 class="rank_title">KOSPI <span style="color: rgb(231, 76, 60);">TOP5</span></h5>
+        <table class="stock">
+			<tr th:each="KOSPI, number : ${KOSPI}">
+				<td class="stock__rank" th:text="${number.index}+1"></td>
+				<td th:text="${KOSPI.itmsNm}"></td>
+				<td class="table-content">[[${#numbers.formatInteger(KOSPI.clpr, 0, 'COMMA')}]] 원</td>
+				<th:block th:if="${#strings.contains(KOSPI.fltRt, '-') == true } ">
+			         <td class="decrease">▼ [[${KOSPI.fltRt}]] %</td>
+				</th:block>	                                    
+				<th:block th:if="${#strings.contains(KOSPI.fltRt, '-') == false } ">
+			         <td class="increase">▲ [[${KOSPI.fltRt}]] %</td>
+				</th:block>
+			</tr>
+         </table>
+      </div>
+      <div class="stock__table mb-3 mr-1">
+        <h5 class="rank_title">KOSDAQ <span style="color: rgb(231, 76, 60);">TOP5</span></h5>
+        <table class="stock">
+			<tr th:each="KOSDAQ, number : ${KOSDAQ}">
+				<td class="stock__rank" th:text="${number.index}+1"></td>
+				<td th:text="${KOSDAQ.itmsNm}"></td>
+				<td class="table-content">[[${#numbers.formatInteger(KOSDAQ.clpr, 0, 'COMMA')}]] 원</td>
+				<th:block th:if="${#strings.contains(KOSDAQ.fltRt, '-') == true } ">
+			         <td class="decrease">▼[[${KOSDAQ.fltRt}]] %</td>
+				</th:block>	                                    
+				<th:block th:if="${#strings.contains(KOSDAQ.fltRt, '-') == false } ">
+			         <td class="increase">▲[[${KOSDAQ.fltRt}]] %</td>
+				</th:block>
+			</tr>
+         </table>
+      </div>
+    </div>
+    <div class="stock__table er mr-1">
+      <h5 class="rank_title"><span style="color: rgb(231, 76, 60);">Today's</span> Exchange rate </h5>
+      <table class="stock">
+        <tr>
+          <td>1</td>
+          <td>[[${#dates.format(USD.recorddate, 'MM/dd')}]]</td>
+          <td>[[${USD.curUnit}]] / KRW</td>
+          <td class="table_money">[[${USD.dealBasR}]] 원</td>
+          <td class="table_name">[[${USD.curNm}]]</td>
+        </tr>
+         <tr>
+          <td>2</td>
+          <td>[[${#dates.format(JPY.recorddate, 'MM/dd')}]]</td>
+          <td>JPY / KRW</td>
+          <td class="table_money">[[${JPY.dealBasR}]] 원</td>
+          <td class="table_name">[[${JPY.curNm}]]</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>[[${#dates.format(GBP.recorddate, 'MM/dd')}]]</td>
+          <td>[[${GBP.curUnit}]] / KRW</td>
+          <td class="table_money">[[${GBP.dealBasR}]] 원</td>
+          <td class="table_name">[[${GBP.curNm}]]</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>[[${#dates.format(HKD.recorddate, 'MM/dd')}]]</td>
+          <td>[[${HKD.curUnit}]] / KRW</td>
+          <td class="table_money">[[${HKD.dealBasR}]] 원</td>
+          <td class="table_name">[[${HKD.curNm}]]</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>[[${#dates.format(EUR.recorddate, 'MM/dd')}]]</td>
+          <td>[[${EUR.curUnit}]] / KRW</td>
+          <td class="table_money">[[${EUR.dealBasR}]] 원</td>
+          <td class="table_name">[[${EUR.curNm}]]</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>[[${#dates.format(CNH.recorddate, 'MM/dd')}]]</td>
+          <td>[[${CNH.curUnit}]] / KRW</td>
+          <td class="table_money">[[${CNH.dealBasR}]] 원</td>
+          <td class="table_name">[[${CNH.curNm}]]</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>[[${#dates.format(AUD.recorddate, 'MM/dd')}]]</td>
+          <td>[[${AUD.curUnit}]] / KRW</td>
+          <td class="table_money">[[${AUD.dealBasR}]] 원</td>
+          <td class="table_name">[[${AUD.curNm}]]</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>[[${#dates.format(SGD.recorddate, 'MM/dd')}]]</td>
+          <td>[[${SGD.curUnit}]] / KRW</td>
+          <td class="table_money">[[${SGD.dealBasR}]] 원</td>
+          <td class="table_name">[[${SGD.curNm}]]</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>[[${#dates.format(THB.recorddate, 'MM/dd')}]]</td>
+          <td>[[${THB.curUnit}]] / KRW</td>
+          <td class="table_money">[[${THB.dealBasR}]] 원</td>
+          <td class="table_name">[[${THB.curNm}]]</td>
+        </tr>
+         <tr>
+          <td>10</td>
+          <td>[[${#dates.format(CAD.recorddate, 'MM/dd')}]]</td>
+          <td>[[${CAD.curUnit}]] / KRW</td>
+          <td class="table_money">[[${CAD.dealBasR}]] 원</td>
+          <td class="table_name">[[${CAD.curNm}]]</td>
+        </tr>
+      </table>
+    </div>
+    <div class="stock__table adver">
+        <h5 class="adver__Title">모의 주식 투자</h5>
+        <h6 class="adver__description">가상의 매매 시스템을 통해 모의 주식 투자를 경험해 보세요!</h6>
+        <button class="adver_btn"  onclick="location.href='/stock/stockTest'" >체험하기</button>
+        <div class="adver_icon">
+            <i class="fa-solid fa-chart-simple"></i>
+        </div>
+    </div>
+  </div>
+</section>
+<footer th:replace="~{layout/footer :: #footer}"></footer>
+<th:block th:replace="layout/scripts :: scripts"></th:block>
+<script>
+	$(document).ready(() => {
+		$("#kosdaqURl").on("click", (e) => {
+			location.href = "/stock/stockList#tab_second";
+		});
+		
+	});
+</script>
+<script src="/assets/js/stock/stock.js"> </script>
+</body>
+
+
+    

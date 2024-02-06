@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//KO" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.multi.multifin.stock.model.mapper.ExchangeRateMapper">
+	<resultMap type="exchangeRate" id="exchangeRateResultMap">
+		<id property="rno" column="rno"/>
+		<result property="recorddate" column="recorddate"/>
+		<result property="curUnit" column="cur_unit"/>
+		<result property="ttb" column="ttb"/>
+		<result property="tts" column="tts"/>
+		<result property="dealBasR" column="deal_bas_r"/>
+		<result property="bkpr" column="bkpr"/>
+		<result property="yyEfeeR" column="yy_efee_r"/>
+		<result property="tenDdEfeeR" column="ten_dd_efee_r"/>
+		<result property="kftcBkpr" column="kftc_bkpr"/>
+		<result property="kftcDealBasR" column="kftc_deal_bas_r"/>
+		<result property="curNm" column="cur_nm"/>
+	</resultMap>
+	
+	<select id="exchangeRateList"  resultMap="exchangeRateResultMap">
+		select 
+			 rno,recorddate,cur_unit
+		    ,ttb,tts,deal_bas_r,bkpr,
+		    yy_efee_r,ten_dd_efee_r,kftc_bkpr,
+		    kftc_deal_bas_r,cur_nm
+		from(
+		   select*
+		   from exchangeRate e
+		   order by recorddate DESC
+		)ec
+		where ec.recorddate IN (SELECT MAX(recorddate) FROM exchangeRate)
+		order by recorddate desc
+	</select>
+	
+	<select id="findByName" parameterType="String"  resultMap="exchangeRateResultMap">
+		SELECT  *
+		FROM exchangeRate
+		WHERE cur_unit like '%${curUnit}%'
+		AND recorddate IN (SELECT MAX(recorddate) FROM exchangeRate)
+	</select>
+	
+	
+	
+	<select id="StockPricefindByName" parameterType="String"  resultMap="exchangeRateResultMap">
+		SELECT  *
+		FROM exchangeRate
+		WHERE cur_unit like '${curUnit}%'
+	</select>
+</mapper>

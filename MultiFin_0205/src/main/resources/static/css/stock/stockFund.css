@@ -1,0 +1,264 @@
+.section-header{
+  padding-bottom: 30px;
+  }
+.fund-mainTitle,.fund-mainSubtitle,
+.fund-title,.fund-sub,.search-title,.board-content,
+.board-title,.form-control {
+  font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
+.fund_main{
+  width: 1200px;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.fund_predicate {
+  width: 1200px;
+  height: 1100px;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.slide {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  user-select: none;
+}
+
+
+.slide_item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  left: 0px;
+  width: 100%;
+  flex-shrink: 0;
+  transition: left 0.5s;
+}
+.box{width: 100%;}
+
+
+.slide_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: calc(50% - 16px);
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  background-color: rgba(88, 88, 88, 0.225);
+  color: #ffffff9f;
+}
+.slide_button>i{
+  font-size: 25px;
+}
+.slide_prev_button{left: 0px;}
+.slide_next_button {right: 0px;}
+.slide_pagination {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.slide_pagination {
+  display: flex;
+  gap: 5px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.277);
+  width: 1200px;
+  justify-content: center;
+}
+.slide_pagination > li {
+  color: #ffffff88;
+  cursor: pointer;
+  font-size: 40px;
+}
+.slide_pagination > li.active {color: white;}
+
+.slide_item_duplicate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  left: 0px;
+  width: 100%;
+  height: 300px;
+  flex-shrink: 0;
+  transition: left 0.3s;
+}
+/*----------------------*/
+.fund_front{
+  display: flex;
+  
+}
+.fund_intro li{list-style: none;}
+
+.fund_front {
+  border: 1px solid lightgray;
+  margin-bottom: 15px;
+  border-radius: 0px 0px 4px 4px;
+  padding: 30px 20px;
+}
+.fund_intro{
+  width: 300px;
+  padding: 0px 20px;
+}
+.fund-title{
+  font-weight: 600;
+  margin-bottom: 20px 30px;
+}
+.fund02{
+  border-right: 1px solid gray;
+  border-left: 1px solid gray;
+}
+.fund03{ border-right: 1px solid gray;}
+.sub-body{
+  display: flex;
+  justify-content: space-between;
+  color: rgb(89, 89, 89);
+  width: 150px;
+}
+.sub-body>i{font-size: 20px;}
+.sub-body:hover{
+  color: indianred;
+}
+.fund-sub{
+  font-size: 17px;
+  color:inherit;
+  margin-bottom: 8px;
+}
+
+
+.fund_front .fund_intro.fund01 {
+  background: url(http://kim.koreainvestment.com/images/main/fund_intro1_bg.png) 
+  no-repeat 200px 40px;
+}
+.fund_front .fund_intro.fund02 {
+  background: url(http://kim.koreainvestment.com/images/main/fund_intro2_bg.png) 
+  no-repeat 200px 60px;
+}
+
+.fund_front .fund_intro.fund03 {
+  background: url(http://kim.koreainvestment.com/images/main/fund_intro3_bg.png) 
+  no-repeat 200px 60px;
+}
+
+.fund_front .fund_intro.fund04 {
+  background: url(http://kim.koreainvestment.com/images/main/fund_intro4_bg.png) 
+  no-repeat 200px 60px;
+}
+
+/*상품검색*/
+.seasrch{
+  width: 1200px;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+/*좌측버튼*/
+.blSearchTap{padding: 3px 10px;}
+.blSearchTap li{
+    border-bottom: 0.0625rem solid #b7c3d2;
+    height: 40px; line-height: 40px;
+}
+.blSearchTap li:hover{border: none;}
+.blSearchTap a{
+    display: block; height: 40px; line-height: 40px;
+    border-radius: 0.45rem !important;
+}
+.blSearchTap a:hover{
+    background-color: #0d1b48; color: white;
+}
+.search{float: right;}
+.input_text{
+    width: 330px;
+    height: 30px;
+    border: 1px solid black;
+    padding-left: 10px;
+}
+.form-group.form-group-lg .form-control{height: 40px !important;}
+.table-button{
+    height: 36px;
+    top: 2px;
+    border: 0px;
+    font-weight: 800;
+    font-size: 15px;
+    padding: 2px;
+    border-radius: 4px;
+}
+.table-button:hover{
+    background-color: black;
+    color:white;
+    transition: .1s ease-in;
+}
+
+/* 게시판 리스트 */
+.table_main{background-color: #0d1b48 !important;}
+.board-table{
+    width: 100%;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-collapse: collapse;
+}
+.table-header{
+    padding: 10px 5px;
+}
+
+.board-content{
+    text-align: center;
+    padding: 10px 0px;
+    border-bottom: 1px solid black;
+    font-weight: 500;
+}
+.board-title{
+    text-align: left;
+    padding-left: 50px;
+    max-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.board-table tr:hover{
+  background-color: rgb(245, 249, 254);
+}
+
+
+
+
+  /* 테이블 버튼 */
+.table-buttons{
+    text-align: center;
+}
+.table-button{
+    text-align: center;
+    border-radius: 0px;
+    background-color: white;
+    border-radius: 3px;
+    border: 1px solid gray;
+    margin: 20px 0px;
+    width:40px;
+    height: 30px;
+    font-weight: 700;
+    color:rgb(13, 27, 72);
+}
+.table-button:hover{
+    background-color:rgb(13, 27, 72) ;
+    color:white;
+}
+
+/* 
+    실시간 채팅 버튼
+*/
+.onlineChatBtn{
+    background-color: #0d1b48; color: white;
+    width: 80px; height: 80px; line-height: 80px;
+    border-radius: 50%;
+}

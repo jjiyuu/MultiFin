@@ -1,0 +1,953 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<th:block th:replace="layout/head :: config"></th:block>
+<title>MultiFin:부동산 메인</title>
+<!-- 현재 페이지에서만 쓰는 css, script -->
+<link type="text/css" th:href="@{/css/home/homeMain.css}"
+	rel="stylesheet">
+<link rel="stylesheet" href="../../css/korea.css" />
+
+</head>
+<body>
+	<header th:replace="~{layout/header :: #header}"></header>
+	<main>
+		<!-- Hero -->
+		<div
+			class="section section-header section-image bg-tertiary overlay-primary text-white overflow-hidden pb-9"
+			data-background="../../assets/img/home/new-york-hero.jpg">
+			<div class="container z-2">
+				<div class="row justify-content-center pt-3">
+					<div class="col-12 text-center">
+						<h1 class="home-mainTitle">
+							쉽게 보는 부동산</span>
+						</h1>
+						<p class="lead px-lg-5 mb-5 home-mainSubtitle">MULTIFIN에서 부동산의
+							모든 것을 간편하게 확인해 보세요!</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="section section-md pt-0">
+			<div class="container mt-n7">
+				<div class="row">
+					<div class="col-12">
+						<div class="card border-light p-md-2">
+							<div class="card-body p-4">
+								<form autocomplete="off" method="get"
+									th:action="@{/home/homeMainSearch}">
+									<div class="row">
+										<div class="col-12">
+											<div class="row">
+												<div class="col">
+													<div class="form-group form-group-lg mb-lg-0">
+														<div class="input-group">
+															<div class="input-group-prepend">
+																<span class="input-group-text"><span
+																	class="fas fa-map-marker-alt"></span></span>
+															</div>
+															<input id="search-location" type="text"
+																class="form-control autocomplete location"
+																name="searchValue" placeholder="지역을 입력하세요" tabindex="1"
+																required>
+														</div>
+													</div>
+												</div>
+												<div class="col-12 col-lg-4">
+													<div class="form-group form-group-lg mb-0">
+														<div class="input-group">
+															<div class="input-group-prepend">
+																<span class="input-group-text"><i
+																	class="far fa-calendar-alt"></i></span>
+															</div>
+															<input class="form-control date" name="day"
+																placeholder="날짜를 선택하세요" type="date">
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<p></p>
+									<p></p>
+									<div class="row">
+										<div class="col-12">
+											<div class="row align-items-center">
+												<div class="col-6 col-lg-4 mb-3 mb-lg-0">
+													<button
+														class="btn btn-primary btn-block animate-up-2 search_btn"
+														type="submit">Search</button>
+												</div>
+												<div class="col-6 col-lg-4 mb-3 mb-lg-0">
+													<button
+														class="btn btn-outline-gray btn-block animate-up-2 reset_btn"
+														type="reset">Reset</button>
+												</div>
+												<div
+													class="col-12 col-lg-4 d-flex justify-content-between align-items-center">
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../../assets/js/d3.js"></script>
+		<script type="text/javascript" src="../../assets/js/korea.js"></script>
+		<script>
+ window.onload = function() {
+	    drawMap('#container');
+	};
+
+	//지도 그리기
+	function drawMap(target) {
+	    var width = 1000; //지도의 넓이
+	    var height = 800; //지도의 높이
+	    var initialScale = 5555; //확대시킬 값
+	    var initialX = -12100; //초기 위치값 X
+	    var initialY = 4040; //초기 위치값 Y
+	    var labels;
+
+	    var projection = d3.geo
+	        .mercator()
+	        .scale(initialScale)
+	        .translate([initialX, initialY]);
+	    
+	    var path = d3.geo.path().projection(projection);
+	    var zoom = d3.behavior
+	        .zoom()
+	        .translate(projection.translate())
+	        .scale(projection.scale())
+	        .scaleExtent([height, 800 * height])
+	        .on('zoom', zoom);
+
+	    var svg = d3
+	        .select(target)                   //요소 선택
+	        .append('svg')                    //SVG추가 SVG는 이차원 벡터 이미지를 그리기 위한 웹 표준임
+	        .attr('width', width + 'px')      //width, height를 이용해 크기 조정
+	        .attr('height', height + 'px')
+	        .attr('id', 'map')                //attr은 class 지정 든 css속성을 지정할 때 사용
+	        .attr('class', 'map');            //class를 map으로 지정
+
+	    var states = svg
+	        .append('g')
+	        .attr('id', 'states')
+	        .call(zoom);
+
+	    states
+	        .append('rect')
+	        .attr('class', 'background')
+	        .attr('width', width + 'px')
+	        .attr('height', height + 'px');
+
+	    //geoJson데이터를 파싱하여 지도그리기
+	    d3.json('../../assets/json/korea.json', function(json) {
+	        states
+	            .selectAll('path')          //지역 설정
+	            .data(json.features)        // data 를 설정
+	            .enter()                    //데이터에 개수만큼 path 생성
+	            .append('path')
+	            .attr('d', path)
+	            .append('title') 
+	            .text(d => d.properties.result)  //튤팁에 텍스트 입력
+	            .on("click",clicked)		   //click 시 clicked함수 실행
+	            .attr('id', function(d) {		
+	                return 'path-' + d.properties.name_eng;
+	            });
+
+	        labels = states               //라벨표시
+	            .selectAll('text')        //모든 text 요소 
+	            .data(json.features) 	  
+	            .enter()                   //데이터에 개수만큼 text 생성
+	            .append('text')
+	            .attr('transform', translateTolabel)  
+	            .attr('id', function(d) {
+	                return 'label-' + d.properties.name_eng;
+	            })
+	            .attr('text-anchor', 'middle')	//text-anchor text의 중심점을 정하는 요소
+	            .attr('dy', '.35em')			//dy 행 높이 조정
+	            .text(function(d) {
+	                return d.properties.name;
+	            });
+	    });
+	    function clicked(d){
+	    	console.log('안녕하세요?');
+			if(d.properties.code==31){
+				'<a xlink:href="home/homeMain" target="_blank">'
+			}
+		}
+	    //텍스트 위치 조절 - 하드코딩으로 위치 조절을 했습니다.
+	    function translateTolabel(d) {
+	        var arr = path.centroid(d);
+	        if (d.properties.code == 31) {
+	            //서울 경기도 이름 겹쳐서 경기도 내리기
+	            arr[1] +=
+	                d3.event && d3.event.scale
+	                    ? d3.event.scale / height + 20
+	                    : initialScale / height + 20;
+	            
+	        } else if (d.properties.code == 34) {
+	            //충남은 조금 더 내리기
+	            arr[1] +=
+	                d3.event && d3.event.scale
+	                    ? d3.event.scale / height + 10
+	                    : initialScale / height + 10;
+	        } else if (d.properties.code == 21) {
+	            //부산 조금 더 내리기
+	            arr[1] +=
+	                d3.event && d3.event.scale
+	                    ? d3.event.scale / height + 10
+	                    : initialScale / height + 10;
+	        } 
+	        return 'translate(' + arr + ')';
+	    }
+
+	    function zoom() {
+	        projection.translate(d3.event.translate).scale(d3.event.scale);
+	        states.selectAll('path').attr('d', path);
+	        labels.attr('transform', translateTolabel);
+	    }
+		$(document).on("click","#container",function(d){console.log("check!"); });
+		$(document).on("click","#container",function(d){ //d.target.__data__.properties.name
+			if(d.target.__data__.properties.name=="강원도"){ 
+		           document.getElementById('Gyeonggi-do').innerHTML="강원도"
+		           
+		           document.getElementById('test_obj').innerHTML="강릉교동 금호어울림 올림픽파크 아파트"
+				   document.getElementById("test_obj").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000892&pblancNo=2022000892";
+				   document.getElementById('startday').innerHTML="2022-12-26"
+				   document.getElementById('endday').innerHTML="2022-12-28"
+				   
+		           document.getElementById('test_obj2').innerHTML="스위트 클래스 더 스카이"
+		           document.getElementById("test_obj2").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000794&pblancNo=2022000794";
+		           document.getElementById('startday2').innerHTML="2022-12-12"
+				   document.getElementById('endday2').innerHTML="2022-12-14"
+				   
+		           document.getElementById('test_obj3').innerHTML="원주 롯데캐슬 시그니처"
+		           document.getElementById("test_obj3").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000840&pblancNo=2022000840";
+		           document.getElementById('startday3').innerHTML="2022-12-05"
+				   document.getElementById('endday3').innerHTML="2022-12-07"
+				   
+		           document.getElementById('test_obj4').innerHTML="유승한내들 더스카이"
+		           document.getElementById("test_obj4").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000804&pblancNo=2022000804";
+		           document.getElementById('startday4').innerHTML="2022-11-21"
+				   document.getElementById('endday4').innerHTML="2022-11-23"
+				   
+		           document.getElementById('test_obj5').innerHTML="아야진 라메르 데시앙"
+		           document.getElementById("test_obj5").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000743&pblancNo=2022000743";
+		           document.getElementById('startday5').innerHTML="2022-11-07"
+				   document.getElementById('endday5').innerHTML="2022-11-09"
+			   
+			};  
+			if(d.target.__data__.properties.name=="서울특별시"){  
+					   document.getElementById('Gyeonggi-do').innerHTML="서울특별시"
+					   
+						       document.getElementById('test_obj').innerHTML="강동역 SK Leaders VIEW"
+							   document.getElementById("test_obj").href = "https://www.applyhome.co.kr/ai/aia/selectPRMOLttotPblancDetailView.do?houseManageNo=2023950010&pblancNo=2023950010&houseSecd=02";
+							   document.getElementById('startday').innerHTML="2023-02-20"
+							   document.getElementById('endday').innerHTML="2023-02-20"
+							   
+					           document.getElementById('test_obj2').innerHTML="힐스테이트 세운 센트럴 1단지"
+					           document.getElementById("test_obj2").href = "https://www.applyhome.co.kr/ai/aia/selectPRMOLttotPblancDetailView.do?houseManageNo=2023950004&pblancNo=2023950004&houseSecd=02";
+					           document.getElementById('startday2').innerHTML="2023-02-15"
+							   document.getElementById('endday2').innerHTML="2023-02-16"
+							   
+					           document.getElementById('test_obj3').innerHTML="힐스테이트 세운 센트럴 2단지"
+					           document.getElementById("test_obj3").href = "https://www.applyhome.co.kr/ai/aia/selectPRMOLttotPblancDetailView.do?houseManageNo=2023950005&pblancNo=2023950005&houseSecd=02";
+					           document.getElementById('startday3').innerHTML="2023-02-15"
+							   document.getElementById('endday3').innerHTML="2023-02-16"
+							   
+					           document.getElementById('test_obj4').innerHTML="세운 푸르지오 헤리시티"
+					           document.getElementById("test_obj4").href = "https://www.applyhome.co.kr/ai/aia/selectPRMOLttotPblancDetailView.do?houseManageNo=2023950006&pblancNo=2023950006&houseSecd=02";
+					           document.getElementById('startday4').innerHTML="2023-02-14"
+							   document.getElementById('endday4').innerHTML="2023-02-15"
+							   
+					           document.getElementById('test_obj5').innerHTML="서울은평뉴타운 디에트르 더 퍼스트"
+					           document.getElementById("test_obj5").href = "https://www.applyhome.co.kr/ai/aia/selectPRMOLttotPblancDetailView.do?houseManageNo=2023850001&pblancNo=2023850001&houseSecd=03";
+					           document.getElementById('startday5').innerHTML="2023-02-08"
+							   document.getElementById('endday5').innerHTML="2023-02-09"
+			};
+			if(d.target.__data__.properties.name=="인천광역시"){  
+				document.getElementById('Gyeonggi-do').innerHTML="인천광역시"
+			            	  document.getElementById('test_obj').innerHTML="더샵 아르테"
+			   				   document.getElementById("test_obj").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2023000015&pblancNo=2023000015";
+			   				   document.getElementById('startday').innerHTML="2023-02-13"
+			   				   document.getElementById('endday').innerHTML="2023-02-15"
+			   				   
+			   		           document.getElementById('test_obj2').innerHTML="부평 신일해피트리 더루츠"
+			   		           document.getElementById("test_obj2").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2023950009&pblancNo=2023950009";
+			   		           document.getElementById('startday2').innerHTML="2023-02-17"
+			   				   document.getElementById('endday2').innerHTML="2023-02-22"
+			   				   
+			   		           document.getElementById('test_obj3').innerHTML="인천석정 한신더휴"
+			   		           document.getElementById("test_obj3").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2023000009&pblancNo=2023000009";
+			   		           document.getElementById('startday3').innerHTML="2023-02-13"
+			   				   document.getElementById('endday3').innerHTML="2023-02-15"
+			   				   
+			   		           document.getElementById('test_obj4').innerHTML="송도역 경남아너스빌"
+			   		           document.getElementById("test_obj4").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000911&pblancNo=2022000911";
+			   		           document.getElementById('startday4').innerHTML="2023-01-16"
+			   				   document.getElementById('endday4').innerHTML="2023-01-18"
+			   				   
+			   		           document.getElementById('test_obj5').innerHTML="힐스테이트 인천시청역"
+			   		           document.getElementById("test_obj5").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000839&pblancNo=2022000839";
+			   		           document.getElementById('startday5').innerHTML="2022-12-19"
+			   				   document.getElementById('endday5').innerHTML="2022-12-21"
+			};  
+			if(d.target.__data__.properties.name=="경기도"){  
+				document.getElementById('Gyeonggi-do').innerHTML="경기도"
+					  document.getElementById('test_obj').innerHTML="그린 나래"
+						   document.getElementById("test_obj").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2023000014&pblancNo=2023000014";
+						   document.getElementById('startday').innerHTML="2023-02-23"
+						   document.getElementById('endday').innerHTML="2023-02-24"
+						   
+				           document.getElementById('test_obj2').innerHTML="구리역 롯데캐슬 시그니처"
+				           document.getElementById("test_obj2").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2023000028&pblancNo=2023000028";
+				           document.getElementById('startday2').innerHTML="2023-02-20"
+						   document.getElementById('endday2').innerHTML="2023-02-22"
+						   
+				           document.getElementById('test_obj3').innerHTML="수원성 중흥S-클래스"
+				           document.getElementById("test_obj3").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2023000009&pblancNo=2023000009";
+				           document.getElementById('startday3').innerHTML="2023-02-13"
+						   document.getElementById('endday3').innerHTML="2023-02-15"
+						   
+				           document.getElementById('test_obj4').innerHTML="평택고덕 A-53BL 신혼희망타운"
+				           document.getElementById("test_obj4").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2023820001&pblancNo=2023820001";
+				           document.getElementById('startday4').innerHTML="2023-02-26"
+						   document.getElementById('endday4').innerHTML="2023-02-30"
+						   
+				           document.getElementById('test_obj5').innerHTML="양주 회천지구 A-20BL 대광로제비앙 센트럴"
+				           document.getElementById("test_obj5").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000931&pblancNo=2022000931";
+				           document.getElementById('startday5').innerHTML="2023-02-23"
+						   document.getElementById('endday5').innerHTML="2023-02-24"
+			};  
+			
+			if(d.target.__data__.properties.name=="대전광역시"){  
+				document.getElementById('Gyeonggi-do').innerHTML="대전광역시"
+					  document.getElementById('test_obj').innerHTML="e편한세상 대전역 센텀비스타"
+						   document.getElementById("test_obj").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000810&pblancNo=2022000810";
+						   document.getElementById('startday').innerHTML="2022-11-28"
+						   document.getElementById('endday').innerHTML="2022-11-30"
+						   
+				           document.getElementById('test_obj2').innerHTML="대전 학하리슈빌포레 "
+				           document.getElementById("test_obj2").href = "https://www.applyhome.co.kr/ai/aia/selectPRMOLttotPblancDetailView.do?houseManageNo=2022850026&pblancNo=2022850026&houseSecd=03";
+				           document.getElementById('startday2').innerHTML="2023-01-03"
+						   document.getElementById('endday2').innerHTML="2023-01-03"
+						   
+				           document.getElementById('test_obj3').innerHTML="남산자이하늘채"
+				           document.getElementById("test_obj3").href = "https://www.applyhome.co.kr/ai/aia/selectPRMOLttotPblancDetailView.do?houseManageNo=2022950127&pblancNo=2022950127&houseSecd=02";
+				           document.getElementById('startday3').innerHTML="2023-01-09"
+						   document.getElementById('endday3').innerHTML="2023-01-10"
+						   
+				           document.getElementById('test_obj4').innerHTML="힐스테이트 선화 더와이즈"
+				           document.getElementById("test_obj4").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000785&pblancNo=2022000785";
+				           document.getElementById('startday4').innerHTML="2022-12-19"
+						   document.getElementById('endday4').innerHTML="2022-12-21"
+						   
+				           document.getElementById('test_obj5').innerHTML="대전 에테르 스위첸"
+				           document.getElementById("test_obj5").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000774&pblancNo=2022000774";
+				           document.getElementById('startday5').innerHTML="2022-11-14"
+						   document.getElementById('endday5').innerHTML="2022-11-16"
+			};  
+			if(d.target.__data__.properties.name=="경상북도"){  
+				document.getElementById('Gyeonggi-do').innerHTML="경상북도"
+					  document.getElementById('test_obj').innerHTML="학산 한신더휴 엘리트파크"
+						   document.getElementById("test_obj").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000780&pblancNo=2022000780";
+						   document.getElementById('startday').innerHTML="2022-12-19"
+						   document.getElementById('endday').innerHTML="2022-12-21"
+						   
+				           document.getElementById('test_obj2').innerHTML="영주 아이파크"
+				           document.getElementById("test_obj2").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000782&pblancNo=2022000782";
+				           document.getElementById('startday2').innerHTML="2022-11-21"
+						   document.getElementById('endday2').innerHTML="2022-11-23"
+						   
+				           document.getElementById('test_obj3').innerHTML="경산 대임지구 B3 BL 라온프라이빗"
+				           document.getElementById("test_obj3").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022520039&pblancNo=2022520039";
+				           document.getElementById('startday3').innerHTML="2022-10-31"
+						   document.getElementById('endday3').innerHTML="2022-11-02"
+						   
+				           document.getElementById('test_obj4').innerHTML="제일풍경채"
+				           document.getElementById("test_obj4").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022520041&pblancNo=2022520041";
+				           document.getElementById('startday4').innerHTML="2022-10-31"
+						   document.getElementById('endday4').innerHTML="2022-11-02"
+						   
+				           document.getElementById('test_obj5').innerHTML="반도유보라"
+				           document.getElementById("test_obj5").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022520042&pblancNo=2022520042";
+				           document.getElementById('startday5').innerHTML="2022-10-31"
+							   document.getElementById('endday5').innerHTML="2022-11-02"
+			};  
+			if(d.target.__data__.properties.name=="경상남도"){  
+				document.getElementById('Gyeonggi-do').innerHTML="경상남도"
+					  document.getElementById('test_obj').innerHTML="성산 삼정그린코아 웰레스트"
+						   document.getElementById("test_obj").href = "https://www.applyhome.co.kr/ai/aia/selectPRMOLttotPblancDetailView.do?houseManageNo=2022850029&pblancNo=2022850029&houseSecd=03";
+						   document.getElementById('startday').innerHTML="2023-02-13"
+						   document.getElementById('endday').innerHTML="2023-02-14"
+						   
+				           document.getElementById('test_obj2').innerHTML="창원 롯데캐슬 포레스트 1BL"
+				           document.getElementById("test_obj2").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000913&pblancNo=2022000913";
+				           document.getElementById('startday2').innerHTML="2023-01-02"
+						   document.getElementById('endday2').innerHTML="2023-01-04"
+						   
+				           document.getElementById('test_obj3').innerHTML="창원 롯데캐슬 포레스트 2BL"
+				           document.getElementById("test_obj3").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000914&pblancNo=2022000914";
+				           document.getElementById('startday3').innerHTML="2023-01-02"
+						   document.getElementById('endday3').innerHTML="2023-01-04"
+						   
+				           document.getElementById('test_obj4').innerHTML="창원 센트럴파크 에일린의 뜰"
+				           document.getElementById("test_obj4").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000836&pblancNo=2022000836";
+				           document.getElementById('startday4').innerHTML="2022-11-28"
+						   document.getElementById('endday4').innerHTML="2022-11-30"
+						   
+				           document.getElementById('test_obj5').innerHTML="백년문화공원 극동스타클래스"
+				           document.getElementById("test_obj5").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000844&pblancNo=2022000844";
+				           document.getElementById('startday5').innerHTML="2022-12-05"
+						   document.getElementById('endday5').innerHTML="2022-12-07"
+			};  
+			if(d.target.__data__.properties.name=="충청북도"){  
+				document.getElementById('Gyeonggi-do').innerHTML="충청북도"
+					  document.getElementById('test_obj').innerHTML="진천 덕산우방아이유쉘"
+						   document.getElementById("test_obj").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2023000038&pblancNo=2023000038";
+						   document.getElementById('startday').innerHTML="2023-02-24"
+						   document.getElementById('endday').innerHTML="2023-02-28"
+						   
+				           document.getElementById('test_obj2').innerHTML="복대자이 더 스카이"
+				           document.getElementById("test_obj2").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000893&pblancNo=2022000893";
+				           document.getElementById('startday2').innerHTML="2023-02-15"
+						   document.getElementById('endday2').innerHTML="2023-02-16"
+						   
+				           document.getElementById('test_obj3').innerHTML="청주 동남 택지개발지구"
+				           document.getElementById("test_obj3").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2023930005&pblancNo=2023930005";
+				           document.getElementById('startday3').innerHTML="2023-02-13"
+						   document.getElementById('endday3').innerHTML="2023-02-15"
+						   
+				           document.getElementById('test_obj4').innerHTML="청주 개신동 원더라움 아파트"
+				           document.getElementById("test_obj4").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000852&pblancNo=2022000852";
+				           document.getElementById('startday4').innerHTML="2022-12-30"
+						   document.getElementById('endday4').innerHTML="2023-01-03"
+						   
+				           document.getElementById('test_obj5').innerHTML="음성 아이파크"
+				           document.getElementById("test_obj5").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000870&pblancNo=2022000870";
+				           document.getElementById('startday5').innerHTML="2022-12-19"
+						   document.getElementById('endday5').innerHTML="2022-12-20"
+			};  
+				if(d.target.__data__.properties.name=="충청남도"){  
+				document.getElementById('Gyeonggi-do').innerHTML="충청남도"
+					  document.getElementById('test_obj').innerHTML="서산 해미 이아에듀타운"
+						   document.getElementById("test_obj").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000906&pblancNo=2022000906";
+						   document.getElementById('startday').innerHTML="2023-01-25"
+						   document.getElementById('endday').innerHTML="2023-01-26"
+						   
+				           document.getElementById('test_obj2').innerHTML="충남내포신도시 대광로제비앙"
+				           document.getElementById("test_obj2").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000833&pblancNo=2022000833";
+				           document.getElementById('startday2').innerHTML="2022-11-28"
+						   document.getElementById('endday2').innerHTML="2022-11-30"
+						   
+				           document.getElementById('test_obj3').innerHTML="트루엘 시그니처 천안역"
+				           document.getElementById("test_obj3").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000756&pblancNo=2022000756";
+				           document.getElementById('startday3').innerHTML="2022-11-16"
+						   document.getElementById('endday3').innerHTML="2022-11-18"
+						   
+				           document.getElementById('test_obj4').innerHTML="아산자이 그랜드파크"
+				           document.getElementById("test_obj4").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000799&pblancNo=2022000799";
+				           document.getElementById('startday4').innerHTML="2022-11-08"
+						   document.getElementById('endday4').innerHTML="2022-11-10"
+						   
+				           document.getElementById('test_obj5').innerHTML="힐스테이트 천안역 스카이움"
+				           document.getElementById("test_obj5").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000842&pblancNo=2022000842";
+				           document.getElementById('startday5').innerHTML="2022-12-06"
+						   document.getElementById('endday5').innerHTML="2022-12-08"
+			};  
+			if(d.target.__data__.properties.name=="세종특별자치시"){  
+				document.getElementById('Gyeonggi-do').innerHTML="세종특별자치시"
+					  document.getElementById('test_obj').innerHTML="캐슬앤파밀리에 디아트"
+						   document.getElementById("test_obj").href = "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2023930004&pblancNo=2023930004";
+						   document.getElementById('startday').innerHTML="2023-01-27"
+						   document.getElementById('endday').innerHTML="2023-01-27"
+						   
+				           document.getElementById('test_obj2').innerHTML="세종 한신더휴 리저브"
+				           document.getElementById("test_obj2").href = "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2022910374&pblancNo=2022910374";
+				           document.getElementById('startday2').innerHTML="2023-01-11"
+						   document.getElementById('endday2').innerHTML="2023-01-11"
+						   
+				           document.getElementById('test_obj3').innerHTML="세종 어울림파밀리에 센트럴"
+				           document.getElementById("test_obj3").href = "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2022930023&pblancNo=2022930023";
+				           document.getElementById('startday3').innerHTML="2022-12-16"
+						   document.getElementById('endday3').innerHTML="2022-12-16"
+						   
+				           document.getElementById('test_obj4').innerHTML="세종 중흥S클래스 센텀시티"
+				           document.getElementById("test_obj4").href = "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2022910357&pblancNo=2022910357";
+				           document.getElementById('startday4').innerHTML="2022-12-12"
+						   document.getElementById('endday4').innerHTML="2022-12-22"
+						   
+				           document.getElementById('test_obj5').innerHTML="세종 중흥S-클래스"
+				           document.getElementById("test_obj5").href = "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2022910358&pblancNo=2022910358";
+				           document.getElementById('startday5').innerHTML="2022-12-12"
+						   document.getElementById('endday5').innerHTML="2022-12-22"
+			};  
+			if(d.target.__data__.properties.name=="대구광역시"){  
+				document.getElementById('Gyeonggi-do').innerHTML="대구광역시"
+					  document.getElementById('test_obj').innerHTML="힐스테이트 황금엘포레"
+						   document.getElementById("test_obj").href = "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2022910365&pblancNo=2022910365";
+						   document.getElementById('startday').innerHTML="2023-01-20"
+						   document.getElementById('endday').innerHTML="2023-01-20"
+						   
+				           document.getElementById('test_obj2').innerHTML="힐스테이트 동대구 센트럴"
+				           document.getElementById("test_obj2").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000890&pblancNo=2022000890";
+				           document.getElementById('startday2').innerHTML="2023-01-09"
+						   document.getElementById('endday2').innerHTML="2023-01-11"
+						   
+				           document.getElementById('test_obj3').innerHTML="대구 두류파크 KCC스위첸"
+				           document.getElementById("test_obj3").href = "https://www.applyhome.co.kr/ai/aia/selectPRMOLttotPblancDetailView.do?houseManageNo=2022950122&pblancNo=2022950122&houseSecd=02";
+				           document.getElementById('startday3').innerHTML="2022-12-19"
+						   document.getElementById('endday3').innerHTML="2022-12-20"
+						   
+				           document.getElementById('test_obj4').innerHTML="교대역 하늘채 뉴센트원"
+				           document.getElementById("test_obj4").href = "https://www.applyhome.co.kr/ai/aia/selectPRMOLttotPblancDetailView.do?houseManageNo=2022950123&pblancNo=2022950123&houseSecd=02";
+				           document.getElementById('startday4').innerHTML="2022-12-14"
+						   document.getElementById('endday4').innerHTML="2022-12-14"
+						   
+				           document.getElementById('test_obj5').innerHTML="남산자이하늘채"
+				           document.getElementById("test_obj5").href = "https://www.applyhome.co.kr/ai/aia/selectPRMOLttotPblancDetailView.do?houseManageNo=2022950127&pblancNo=2022950127&houseSecd=02";
+				           document.getElementById('startday5').innerHTML="2023-01-10"
+						   document.getElementById('endday5').innerHTML="2023-01-20"
+			};  
+			if(d.target.__data__.properties.name=="울산광역시"){  
+				document.getElementById('Gyeonggi-do').innerHTML="울산광역시"
+					  document.getElementById('test_obj').innerHTML="빌리브 리버런트"
+						   document.getElementById("test_obj").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000862&pblancNo=2022000862";
+						   document.getElementById('startday').innerHTML="2022-12-26"
+						   document.getElementById('endday').innerHTML="2022-12-28"
+						   
+				           document.getElementById('test_obj2').innerHTML="옥동 경남아너스빌"
+				           document.getElementById("test_obj2").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000874&pblancNo=2022000874";
+				           document.getElementById('startday2').innerHTML="2022-12-19"
+						   document.getElementById('endday2').innerHTML="2022-12-21"
+						   
+				           document.getElementById('test_obj3').innerHTML="번영로 서한이다음 프레스티지"
+				           document.getElementById("test_obj3").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000832&pblancNo=2022000832";
+				           document.getElementById('startday3').innerHTML="2022-12-12"
+						   document.getElementById('endday3').innerHTML="2022-12-14"
+						   
+				           document.getElementById('test_obj4').innerHTML="힐스테이트 문수로 센트럴"
+				           document.getElementById("test_obj4").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000823&pblancNo=2022000823";
+				           document.getElementById('startday4').innerHTML="2022-11-28"
+						   document.getElementById('endday4').innerHTML="2022-11-30"
+						   
+				           document.getElementById('test_obj5').innerHTML="문수로 금호어울림 더 퍼스트"
+				           document.getElementById("test_obj5").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000710&pblancNo=2022000710";
+				           document.getElementById('startday5').innerHTML="2022-10-24"
+						   document.getElementById('endday5').innerHTML="2022-10-26"
+			};  
+			if(d.target.__data__.properties.name=="부산광역시"){  
+				document.getElementById('Gyeonggi-do').innerHTML="부산광역시"
+					  document.getElementById('test_obj').innerHTML="에코델타시티 푸르지오 린"
+						   document.getElementById("test_obj").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2023000027&pblancNo=2023000027";
+						   document.getElementById('startday').innerHTML="2023-02-20"
+						   document.getElementById('endday').innerHTML="2023-02-22"
+						   
+				           document.getElementById('test_obj2').innerHTML="에코델타시티 푸르지오 센터파크"
+				           document.getElementById("test_obj2").href = "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2023910008&pblancNo=2023910008";
+				           document.getElementById('startday2').innerHTML="2023-02-13"
+						   document.getElementById('endday2').innerHTML="2023-02-23"
+						   
+				           document.getElementById('test_obj3').innerHTML="남천자이"
+				           document.getElementById("test_obj3").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000900&pblancNo=2022000900";
+				           document.getElementById('startday3').innerHTML="2022-12-26"
+						   document.getElementById('endday3').innerHTML="2022-12-28"
+						   
+				           document.getElementById('test_obj4').innerHTML="양정자이더샵SKVIEW"
+				           document.getElementById("test_obj4").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000653&pblancNo=2022000653";
+				           document.getElementById('startday4').innerHTML="2022-10-11"
+						   document.getElementById('endday4').innerHTML="2022-10-13"
+						   
+				           document.getElementById('test_obj5').innerHTML="구서다움파크"
+				           document.getElementById("test_obj5").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000490&pblancNo=2022000490";
+				           document.getElementById('startday5').innerHTML="2022-09-13"
+						   document.getElementById('endday5').innerHTML="2022-09-16"
+			};  
+			if(d.target.__data__.properties.name=="광주광역시"){  
+				document.getElementById('Gyeonggi-do').innerHTML="광주광역시"
+					  document.getElementById('test_obj').innerHTML="광주 상무역 골드클래스"
+						   document.getElementById("test_obj").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2023000018&pblancNo=2023000018";
+						   document.getElementById('startday').innerHTML="2023-02-23"
+						   document.getElementById('endday').innerHTML="2023-02-24"
+						   
+				           document.getElementById('test_obj2').innerHTML="산이고운 신용PARK"
+				           document.getElementById("test_obj2").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000838&pblancNo=2022000838";
+				           document.getElementById('startday2').innerHTML="2022-12-05"
+						   document.getElementById('endday2').innerHTML="2022-12-07"
+						   
+				           document.getElementById('test_obj3').innerHTML="광주역 자연앤자이 공공분양"
+				           document.getElementById("test_obj3").href = "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2022930026&pblancNo=2022930026";
+				           document.getElementById('startday3').innerHTML="2023-02-07"
+						   document.getElementById('endday3').innerHTML="2023-02-07"
+						   
+				           document.getElementById('test_obj4').innerHTML="더샵 오포 센트럴포레"
+				           document.getElementById("test_obj4").href = "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2022910366&pblancNo=2022910366";
+				           document.getElementById('startday4').innerHTML="2023-01-04"
+						   document.getElementById('endday4').innerHTML="2023-01-16"
+						   
+				           document.getElementById('test_obj5').innerHTML="광주 더파크 비스타 데시앙"
+				           document.getElementById("test_obj5").href = "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2022910361&pblancNo=2022910361";
+				           document.getElementById('startday5').innerHTML="2022-12-12"
+						   document.getElementById('endday5').innerHTML="2022-12-22"
+			};  
+			if(d.target.__data__.properties.name=="전라북도"){  
+				document.getElementById('Gyeonggi-do').innerHTML="전라북도"
+					  document.getElementById('test_obj').innerHTML="익산 부송 데시앙 민간참여형 공공분양주택"
+						   document.getElementById("test_obj").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000939&pblancNo=2022000939";
+						   document.getElementById('startday').innerHTML="2023-01-16"
+						   document.getElementById('endday').innerHTML="2023-01-18"
+						   
+				           document.getElementById('test_obj2').innerHTML="부안 줄포 블레스아파트"
+				           document.getElementById("test_obj2").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000898&pblancNo=2022000898";
+				           document.getElementById('startday2').innerHTML="2022-12-14"
+						   document.getElementById('endday2').innerHTML="2022-12-15"
+						   
+				           document.getElementById('test_obj3').innerHTML="전주만성에코르2단지"
+				           document.getElementById("test_obj3").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000889&pblancNo=2022000889";
+				           document.getElementById('startday3').innerHTML="2022-12-15"
+						   document.getElementById('endday3').innerHTML="2022-12-16"
+						   
+				           document.getElementById('test_obj4').innerHTML="북익산 오투그란데 더원"
+				           document.getElementById("test_obj4").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000739&pblancNo=2022000739";
+				           document.getElementById('startday4').innerHTML="2022-11-07"
+						   document.getElementById('endday4').innerHTML="2022-11-09"
+						   
+				           document.getElementById('test_obj5').innerHTML="e편한세상 군산 디오션루체"
+				           document.getElementById("test_obj5").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000748&pblancNo=2022000748";
+				           document.getElementById('startday5').innerHTML="2022-10-31"
+						   document.getElementById('endday5').innerHTML="2022-11-02"
+			};  
+			if(d.target.__data__.properties.name=="전라남도"){  
+				document.getElementById('Gyeonggi-do').innerHTML="전라남도"
+			           document.getElementById('test_obj').innerHTML="광양센트럴자이"
+					   document.getElementById("test_obj").href = "https://www.applyhome.co.kr/ai/aia/selectAPTRemndrLttotPblancDetailView.do?houseManageNo=2022930022&pblancNo=2022930022";
+				   document.getElementById('startday').innerHTML="2023-01-16"
+				   document.getElementById('endday').innerHTML="2023-01-18"
+				   
+		           document.getElementById('test_obj2').innerHTML="부안 줄포 블레스아파트"
+		           document.getElementById("test_obj2").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000898&pblancNo=2022000898";
+		           document.getElementById('startday2').innerHTML="2022-12-14"
+				   document.getElementById('endday2').innerHTML="2022-12-15"
+				   
+		           document.getElementById('test_obj3').innerHTML="쌍용 더 플래티넘 여수"
+		           document.getElementById("test_obj3").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000773&pblancNo=2022000773";
+		           document.getElementById('startday3').innerHTML="2022-11-07"
+				   document.getElementById('endday3').innerHTML="2022-11-09"
+				   
+		           document.getElementById('test_obj4').innerHTML="함평 엘리체 시그니처"
+		           document.getElementById("test_obj4").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000847&pblancNo=2022000847";
+		           document.getElementById('startday4').innerHTML="2022-12-05"
+				   document.getElementById('endday4').innerHTML="2022-12-07"
+				   
+		           document.getElementById('test_obj5').innerHTML="광양 푸르지오 센터파크"
+		           document.getElementById("test_obj5").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000623&pblancNo=2022000623";
+		           document.getElementById('startday5').innerHTML="2022-10-11"
+				   document.getElementById('endday5').innerHTML="2022-10-13"
+			};  
+			
+			if(d.target.__data__.properties.name=="제주특별자치도"){  
+				document.getElementById('Gyeonggi-do').innerHTML="제주특별자치도"
+			           document.getElementById('test_obj').innerHTML="하귀푸르미르아파트"
+					   document.getElementById("test_obj").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000930&pblancNo=2022000930";
+				   document.getElementById('startday').innerHTML="2023-01-09"
+				   document.getElementById('endday').innerHTML="2023-01-10"
+				   
+		           document.getElementById('test_obj2').innerHTML="빌라드아르떼"
+		           document.getElementById("test_obj2").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000864&pblancNo=2022000864";
+		           document.getElementById('startday2').innerHTML="2022-12-12"
+				   document.getElementById('endday2').innerHTML="2022-12-13"
+				   
+		           document.getElementById('test_obj3').innerHTML="엘리프 애월"
+		           document.getElementById("test_obj3").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000795&pblancNo=2022000795";
+		           document.getElementById('startday3').innerHTML="2022-12-05"
+				   document.getElementById('endday3').innerHTML="2022-12-06"
+				   
+		           document.getElementById('test_obj4').innerHTML="연동 한일베라체 파크뷰"
+		           document.getElementById("test_obj4").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000732&pblancNo=2022000732";
+		           document.getElementById('startday4').innerHTML="2022-10-31"
+				   document.getElementById('endday4').innerHTML="2022-11-01"
+				   
+		           document.getElementById('test_obj5').innerHTML="한화 포레나 제주에듀시티"
+		           document.getElementById("test_obj5").href = "https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000568&pblancNo=2022000568";
+		           document.getElementById('startday5').innerHTML="2022-08-29"
+				   document.getElementById('endday5').innerHTML="2022-08-30"
+			}; 
+	});
+	}
+	function init(name){
+	$.ajax({
+			type : "GET",
+			url : "/home/homeMain?name="+name,
+			contentType: "application/json; charset=UTF-8",
+			data : {
+				"name" : name
+			},
+			success : function(data) {
+				alert(data);
+		     },
+			error : function() {
+				alert("error");
+			}
+		});	
+	}
+ </script>
+		<section class="auction_main_container">
+			<div class="auction">
+				<div class="map_container">
+					<div class="map_title">
+						<i class="fa-regular fa-map"></i>
+						<h3 class="title">청약지도</h3>
+					</div>
+					<div id="container" style="width: 600px; height: 400px;"></div>
+				</div>
+				<div class="detail_container">
+					<div class="detail_title">
+						<i class="fa-solid fa-location-dot"></i>
+						<p class="title" id="Gyeonggi-do">경기도</p>
+					</div>
+					<div class="detail">
+						<div class="table_table">
+							<div class="auction_container">
+								<div class="description_title">
+									<a id="test_obj" href="https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2023000038&pblancNo=2023000038" target="_blank"> 진천 덕산우방아이유쉘 </a>
+								</div>
+								<div class="date">
+									<div class="start" id="startday">2023-02-24</div>
+									<div class="end" id="endday">2023-02-24</div>
+								</div>
+								<hr>
+							</div>
+							<div class="auction_container">
+								<div class="description_title">
+									<a id="test_obj2" href="https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2023000014&pblancNo=2023000014" target="_blank"> 그린나래 </a>
+								</div>
+								<div class="date">
+									<div class="start" id="startday2">2023-02-23</div>
+									<div class="end" id="endday2">2023-02-24</div>
+								</div>
+								<hr>
+							</div>
+							<div class="auction_container">
+								<div class="description_title">
+									<a id="test_obj3" href="https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2023000027&pblancNo=2023000027" target="_blank"> 에코델타시티 푸르지오 린 </a>
+								</div>
+								<div class="date">
+								<div class="start" id="startday3">2023-02-20</div>
+									<div class="end" id="endday3">2023-02-22</div>
+								</div>
+								<hr>
+							</div>
+							<div class="auction_container">
+								<div class="description_title">
+									<a id="test_obj4" href="https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2023000028&pblancNo=2023000028" target="_blank"> 롯데캐슬 시그니처 </a>
+								</div>
+								<div class="date">
+									<div class="start" id="startday4">2023-02-20</div>
+									<div class="end" id="endday4">2023-02-22</div>
+								</div>
+								<hr>
+							</div>
+							<div class="auction_container">
+								<div class="description_title">
+									<a id="test_obj5" href="https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancDetail.do?houseManageNo=2022000893&pblancNo=2022000893" target="_blank"> 복대자이 더 스카이 </a>
+								</div>
+								<div class="date">
+									<div class="start" id="startday5">2023-02-13</div>
+									<div class="end" id="endday5">2023-02-16</div>
+								</div>
+								<hr>
+							</div>
+							<button class="more_btn mt-2" id= "btn" onclick = "location.href = 'http://localhost/home/homeBlue'" >더보기</button> 
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</section>
+		<section class="auction_info">
+			<div class="detail_title">
+				<i class="fa-regular fa-calendar"></i>
+				<h3 class="title">이번달 청약 일정</h3>
+			</div>
+			<div class="auction_calendar">
+				<table id="" class="board-table">
+					<tr class="text-center bg-info text-white">
+						<th class="table-header">공급유형</th>
+						<th class="table-header">주택명</th>
+						<th class="table-header">모집공고일</th>
+						<th class="table-header">홈페이지</th>
+					</tr>
+					<tr th:each="Aptlist : ${Aptlist3}"
+						th:if="${AptlistStat.index} < 8">
+						<td class="board-content board_type">APT</td>
+						<td class="board-content board_title">[[${Aptlist.houseNm}]]</td>
+						<td class="board-content">[[${Aptlist.rceptBgnde}]]</td>
+						<td class="board-content"><a class="address"
+							th:href="${Aptlist.pblancUrl}"> <span
+								class="adress_decription"> <i
+									style="padding-top: 3px; margin-right: 10px;"
+									class="fas fa-home"></i> 홈페이지
+							</span>
+						</a></td>
+					</tr>
+				</table>
+			</div>
+
+		</section>
+		<section class="sell-info-section">
+			<div class="sell-info-container">
+				<h2 class="sell-title font-weight-bolder">전·월세 & 매매 정보</h2>
+				<h5 class="sub_title">Multifin에서 우리 동네 전·월세 및 매매 정보를 확인해 보세요</h5>
+				<div class="sell-cards">
+					<div class="basic-carousel owl-carousel owl-theme">
+						<div class="item" th:each="homelist : ${list}"
+							th:if="${homelistStat.index} < 5">
+							<div class="card border-light mb-4 animate-up-5">
+								<a
+									th:href="@{/home/homeSellDetail(RealEstateDealNo=${homelist.RealEstateDealNo})}"
+									class="position-relative"> <img
+									th:src="'../../assets/img/home/apt'+${homelist.Floor}+'.jpg'"
+									class="card-img-top rounded-xl p-2" alt="themesberg office"
+									style="width: 400px; height: 300px;">
+								</a>
+								<div class="card-body">
+									<a
+										th:href="@{/home/homeSellDetail(RealEstateDealNo=${homelist.RealEstateDealNo})}">
+										<h5 class="h4 sell_description_title">[[${homelist.apartment_Name}]]
+											APT</h5>
+									</a>
+									<ul class="list-group mb-3">
+										<li class="list-group-item p-0 sell-location"><span
+											class="fas fa-map-marker-alt mr-2"></span>
+											[[${homelist.Dong}]][[${homelist.Jibun}]]</li>
+									</ul>
+								</div>
+								<div class="card-footer bg-gradient-light border-top">
+									<div class="d-flex justify-content-between">
+										<div class="col pl-0">
+											<span class="now text-muted font-small d-block mb-2">완공년도</span>
+											<span class="h5 text-dark font-weight-bold info">[[${homelist.Build_Year}]]년</span>
+										</div>
+										<div class="col pl-0">
+											<span class="now text-muted font-small d-block mb-2">면적</span>
+											<span class="h5 text-dark font-weight-bold info">[[${homelist.Area}]]㎡</span>
+										</div>
+										<div class="col pl-0">
+											<span class="now text-muted font-small d-block mb-2">월세</span>
+											<span class="h5 text-dark font-weight-bold info">[[${homelist.Monthly_Rent}]]만원</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- 뉴스와 커뮤니티 시작 -->
+		<section id="news_commu" class="section pt-5 pb-5">
+			<div class="mainFinalSec">
+				<div class="pl-3 pr-3 noticeBox">
+					<div class="notice_title">
+						<span class="title">NOTICE</span>
+					</div>
+					<div class="nocie-container">
+						<a href="http://rt.molit.go.kr/">
+							<div class="notice">
+								<div class="notice_logo">공지</div>
+								<div class="notice_body">
+									<h5 class="notice-title">실거래가 공개시스템</h5>
+									<h6 class="notice-date">2023.01.25</h6>
+								</div>
+							</div>
+						</a> <a href="https://www.reb.or.kr/r-one/main.do">
+							<div class="notice">
+								<div class="notice_logo">공지</div>
+								<div class="notice_body">
+									<h5 class="notice-title">한국부동산원 부동산 통계</h5>
+									<h6 class="notice-date">2023.01.13</h6>
+								</div>
+							</div>
+						</a> <a
+							href="https://www.applyhome.co.kr/ar/ara/selectSubscrptIntroHouseView.do">
+							<div class="notice">
+								<div class="notice_logo">공지</div>
+								<div class="notice_body">
+									<h5 class="notice-title">청약 Home 청약 제도 안내</h5>
+									<h6 class="notice-date">2023.01.30</h6>
+								</div>
+							</div>
+						</a>
+					</div>
+
+				</div>
+				<div class="comuBox">
+					<div class="commu_title">
+						<span class="title">NEWS</span>
+						<div class="moreview">
+							<a href="#"> <span class="More_title">더보기</span> <i
+								class="fa-solid fa-chevron-right"></i>
+							</a>
+						</div>
+					</div>
+					<table class="home-notice-table">
+						<tr class="table_content">
+							<td><a class="c_title"
+								href="https://www.yna.co.kr/view/AKR20230216034500003?input=1195m">
+									<h6 class="board_c_title">부동산인포 "부동산 시장 바닥론은 시기상조…거래량 늘어야"</h6>
+							</a></td>
+							<td><span>2023-02-16</span></td>
+						</tr>
+						<tr class="table_content">
+							<td><a class="c_title"
+								href="https://view.asiae.co.kr/article/2023021614564573821">
+									<h6 class="board_c_title">[부동산AtoZ]북적이는 경매시장…낙찰률 두 배 오른 까닭</h6>
+							</a></td>
+							<td><span> 2023.02.17</span></td>
+						</tr>
+						<tr class="table_content">
+							<td><a class="c_title"
+								href="https://www.starnewskorea.com/stview.php?no=2023021913045435334">
+									<h6 class="board_c_title">[부동산] 서울 재건축, 5개월 만에 '보합'</h6>
+							</a></td>
+							<td><span>2023.02.19</span></td>
+						</tr>
+						<tr class="table_content">
+							<td><a class="c_title"
+								href="https://view.asiae.co.kr/article/2023021801470325245">
+									<h6 class="board_c_title">지난해 부동산 전체 매매량 40%↓ 거래금액 46%↓</h6>
+							</a></td>
+							<td><span>2023.02.19</span></td>
+						</tr>
+						<tr class="table_content">
+							<td><a class="c_title"
+								href="https://www.news1.kr/photos/view/?5842703">
+									<h6 class="board_c_title">지난해 서울 아파트 역대 최대 하락…강남권마저 급락</h6>
+							</a></td>
+							<td><span>2023-02-19</span></td>
+						</tr>
+						<tr class="table_content">
+							<td><a class="c_title"
+								href="https://news.mtn.co.kr/news-detail/2023021807380271101">
+									<h6 class="board_c_title">부동산 거래 증가에도 웃지 못하는 가구업계</h6>
+							</a></td>
+							<td><span>2023-02-19</span></td>
+						</tr>
+					</table>
+					<!-- home-notice-list -->
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer th:replace="~{layout/footer :: #footer}"></footer>
+	<th:block th:replace="layout/scripts :: home_scripts"></th:block>
+</body>
+</html>

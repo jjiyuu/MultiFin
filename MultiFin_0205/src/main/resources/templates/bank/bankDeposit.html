@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="layout/head :: config"></th:block>
+	<title>MultiFin:예적금</title>
+	<!-- 현재 페이지에서만 쓰는 css, script -->
+	<link rel="stylesheet" th:href="@{/css/bank/bank.css}">
+	<style>
+	.checkedMenu{background-color: #0d1b48; color: white !important;}
+	</style>
+</head>
+
+<body>
+<header th:replace="~{layout/header :: #header}"></header>
+<main>
+<!-- 배너 시작 -->
+        <!-- Hero -->
+        <section class="section section-header bg-soft pb-0 pt-6">
+            <div class="container">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-12 col-md-5 order-lg-1 mt-6">
+                        <h1 class="display-3 lh-100 font-weight-bolder mb-0">예•적금 상품</h1>
+                        <p class="lead my-4 main_subtitle">
+                            <span class="font-weight-normal">MULTIFIN에서 은행별 예•적금 상품을 한 눈에 비교해<br>나에게 딱 맞는 상품을 찾아보세요!</span>
+                        </p>
+                    </div>
+                    <div class="col-12 col-md-7 order-lg-2 d-none d-md-block">
+                       <!-- Image --> <img src="../../assets/img/ours/family-budget-planning-flat-illustration.png" class="img-fluid mr-3" style="width: 80%;float: right;" alt="Forest Illustration">
+                    </div>
+                </div>
+            </div>
+        </section>
+<!-- 배너 끝 -->
+<!-- 저금리 대출상품 시작 -->
+<section class="section section-lg pt-6 pb-6">
+    <div class="container" style="width: 1200px;">
+        <div class="row">
+            <div class="col-12 goods-title mb-3">
+                <div class="main_loan_title">
+                    <div class="main_goods_title">
+                        <p  style="font-size: 25px;" class="h3 font-weight-bolder goods_title">이달의 금융 추천 상품</p>
+                        <span class="pointBox pl-2 pr-2">BEST</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3 mb-4 mb-lg-0">
+                <!-- Card -->
+                <div href="#" class="card img-card fh-290 outer-bg border-gray-500 lowRateCard">
+                    <div class="align-items-center fh-290 card-body text-dark p-3">
+                        <img th:src="${depositList0[0].logoUrl}" class="bdHotProductLogo">
+                        <div class="mt-5 goods_card">
+                            <h5 class="font-weight-bolder text-left top4-title">[[${depositList0[0].finPrdtNm}]]</h5>
+                            <span style="font-weight: 500;">[[${depositList0[0].saveTrm}]]개월</span>
+                            <span style="font-weight: 500;">[[${depositList0[0].intrRateTypeNm}]]</span>
+                            <span style="font-weight: 500; color: red;">[[${depositList0[0].intrRate2}]]%</span>
+                            <p class="text-gray-600 mt-3 font-weight-normal">
+                                [[${depositList0[0].etcNote}]]
+                            </p>
+                            <button class="goods_btn" th:onclick="|location.href='/bank/bankFind?no=@{${depositList0[0].finPrdtCd}}'|">상세보기</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of Card -->
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3 mb-4 mb-lg-0">
+                <!-- Card -->
+                <div href="#" class="card img-card fh-290 outer-bg border-gray-500 lowRateCard">
+                    <div class="align-items-center fh-290 card-body text-dark p-3">
+                       	<img th:src="${depositList0[4].logoUrl}" class="bdHotProductLogo">
+                        <div class="mt-5 goods_card">
+                            <h5 class="font-weight-bolder text-left top4-title">[[${depositList0[4].finPrdtNm}]]</h5>
+                            <span style="font-weight: 500;">[[${depositList0[4].saveTrm}]]개월</span>
+                            <span style="font-weight: 500;">[[${depositList0[4].intrRateTypeNm}]]</span>
+                            <span style="font-weight: 500; color: red;">[[${depositList0[4].intrRate2}]]%</span>
+                            <p class="text-gray-600 mt-3 font-weight-normal">
+                                [[${depositList0[4].etcNote}]]
+                            </p>
+                            <button class="goods_btn" th:onclick="|location.href='/bank/bankFind?no=@{${depositList0[4].finPrdtCd}}'|">상세보기</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of Card -->
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3 mb-4 mb-lg-0">
+                <!-- Card -->
+                <div href="#" class="card img-card fh-290 outer-bg border-gray-500 lowRateCard">
+                    <div class="align-items-center fh-290 card-body text-dark p-3">
+                        <img th:src="${savingList0[1].logoUrl}" class="bdHotProductLogo">
+                        <div class="mt-5 goods_card">
+                            <h5 class="font-weight-bolder text-left top4-title">[[${savingList0[1].finPrdtNm}]]</h5>
+                            <span style="font-weight: 500;">[[${savingList0[1].saveTrm}]]개월</span>
+                            <span style="font-weight: 500;">[[${savingList0[1].intrRateTypeNm}]]</span>
+                            <span style="font-weight: 500; color: red;">[[${savingList0[1].intrRate2}]]%</span>
+                            <p class="text-gray-600 mt-3 font-weight-normal">
+                                [[${savingList0[1].etcNote}]]
+                            </p>
+                            <button class="goods_btn" th:onclick="|location.href='/bank/bankFind?no=@{${savingList0[1].finPrdtCd}}'|">상세보기</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of Card -->
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3 mb-4 mb-lg-0">
+                <!-- Card -->
+                <div href="#" class="card img-card fh-290 outer-bg border-gray-500 lowRateCard">
+                    <div class="align-items-center fh-290 card-body text-dark p-3">
+                        <img th:src="${savingList0[6].logoUrl}" class="bdHotProductLogo">
+                        <div class="mt-5 goods_card">
+                            <h5 class="font-weight-bolder text-left top4-title">[[${savingList0[6].finPrdtNm}]]</h5>
+                            <span style="font-weight: 500;">[[${savingList0[6].saveTrm}]]개월</span>
+                            <span style="font-weight: 500;">[[${savingList0[6].intrRateTypeNm}]]</span>
+                            <span style="font-weight: 500; color: red;">[[${savingList0[6].intrRate2}]]%</span>
+                            <p class="text-gray-600 mt-3 font-weight-normal">
+                                [[${savingList0[6].etcNote}]]
+                            </p>
+                            <button class="goods_btn" th:onclick="|location.href='/bank/bankFind?no=@{${savingList0[6].finPrdtCd}}'|">상세보기</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of Card -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- 저금리 대출상품 끝 -->
+
+
+<!-- 상품 검색 시작 -->
+<section class="section section-lg pt-0 pb-6">
+    <div class="container" style="width: 1200px;">
+        <div class="row">
+            <div class="col-12  mb-3">
+                <p style="font-size: 25px;"  class="h3 font-weight-bolder m-0">상품검색</p>
+            </div>
+            <div class="col-sm-3 border-gray-500 text-center bankSearch fh-320 rounded">
+                <div class="border-gray-500 border rounded selector">
+                    <ul class="list-style-none text-dark blSearchTap">
+                        <li>
+                          	<th:block th:if="${check} == '0'">
+                               <a href="#deposit" class="tapbtnDeposit checkedMenu">정기예금</a>
+                          	</th:block>
+                          	<th:block th:if="${check} != '0'">
+                               <a href="#deposit" class="tapbtnDeposit">정기예금</a>
+                          	</th:block>
+                          </li>
+                          <li>
+                          	<th:block th:if="${check} == '1'">
+                           	   <a href="#" class="tapbtnSaving checkedMenu">적금</a>
+                              </th:block>
+                          	<th:block th:if="${check} != '1'">
+                           	   <a href="#" class="tapbtnSaving ">적금</a>
+                              </th:block>
+                          </li>
+                    </ul>
+                </div>
+                <div class="bg-soft text-center bankSearch fh-260 rounded">
+                    <a th:href="@{/common/chatbot}" target="_blank"><i class="fa-solid fa-comments fa-2x onlineChatBtn m-4"></i></a>
+                    <p class="font-weight-bolder">궁금한 것이 있으신가요?</p>
+                    <p>멀티핀 챗봇을 통해 궁금한 것을<br>한 번에 해결해 보세요!</p>
+                </div>
+            </div>
+            <div class="col-sm-9 border-gray-500">
+                <form autocomplete="off" class="row search" method="get" th:action="@{/bank/bankDeposit}">
+                    <div class="col-12 mb-3 mb-lg-4">
+                        <div class="form-group form-group-lg mb-0">
+                            <div class="input-group">
+                                <input id="search-bank" type="text" class="form-control autocomplete border-gray-500 border-right-0" placeholder="금융회사명을 입력하세요" th:value="${param.searchValue}" name="searchValue">
+                                <button class="bankMainSubmit border border-gray-500 border-left-0 bg-white text-dark fw-60" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+	          <th:block th:if="${check} == '0'">
+	            <div class="tapMenu slideOpen" id="deposit">
+	          </th:block>
+	          <th:block th:if="${check} != '0'">
+	            <div class="tapMenu" id="deposit">
+	          </th:block>
+	                <table id="tbl-board" class="board-table">
+	                    <tr class="text-center bg-info text-white">
+	                        <th class="table-header">번호</th>
+	                        <th class="table-header" >금융상품</th>
+	                        <th class="table-header">이율</th>
+	                        <th class="table-header">금융회사</th>
+	                        <th class="table-header">가입방법</th>
+	                        <th class="table-header">적립유형</th>
+	                    </tr>
+	                    <th:block th:if="${depositList == null}">
+							<tr>
+								<td colspan="6">조회된 상품이 없습니다.</td>
+							</tr>
+						</th:block>
+						<th:block th:if="${depositList != null}">
+		                    <tr th:each="depositList, number : ${depositList}" th:onclick="|location.href='/bank/bankFind?no=@{${depositList.finPrdtCd}}'|">
+		                        <td class="board-content">[[(${pageDepositInfo.currentPage}-1)*10+${number.index}+1]]</td>
+		                        <td class="board-content board-title" style="width:240px;">[[${depositList.finPrdtNm}]]</td>
+		                        <td class="board-content">[[${depositList.intrRate2}]]</td>
+		                        <td class="board-content">[[${depositList.korCoNm}]]</td>
+		                        <td class="board-content">[[${depositList.joinWay}]]</td>
+		                        <td class="board-content" style="width:72px;">[[${depositList.intrRateTypeNm}]]</td>
+		                    </tr>
+	                    </th:block>
+	                </table>
+	                <div class="table-buttons">
+	                    <button th:onclick="|movePage('/bank/bankDeposit?pageDeposit=1','0');|" class="table-button">&lt;</button>
+	                    <button th:onclick="|movePage('/bank/bankDeposit?pageDeposit=${pageDepositInfo.prevPage}','0');|" class="table-button">&lt;</button>
+	                    <th:block th:each="num, status : ${#numbers.sequence(pageDepositInfo.startPage, pageDepositInfo.endPage)}">
+							<th:block th:if="${status.current == pageDepositInfo.currentPage}">
+								<button class="table-button" disabled >[[${status.current}]]</button>
+							</th:block>
+							<th:block th:if="${status.current != pageDepositInfo.currentPage}">
+								<button th:onclick="|movePage('/bank/bankDeposit?pageDeposit=${status.current}','0');|" class="table-button">
+									[[${status.current}]]
+								</button>
+							</th:block>
+						</th:block>
+	                    <button th:onclick="|movePage('/bank/bankDeposit?pageDeposit=${pageDepositInfo.nextPage}','0');|" class="table-button">&gt;</button>
+	                    <button th:onclick="|movePage('/bank/bankDeposit?pageDeposit=${pageDepositInfo.maxPage}','0');|" class="table-button">&gt;&gt;</button>
+	                </div>
+            </div>
+            
+            <th:block th:if="${check} == '1'">
+	            <div class="tapMenu slideOpen" id="saving">
+	        </th:block>
+	        <th:block th:if="${check} != '1'">
+	            <div class="tapMenu" id="saving">
+	        </th:block>
+	                <table id="tbl-board" class="board-table">
+	                    <tr class="text-center bg-info text-white">
+	                        <th class="table-header">번호</th>
+	                        <th class="table-header" >금융상품</th>
+	                        <th class="table-header">이율</th>
+	                        <th class="table-header">금융회사</th>
+	                        <th class="table-header">가입방법</th>
+	                        <th class="table-header">적립유형</th>
+	                    </tr>
+	                    <th:block th:if="${savingList == null}">
+							<tr>
+								<td colspan="6">조회된 상품이 없습니다.</td>
+							</tr>
+						</th:block>
+						<th:block th:if="${savingList != null}">
+		                    <tr th:each="savingList, number : ${savingList}" th:onclick="|location.href='/bank/bankFind?no=@{${savingList.finPrdtCd}}'|">
+		                        <td class="board-content">[[(${pageSavingInfo.currentPage}-1)*10+${number.index}+1]]</td>
+		                        <td class="board-content board-title">[[${savingList.finPrdtNm}]]</td>
+		                        <td class="board-content">[[${savingList.intrRate2}]]</td>
+		                        <td class="board-content">[[${savingList.korCoNm}]]</td>
+		                        <td class="board-content">[[${savingList.joinWay}]]</td>
+		                        <td class="board-content">[[${savingList.intrRateTypeNm}]]</td>
+		                    </tr>
+	                    </th:block>
+	                </table>
+	                <div class="table-buttons">
+	                    <button th:onclick="|movePage('/bank/bankDeposit?pageSaving=1','1');|" class="table-button">&lt;</button>
+	                    <button th:onclick="|movePage('/bank/bankDeposit?pageSaving=${pageSavingInfo.prevPage}','1');|" class="table-button">&lt;</button>
+	                    <th:block th:each="num, status : ${#numbers.sequence(pageSavingInfo.startPage, pageSavingInfo.endPage)}">
+							<th:block th:if="${status.current == pageSavingInfo.currentPage}">
+								<button class="table-button" disabled >[[${status.current}]]</button>
+							</th:block>
+							<th:block th:if="${status.current != pageSavingInfo.currentPage}">
+								<button th:onclick="|movePage('/bank/bankDeposit?pageSaving=${status.current}','1');|" class="table-button">
+									[[${status.current}]]
+								</button>
+							</th:block>
+						</th:block>
+	                    <button th:onclick="|movePage('/bank/bankDeposit?pageSaving=${pageSavingInfo.nextPage}','1');|" class="table-button">&gt;</button>
+	                    <button th:onclick="|movePage('/bank/bankDeposit?pageSaving=${pageSavingInfo.maxPage}','1');|" class="table-button">&gt;&gt;</button>
+	                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- 상품 검색 끝 -->
+</main>
+
+<footer th:replace="~{layout/footer :: #footer}"></footer>
+
+
+<th:block th:replace="layout/scripts :: scripts"></th:block>
+<!-- 테이블 탭 -->
+<script>
+    const tapbtnDeposit = document.querySelector('.tapbtnDeposit');
+    const tapbtnSaving = document.querySelector('.tapbtnSaving');
+	const deposit = document.querySelector('#deposit');
+    const saving = document.querySelector('#saving');
+    /* 메뉴 클릭하면 함수 실행 */
+    tapbtnDeposit.addEventListener("click",()=>{
+    	saving.classList.remove("slideOpen");
+    	tapbtnSaving.classList.remove("checkedMenu");
+    	deposit.classList.add("slideOpen");
+    	tapbtnDeposit.classList.add("checkedMenu");
+    });
+    tapbtnSaving.addEventListener("click",()=>{
+    	deposit.classList.remove("slideOpen");
+    	tapbtnDeposit.classList.remove("checkedMenu");
+    	saving.classList.add("slideOpen");
+        tapbtnSaving.classList.add("checkedMenu");
+    });
+</script>
+<!-- 테이블 페이징 -->
+<script type="text/javascript">
+	function movePage(pageUrl, isCheck){
+		var searchValue = document.getElementById("search-bank"); // 갤럭시
+		if(searchValue.value.length != 0){
+			pageUrl = pageUrl + '&searchValue=' + searchValue.value; 
+		}
+		pageUrl = pageUrl + '&check='+isCheck;
+		location.href = encodeURI(pageUrl);
+	}
+</script>
+</body>
+
+</html>

@@ -1,0 +1,339 @@
+.section-header{
+  padding-bottom: 30px;
+  }
+  .stock-mainTitle,.stock-mainSubtitle,.search_input{
+    font-family: 'IBM Plex Sans KR', sans-serif;
+  }
+  
+  /*검색 결과 창*/
+  .search_container{
+    margin-top: 70px;
+    margin-bottom: 70px;
+  }
+  .search_details{
+    background-color: white;
+    width: 1100px;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 40px;
+  }
+  .search_title,.search_form,.search_btn{
+    font-family: 'IBM Plex Sans KR', sans-serif;
+  }
+  .search_title{
+    text-align: center;
+  }
+  .search_form{
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 13px;
+  }
+  .search_input{
+    width: 350px;
+    padding-left: 10px;
+    border: none;
+    border-bottom: 1px solid black;
+    margin-right: 10px;
+  }
+  .search_input:focus{outline:none;}
+  .search_btn{
+    background-color: rgb(13, 27, 72);
+    border: 3px solid rgb(13, 27, 72);
+    color: white;
+    width: 50px;
+    border-radius: 4px;
+    margin-top: 15px;
+  }
+  .search_btn:hover{
+    border: 3px solid rgb(13, 27, 72);
+    background-color: white;
+    color: rgb(13, 27, 72);
+    transition: all .3s;
+  }
+  
+  /*검색결과*/
+  .search_result{margin-bottom: 30px;}
+  .recommend_keywords{
+    width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+  }
+  .recommend,.seaching_keyword{
+    font-family: 'IBM Plex Sans KR', sans-serif;
+  }
+  .recommend{margin-right: 30px;}
+  
+  
+  
+  
+  /*추천검색어*/
+  .reccomend_keywords_btns{
+    display: flex;
+  }
+  .seaching_keyword{
+    padding: 0px 20px;
+    margin: 0px 15px;
+    width: 120px;
+    height: 40px;
+    border-radius: 30px 30px 30px 30px;
+    border: 2px solid  rgb(13, 27, 72);
+    color:  rgb(13, 27, 72);
+    background-color: transparent;
+    text-align: center;
+    line-height: 28px;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .seaching_keyword:hover{
+    background-color:  rgb(13, 27, 72);
+    color:  white;
+    transition: all 0.3s;
+  }
+  
+  
+  
+  /* 검색 결과 탭*/
+  .search_result_tab{margin-bottom: 20px;}
+  .housesell{margin-top: 15px;}
+  .tab-link,.search_result_description,
+  .homeBlue_title,.homesell_title
+  { font-family: 'IBM Plex Sans KR', sans-serif;}
+  
+  .homeBlue_title,.homesell_title{margin-bottom: 25px;}
+  ul.tabs{
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    display: flex;
+  }
+  .tab-link{
+    justify-content: space-between;
+    height:40px;
+    font-size: 18px;
+    font-weight: 600;
+    width: 250px;
+    text-align: center;
+    border: 1px solid  rgb(13, 27, 72);
+    cursor: pointer;
+    line-height: 40px;
+  }
+  
+  ul.tabs li.current{
+    background:  rgb(13, 27, 72);
+    color: white;
+  }
+  
+  .tab-content{
+    width: 1100px;
+    display: none;
+    padding: 30px 10px;
+    min-height: 200px;
+  }
+  
+  .tab-content.current{
+    display: inherit;
+  }
+  
+  
+  
+  /*금융*/
+  .board_table_bank{
+    margin-top: 30px;
+    text-align: center;
+    width: 1080px;
+  }
+  .table-header_bank{height: 50px;}
+  .table_header_bank,.board-content_bank{
+    font-family: 'IBM Plex Sans KR', sans-serif;
+  }
+  .board_table_bank td{
+    border-top: 1px solid lightgray;
+    font-weight: 500;
+  }
+  .board-content_bank{height: 50px; font-size: 17px;}
+  .bank_title{text-align: left;   padding-left: 20px;}
+  .img{
+    width: 70px; 
+    height: 30px;
+    padding-left: 30px;
+  }
+  .logo{
+    max-width: 70px;
+    max-height: 30px;
+  }
+  
+  .none{font-size: 17px;}
+  .table-header{height: 50px;}
+  
+  .increase{ color: rgb(231, 76, 60);}
+  .decrease{color:  rgb(52, 152, 219);}
+  
+  /*부동산*/
+  
+  .more{
+    background-color: transparent;
+    border: 2px solid rgb(13, 27, 72);
+    color: rgb(13, 27, 72);
+    border-radius: 5px;
+  }
+  .more:hover{
+    background-color: rgb(13, 27, 72);
+    color: white;
+  }
+  
+  
+  
+  /*뉴스*/
+  .board_table_news{  
+    margin-top: 30px;
+    text-align: center;
+    width: 1080px;
+    text-overflow: ellipsis !important;
+  }
+  .board_table_news td{
+    border-top: 1px solid lightgray;
+    font-weight: 500;
+  }
+  .board-content_news{font-family: 'IBM Plex Sans KR', sans-serif; font-size: 17px;}
+  .number{
+    min-width: 50px;
+  }
+  .news_title{
+    text-align: left;
+    max-width: 330px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .board-content_news.news_contents{
+    font-weight: 400;
+    text-align: justify;
+    padding: 15px 20px;
+    max-width: 350px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  
+  /*게시판*/
+  .board_table{
+    margin-top: 30px;
+    text-align: center;
+    width: 1080px;
+  }
+  .table_header,.board-content{
+    font-family: 'IBM Plex Sans KR', sans-serif;
+  }
+  .board_table td{
+    border-top: 1px solid lightgray;
+    font-weight: 500;
+  }
+  .board-content{height: 50px; font-size: 17px;}
+  .title{
+    text-align: left;
+    padding-left: 30px;
+  }
+  .search_result_description{
+    margin-top: 10px;
+    margin-top: 10px;
+  }
+  
+  
+  
+  .table-buttons{
+    text-align: center;
+    margin: 20px 0px;
+  }
+  
+  .table-button{
+    width: 35px;
+    height: 30px;
+    background-color: white;
+    color:  rgb(13, 27, 72);
+    border: 1px solid  rgb(13, 27, 72);
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  .table-button:hover{
+    background-color:rgb(13, 27, 72) ;
+    color: white;
+  }
+  
+  /*마지막stock랭킹*/
+  .stock__total{
+    background-color: rgb(248, 248, 248);
+    padding: 10px ;
+  }
+  .stock__total_table{
+    display: flex;
+    margin: 20px auto;
+    width: 1200px;
+    justify-content: center;
+    margin-bottom: 0px;
+  }
+  .stock__table{
+    width: 400px;
+    height: 250px;
+    background-color: white;
+    margin: 20px 10px;
+    padding: 30px 25px;
+    justify-content: left;
+  }
+  .stock{
+    margin: 0px auto;
+    margin-top: 15px;
+  }
+  .stock td{
+    padding:2px 10px;
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    border-bottom: 1px solid lightgray;
+    font-weight: 500;
+  }
+  .rank_title{
+    padding-left: 25px;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .nasdaq, .adver{
+    height: 390px;
+  }
+  .adver{
+    width: 200px;
+    border: 1px solid lightgray;
+  }
+  .down{color: rgb(52, 152, 219);}
+  .up{ color: rgb(231, 76, 60);}
+  
+  /*광고부분*/
+  .adver__Title,.adver__description{
+    font-family: 'IBM Plex Sans KR', sans-serif;
+  }
+  .adver__description{
+    font-weight: 400;
+    text-align: justify;
+    margin-bottom: 100px;
+  }
+  .adver_btn{
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    background-color: rgb(13, 27, 72);
+    color: white;
+    width: 100px;
+    height: 40px;
+    border-radius: 4px;
+    margin-top: 15px;
+  }
+  .adver_btn:hover{
+    border: 2px solid  rgb(13, 27, 72);
+    background-color: transparent;
+    color:  rgb(13, 27, 72);
+    transition: all .3s;
+  }
+  .adver i{
+    width: 5px;
+    height: 50px;
+    font-size: 40px;
+    color: rgb(13, 27, 72);
+    margin-bottom: 20px;
+  }

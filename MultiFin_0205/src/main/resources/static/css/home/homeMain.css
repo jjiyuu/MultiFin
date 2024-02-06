@@ -1,0 +1,267 @@
+.home-mainTitle,.home-mainSubtitle,.location,.date,
+.search_btn,.reset_btn,.search_more,.map_view,.more_title,.more_body{
+ font-family: 'IBM Plex Sans KR', sans-serif;
+}
+/*검색부분 지도*/
+.more_body{
+    font-size: 16px;
+    font-weight: 400;
+}
+.more_title{
+    font-size: 20px;
+}
+.search_result{
+    font-size: 16px;
+}
+
+
+/*청약지도*/
+.auction_main_container{
+    margin: 0 auto;
+    margin-bottom: 80px;
+    width: 1200px;
+    justify-content: center;
+}
+.auction{
+    display: flex;
+    justify-content: space-between;
+}
+.map{width: 650px;}
+.detail{width: 500px;}
+.map,.detail{
+    border: 1px solid lightgray;
+    padding: 30px 50px;
+    min-height:570px;
+    max-height: 570px;
+    border-radius: 5px;
+}
+.map_title,.detail_title{display: flex; margin-bottom: 10px;}
+.map_title>i,
+.detail_title>i{
+    font-size: 30px;
+    margin-right: 20px;
+}
+.title{
+    font-family: 'IBM Plex Sans KR', sans-serif; 
+    font-weight: 700;
+    font-size: 25px;
+}
+.more_btn{
+    width: 400px;
+    height: 45px;
+    margin-top: 35px;
+    border: 2px solid rgb(13, 27, 72) ;
+    background-color: rgb(13, 27, 72);
+    color: white;
+    font-weight: 600;
+}
+.more_btn:hover{
+    color: rgb(13, 27, 72);
+    background-color: transparent;
+    transition: all 0.4s;
+}
+
+
+/*청약 일정*/
+.auction_info{
+    margin: 0 auto;
+    margin-bottom: 80px;
+    width: 1200px;
+    justify-content: center;
+}
+.address{ 
+    display: flex;
+    justify-content: center;
+    color:rgb(13, 27, 72);
+    font-weight: 500;
+}
+.adress_decription{
+    max-width: 400px;
+    height: 35px;
+    margin: 0px auto;
+    background-color: lightgray;
+    border-radius: 4px;
+    padding: 5px 20px;
+    margin: 0px;
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    font-size: 17px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/*리스트*/
+.board-table{
+    width: 100%;
+    border-top: 1px solid rgb(13, 27, 72);
+    border-bottom: 1px solid rgb(13, 27, 72);
+    border-collapse: collapse;
+}
+.table-header{
+    padding: 10px 5px;
+    background-color: rgb(13, 27, 72);
+}
+
+.board-content{
+    text-align: center;
+    padding: 10px 0px;
+    border-bottom: 1px solid rgb(13, 27, 72);
+    font-weight: 500;
+    font-size: 17px;
+}
+.board-table td{height: 55px;}
+.board_title{font-weight: 600;}
+.board_type{font-weight: 600; color: gray;}
+.board-table tr:hover{ background-color:rgb(248, 248, 248); }
+
+/*매물*/
+.item{width:380px;}
+.sell-info-section{
+    margin: 0 auto;
+    margin-bottom: 50px;
+    justify-content: center;
+    background-color: rgb(245, 249, 254);
+    padding: 80px 0px;
+    padding-bottom: 50px;
+}
+.sell-info-container{
+    width: 1200px;
+    justify-content: center;
+    margin: 0 auto;
+}
+.sell-title,.sub_title{
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    text-align: center;
+}
+
+.sell-cards{
+    margin-top: 50px;
+}
+
+
+.more_view{width: 1200px; margin: 0 auto;}
+.sell_description_title,.detail,.info,.sell-location,.now{
+    font-family: 'IBM Plex Sans KR', sans-serif;
+}
+.sell_description_title{line-height: 35px; font-weight: 700;}
+.sell-location{font-weight: 500;}
+.detail{font-size: 16px; line-height: 30px;}
+.now{font-weight: 500; font-size: 16px;}
+.money{height:30px ;}
+.info{font-size: 18px; font-weight: 600;}
+.percent{margin-bottom: 0px;}
+
+
+/*청약 상세*/
+.description_title{font-size: 18px;font-weight: 600; }
+.start,.end{font-size: 16px; font-weight: 400;}
+.date{
+    display: flex;
+    justify-content: space-between;
+}
+hr{
+    background-color: lightgray;
+    margin:15px 0px;
+}
+
+/*
+    뉴스와 커뮤니티
+*/
+#news_commu{ 
+    width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 40px;
+}
+.mainFinalSec{
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+.notice_title{
+    display: flex;
+    width:540px;
+    margin: 0 auto;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.commu_title{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0px;
+}
+.moreview{
+    font-size: 19px;
+    height: 30px;
+    padding-top: 7px;
+}
+.moreview>a{
+    color:rgb(13, 27, 72); 
+    vertical-align: center;
+}
+.moreview i{padding-top: 6px;}
+.More_title{font-weight: 600; margin-right: 3px;}
+
+.board_c_title{
+    width: 450px;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    margin-top: 10px;
+}
+
+
+/* 커뮤니티 */
+.home-notice-table{
+    width:590px !important;
+    margin: 0 auto;
+    justify-content: center;
+    margin-top: 15px;
+}
+.table_content>td{
+    height: 55px; 
+    font-weight: 500;
+    border-bottom: 1px solid lightgray;
+}
+.table_content a{    
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    color: rgb(13, 27, 72);
+    font-weight: 600;
+}
+.c_title{
+    max-width: 400px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+/*notice*/
+.noticeBox{width: 550px;}
+.notice{
+    display: flex;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+}
+.notice:hover{
+    border: 1px solid orange;
+}
+.notice-title,.notice-date{font-family: 'IBM Plex Sans KR', sans-serif;}
+.notice_logo{ 
+    background-color: rgb(52, 152, 219); 
+    color: white;
+    border-radius: 4px;
+    width: 70px;
+    height: 34px;
+    text-align: center;
+    padding: 5px;
+    vertical-align: middle;
+    font-weight: 600;
+    margin-right: 10px;
+}
+.notice-title{
+    width: 400px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+.notice-date{margin-bottom: 0px; color: gray;}

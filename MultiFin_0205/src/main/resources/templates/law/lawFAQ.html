@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="layout/head :: config"></th:block>
+	<title>MultiFin:자주묻는 질문</title>
+	<!-- 현재 페이지에서만 쓰는 css, script -->
+	<link type="text/css" th:href="@{/css/law/lawMain.css}" rel="stylesheet">
+	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+<header th:replace="~{layout/header :: #header}"></header>
+    <main>
+        <section class="section section-header section-image bg-primary overlay-primary text-white"  data-background="./img/network.jpg">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-10 text-center">
+                        <h1 class="mb-3 stock-mainTitle">자주 묻는 질문</h1>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section bg-white">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-lg-8">
+                        <!--Accordion-->
+                        <div class="accordion mt-5">
+                            <div class="card card-sm card-body border-light mb-0">
+                                <a href="#panel-what-is-spaces" data-target="#panel-what-is-spaces"
+                                    class="accordion-panel-header" data-toggle="collapse" aria-expanded="false"
+                                    aria-controls="panel-what-is-spaces">
+                                    <span class="icon-title h6 mb-0 font-weight-bold">전세가 만료 되었는데 주인이 전세금을 돌려주지 않습니다.
+                                        전세금 반환 소송을 하면 전세금을 다 돌려받을 수 있나요?</span>
+                                    <span class="icon"><span class="fas fa-plus"></span></span>
+                                </a>
+                                <div class="collapse" id="panel-what-is-spaces">
+                                    <div class="pt-3">
+                                        <p>주택임대차보호법에 따라 임대차계약 기간이 만료되기 6개월전 부터 2개월 전까지 임대인에게 임대차계약이 종료되었다는 사실 및 전세금 반환
+                                            의무가 있다는 사실을 통지하면 가능합니다!</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card card-sm card-body border-light mb-0">
+                                <a href="#panel-demo" data-target="#panel-demo" class="accordion-panel-header"
+                                    data-toggle="collapse" aria-expanded="false" aria-controls="panel-demo">
+                                    <span class="icon-title h6 mb-0 font-weight-bold">주택청약에 당첨 되었는데 소유권 이전 등기는 언제 신청하면
+                                        되는 걸까요?</span>
+                                    <span class="icon"><span class="fas fa-plus"></span></span>
+                                </a>
+                                <div class="collapse" id="panel-demo">
+                                    <div class="pt-3">
+                                        <p class="mb-0">준공검사 완료 후 보전등기가 진행이 된 다음 60일 이내에 이전 등기가 의무화 되어있습니다.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card card-sm card-body border-light mb-0">
+                                <a href="#panel-updates" data-target="#panel-updates" class="accordion-panel-header"
+                                    data-toggle="collapse" aria-expanded="false" aria-controls="panel-updates">
+                                    <span class="icon-title h6 mb-0 font-weight-bold">펀드에 가입하려면 어떻게 해야하나요?</span>
+                                    <span class="icon"><span class="fas fa-plus"></span></span>
+                                </a>
+                                <div class="collapse" id="panel-updates">
+                                    <div class="pt-3">
+                                        <p>펀드 가입을 위해서는 펀드를 판매하는 판매회사(은행, 증권, 보험사 등)에 적어도 한 번은 방문하셔야 합니다. 판매회사의 홈페이지나
+                                            홈트레이딩시스템(HTS)을 통해서도 가입이 가능하나 실명확인 절차가 반드시 필요하므로 판매회사의 영업점에 방문하셔야 합니다. 판매회사의
+                                            거래계좌(증권회사의 경우 위탁계좌 등)를 이미 가지고 계신 분이라면 해당 판매회사에 실명확인을 거친 상태이므로 홈페이지나 HTS를 통해
+                                            펀드 가입이 가능합니다. 다만, 판매회사의 시스템 인프라 또는 판매정책에 따라 홈페이지나 HTS를 통해 거래할 수 있는 펀드의 종류나
+                                            거래방법 등이 다를 수 있으므로 해당 판매회사의 고객센터로 연락하셔서 정확한 내용을 파악하신 후 거래하시기 바랍니다. 저희 멀티핀의
+                                            펀드를 판매하고 있는 판매회사에 대한 자세한 정보(회사명, 콜센타. 홈페이지 주소 등)는 "고객센터>판매사안내" 에서 확인하실 수
+                                            있습니다.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card card-sm card-body border-light mb-0">
+                                <a href="#panel-money-back" data-target="#panel-money-back"
+                                    class="accordion-panel-header" data-toggle="collapse" aria-expanded="false"
+                                    aria-controls="panel-money-back">
+                                    <span class="icon-title h6 mb-0 font-weight-bold">펀드 투자시 원금은 보존되나요?</span>
+                                    <span class="icon"><span class="fas fa-plus"></span></span>
+                                </a>
+                                <div class="collapse" id="panel-money-back">
+                                    <div class="pt-3">
+                                        <p>펀드는 원금이 보존되지 않습니다. 왜냐하면 펀드에서 투자한 주식, 채권 등 자산 가격의 하락으로 펀드 투자실적은 손실 발생(원금 손실)이
+                                            가능한데, 펀드는 이 투자실적을 그대로 돌려주는 실적배당형 금융상품이기 때문에 그렇습니다. 따라서 펀드 투자 시에는 가급적 여유자금을
+                                            장기투자, 분산투자, 적립식투자의 방법으로 투자하는 것이 현명한 방법이라고 판단됩니다. 또한 연령, 소득, 위험선호도, 은퇴시기,
+                                            투자목적 등을 고려하여 그에 맞는 펀드 투자를 계획하는 것이 중요합니다.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card card-sm card-body border-light mb-0">
+                                <a href="#panel-support1" data-target="#panel-support1" class="accordion-panel-header"
+                                    data-toggle="collapse" aria-expanded="false" aria-controls="panel-support1">
+                                    <span class="icon-title h6 mb-0 font-weight-bold">모의투자는 어떻게 하나요?</span>
+                                    <span class="icon"><span class="fas fa-plus"></span></span>
+                                </a>
+                                <div class="collapse" id="panel-support1">
+                                    <div class="pt-3">
+                                        <p class="mb-0">멀티핀 홈페이지에서 회원가입을 해주세요. 기존회원이시거나 가입되셨다면 계좌개설을 신청해주세요.신청이 완료되었다면
+                                            금액 설정 후 투자종목을 선정해주세요.종목 선정이 완료되셨다면 종목을 구매하시면 됩니다.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card card-sm card-body border-light mb-0">
+                                <a href="#panel-support2" data-target="#panel-support2" class="accordion-panel-header"
+                                    data-toggle="collapse" aria-expanded="false" aria-controls="panel-support2">
+                                    <span class="icon-title h6 mb-0 font-weight-bold">주택임대차계약서 작성방법에 대해서 알려주세요</span>
+                                    <span class="icon"><span class="fas fa-plus"></span></span>
+                                </a>
+                                <div class="collapse" id="panel-support2">
+                                    <div class="pt-3">
+                                        <p class="mb-0">주택임대차계약서는 계약 당사자 간의 서명 또는 기명날인이 있는 완성된 문서이어야 하기 때문에
+                                            주택임대차계약서 작성 시 할인과 간인을 사용하여 서류를 입증해야 한답니다.
+                                            만약 연결되는 글자에 빈 공간이 있거나 내용을 수정하는 경우가 있다면,
+                                            도장을 찍어 빈 공간에 계약에 대해 오해할 소지가 없도록 해야 해요. 
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card card-sm card-body border-light mb-0">
+                                <a href="#panel-support3" data-target="#panel-support3" class="accordion-panel-header"
+                                    data-toggle="collapse" aria-expanded="false" aria-controls="panel-support3">
+                                    <span class="icon-title h6 mb-0 font-weight-bold">계약의 상대방이 집 주인(주택 소유자)가 맞는지 어떻게 확인할 수 있나요?</span>
+                                    <span class="icon"><span class="fas fa-plus"></span></span>
+                                </a>
+                                <div class="collapse" id="panel-support3">
+                                    <div class="pt-3">
+                                        <p class="mb-0">계약의 상대방이 집 주인(주택 소유자)가 맞는지는 신분증과 등기부등본을 대조하여 확인할 수 있습니다. 등기부등본은 인터넷등기소에서 누구나 발급받을 수 있습니다.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card card-sm card-body border-light mb-0">
+                                <a href="#panel-support4" data-target="#panel-support4" class="accordion-panel-header"
+                                    data-toggle="collapse" aria-expanded="false" aria-controls="panel-support4">
+                                    <span class="icon-title h6 mb-0 font-weight-bold">전세계약 전 등기부등본에서는 무엇을 확인해야하나요?</span>
+                                    <span class="icon"><span class="fas fa-plus"></span></span>
+                                </a>
+                                <div class="collapse" id="panel-support4">
+                                    <div class="pt-3">
+                                        <p class="mb-0">표제부 – 주택의 주소가 내가 계약하려는 집과 같은지, 건축물 용도가 주택이 맞는지, 내가 임차하려는 주택 면적과 일치하는지
+                                            갑구 – 건물의 현재 소유자가 누구인지, 압류·가압류 등 권리침해사항은 없는지
+                                            을구 – 근저당권 설정금액이 주택가격에 비추어 적정 수준인지
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card card-sm card-body border-light mb-0">
+                                <a href="#panel-support5" data-target="#panel-support5" class="accordion-panel-header"
+                                    data-toggle="collapse" aria-expanded="false" aria-controls="panel-support5">
+                                    <span class="icon-title h6 mb-0 font-weight-bold">전세계약을 갱신한 경우 계약서에 확정일자를 다시 받아야 하나요?</span>
+                                    <span class="icon"><span class="fas fa-plus"></span></span>
+                                </a>
+                                <div class="collapse" id="panel-support5">
+                                    <div class="pt-3">
+                                        <p class="mb-0">전세계약을 갱신하는 경우 보증금이 증액되지 않았다면 확정일자를 다시 받지 않아도 됩니다. 다만, 전세보증금이 증액되었다면 증액된 보증금에 대한 우선변제권을 확보하기 위해 확정일자를 다시 받아야 합니다.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card card-sm card-body border-light mb-0">
+                                <a href="#panel-support6" data-target="#panel-support6" class="accordion-panel-header"
+                                    data-toggle="collapse" aria-expanded="false" aria-controls="panel-support6">
+                                    <span class="icon-title h6 mb-0 font-weight-bold">전세계약을 체결하고 거주하고 있는 중에 임대인이 잠시 주택에서 전출해 달라고 요청합니다.임대인의 부탁을 거절하기 어려운데 임대인의 요청대로 해도 되나요?</span>
+                                    <span class="icon"><span class="fas fa-plus"></span></span>
+                                </a>
+                                <div class="collapse" id="panel-support6">
+                                    <div class="pt-3">
+                                        <p class="mb-0">전출하면 주택임대차보호법 상의 대항력을 상실하게 됩니다. 보증금에 대한 대항력을 유지하기 위해 반드시 주민등록 전입과 주택에 대한 점유를 유지해야 합니다.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card card-sm card-body border-light mb-0">
+                                <a href="#panel-support7" data-target="#panel-support7" class="accordion-panel-header"
+                                    data-toggle="collapse" aria-expanded="false" aria-controls="panel-support7">
+                                    <span class="icon-title h6 mb-0 font-weight-bold">전세사기를 당한거 같아요 어디서 도움을 받을 수 있나요?</span>
+                                    <span class="icon"><span class="fas fa-plus"></span></span>
+                                </a>
+                                <div class="collapse" id="panel-support7">
+                                    <div class="pt-3">
+                                        <p class="mb-0">
+                                            전세피해자지원센터 https://www.khug.or.kr/hug/web/cs/sc/cssc000104.jsp
+                                            주택임대차분쟁조정위원회 https://www.hldcc.or.kr/
+                                            대한법률구조공단 https://www.klac.or.kr/
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--End of Accordion-->
+                    </div>
+                </div>
+                <div class="row mt-lg-5 mt-5">
+                    <div class="col text-center">
+                        <p class="text-italic">찾으시는 항목이 없으신가요?</p>
+                        <a href="https://www.easylaw.go.kr/CSP/CsmSortRetrieveLst.laf?sortType=cate&csmAstSeq=3&search_put=" class="btn btn-sm btn-outline-primary"
+                            target="_blank">생활법령찾기</a>
+                    </div>
+                </div>
+</section>
+    </main>
+    <footer th:replace="~{layout/footer :: #footer}"></footer>
+<th:block th:replace="layout/scripts :: home_scripts"></th:block>
+</body>
+</html>

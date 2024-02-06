@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="layout/head :: config"></th:block>
+	<title>MultiFin:나의계좌</title>
+	<!-- 현재 페이지에서만 쓰는 css, script -->
+	<link rel="stylesheet" type="text/css" th:href="@{/css/member/account.css}">
+	<!--주식차트-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+<header th:replace="~{layout/header :: #header}"></header>
+    <main>
+        <div class="section section-lg bg-soft">
+            <div class="container">
+                <div class="row pt-5 pt-md-0">
+                    <div class="col-12 col-md-4 d-none d-lg-block">
+                        <div class="card border-light p-2">
+                            <div class="card-body p-2">
+                                <div class="profile-thumbnail small-thumbnail mx-auto">
+                                    <img src="../../assets/img/member/mypage_img01 copy.jpg" class="card-img-top rounded-circle border-white" alt="Joseph Portrait">
+                                </div>
+                                <h2 class="h5 font-weight-normal text-center mt-3 mb-0">[[${session.loginMember.name}]]</h2>
+                                <div class="list-group dashboard-menu list-group-sm mt-4">
+                                    <a href="member/account" class="d-flex list-group-item list-group-item-action title active">나의 계좌 <span class="icon icon-xs ml-auto"><span class="fas fa-chevron-right"></span></span> </a>
+                                    <a href="/member/mypage" class="d-flex list-group-item list-group-item-action title">회원정보변경<span class="icon icon-xs ml-auto"><span class="fas fa-chevron-right"></span></span> </a>
+                                    <a href="/member/mywrite" class="d-flex list-group-item list-group-item-action title">내 글 보기<span class="icon icon-xs ml-auto"><span class="fas fa-chevron-right"></span></span> </a>
+                                    <a href="/member/myreply" class="d-flex list-group-item list-group-item-action title">내 댓글 보기<span class="icon icon-xs ml-auto"><span class="fas fa-chevron-right"></span></span> </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-8">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card card-body bg-white border-light mb-4 pt-5 pb-5 pl-5 pr-5">
+                                    <h2 class="h5 mb-5 font-weight-bolder">나의 계좌</h2>
+                                   	<h5 class="mb-3">보유 자산</h5>
+                               		<h4 class="font-weight-bolder"> 1,100,000 원 </h4>
+                               		<a href="/stock/stockTest#stock_genre"> <h6 class="order" style="color:gray"> 주문 가능 금액 &nbsp; 400,000원 &nbsp; > </h6> </a>
+                               		<hr>	
+                                    <div class="point">
+	                                    <div class="basic-money">
+	                                    	<h5 class="mb-2"> 투자 원금 </h5>
+	                                  		<h4 class="font-weight-bold mb-1">1,000,000 원</h4>
+	                                    </div>
+	                                    <div class="change-money">
+	                                    	 <h5 class="mb-2"> 평가 손익 </h5>
+	                                   		 <h4 class="font-weight-bold mb-1 increase">+ 100,000 원</h4>
+	                                    </div>
+                                    </div>
+                                    <hr>
+	                                <div class="change-money mb-4">
+	                                    <h5 class="mb-2"> 보유 주식 현황 </h5>
+	                                </div> 
+	                                <div class="companies">
+				                        <div class="company">
+				                            <div class="company_category">
+				                                <div class="company_logo">S</div>
+				                                <div class="company_detail">
+				                                    <h6 class="company_name">삼성전자</h6>
+				                                    <h6 class="company_have_stock">10주</h6>
+				                                </div>
+				                            </div>
+				                            <div class="company_money">
+				                                <h5 class="now_money"> 700,000 원 </h5>
+				                                <h6 class="now_percent increase">+100,000원</h6>
+				                            </div>
+				                        </div>
+				                    </div>
+				                    <hr>
+				                    <div>
+										<h5 class="mb-2"> 최근 자산 현황 </h5>
+										 <div class="stock-graph-section">
+					                        <canvas id="MY_ACCOUNT" style="width:500px; height: 150px; padding-top: 20px;"></canvas>
+					                    </div>
+				                    </div>
+                                    <button type="button" class="btn btn-primary mt-5"  onclick="location.href='/stock/stockTest'"> 모의투자 하러가기 </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+<footer th:replace="~{layout/footer :: #footer}"></footer>
+<th:block th:replace="layout/scripts :: scripts"></th:block>
+<script th:src="@{/assets/js/account.js}"></script>
+</body>
+</html>

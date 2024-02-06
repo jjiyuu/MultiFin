@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- 이인희 수정할 부분 -->
+<th:block th:replace="layout/head :: config"></th:block>
+<title>MultiFin:주가동향예측</title>
+<!-- 현재 페이지에서만 쓰는 css, script -->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/stock/stockFund.css}">
+<!--주식차트-->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+	<header th:replace="~{layout/header :: #header}"></header>
+	<!-- Hero -->
+	<section
+		class="section-header section-image bg-primary overlay-primary text-white"
+		data-background="../../assets/img/stock/earth.jpg">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-12 col-md-10 text-center">
+					<h1 class="mb-3 fund-mainTitle">주가 동향 확인 / 예측</h1>
+					<p class="lead px-lg-5 mb-5 fund-mainSubtitle">MULTIFIN에서는 주가 동향과 예측 정보를 제공해서<br>
+					 합리적인 투자에 도움을 드리고자 합니다!</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Flask 서버 가져오기 -->
+	<section class="fund_predicate mt-5 mb-5">
+		<iframe src="http://127.0.0.1:5000/" style="width:100%; height:100%;" alt="페이지를 불러올 수 없습니다."></iframe>
+	</section>
+	
+	<footer th:replace="~{layout/footer :: #footer}"></footer>
+	<th:block th:replace="layout/scripts :: scripts"></th:block>
+	
+	
+</body>
+</html>

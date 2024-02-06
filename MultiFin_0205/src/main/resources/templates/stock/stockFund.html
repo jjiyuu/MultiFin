@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- 이인희 수정할 부분 -->
+<th:block th:replace="layout/head :: config"></th:block>
+<title>MultiFin:펀드</title>
+<!-- 현재 페이지에서만 쓰는 css, script -->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/stock/stockFund.css}">
+<!--주식차트-->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+	<header th:replace="~{layout/header :: #header}"></header>
+	<!-- Hero -->
+	<section
+		class="section-header section-image bg-primary overlay-primary text-white"
+		data-background="../../assets/img/stock/earth.jpg">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-12 col-md-10 text-center">
+					<h1 class="mb-3 fund-mainTitle">펀드</h1>
+					<p class="lead px-lg-5 mb-5 fund-mainSubtitle">MULTIFIN에서 국내 ·
+						미국 주식 정보를 비교해보고 투자 전략을 세워보세요!</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="fund_main mt-5 mb-5">
+		<div class="slide slide_wrap">
+			<div class="slide_item item1">
+				<img class="box"
+					src="http://kim.koreainvestment.com/images/main/main_slide1.png"
+					alt="">
+			</div>
+			<div class="slide_item item2">
+				<img class="box"
+					src="http://kim.koreainvestment.com/images/main/main_slide2.png"
+					alt="">
+			</div>
+			<div class="slide_item item3">
+				<img class="box"
+					src="http://kim.koreainvestment.com/images/main/main_slide3.png"
+					alt="">
+			</div>
+			<div class="slide_item item4">
+				<img class="box"
+					src="http://kim.koreainvestment.com/images/main/main_slide12.png"
+					alt="">
+			</div>
+			<div class="slide_prev_button slide_button">
+				<i class="fa-solid fa-angle-left fa-3x"></i>
+			</div>
+			<div class="slide_next_button slide_button">
+				<i class="fa-solid fa-angle-right fa-3x"></i>
+			</div>
+			<ul class="slide_pagination"></ul>
+		</div>
+		<div class="fund_front">
+			<!-- 국내펀드 -->
+			<div class="fund_intro fund01">
+				<a href="http://kim.koreainvestment.com/fund/domestic_theme_gate.do?flag=1" target="_blank">
+					<h4 class="fund-title">국내 펀드</h4>
+					<div>
+						<div class="fund-subContainer">
+							<a class="sub-body" href="http://kim.koreainvestment.com/fund/domestic_theme_gate.do?flag=1" target="_blank">
+								<h5 class="fund-sub">주식형펀드</h5> <i
+								class="fa-solid fa-angle-right fa-3x"></i>
+							</a> <a class="sub-body" href="http://kim.koreainvestment.com/fund/domestic_theme_gate.do?flag=2" target="_blank">
+								<h5 class="fund-sub">혼합형펀드</h5> <i
+								class="fa-solid fa-angle-right fa-3x"></i>
+							</a> <a class="sub-body" href="http://kim.koreainvestment.com/fund/domestic_theme_gate.do?flag=3" target="_blank">
+								<h5 class="fund-sub">채권형펀드</h5> <i
+								class="fa-solid fa-angle-right fa-3x"></i>
+							</a> <a class="sub-body" href="http://kim.koreainvestment.com/fund/fundTypeList.do?doGubun=1" target="_blank">
+								<h5 class="fund-sub">유형별펀드검색</h5> <i
+								class="fa-solid fa-angle-right fa-3x"></i>
+							</a>
+						</div>
+					</div>
+				</a>
+			</div>
+			<!-- 해외펀드 -->
+			<div class="fund_intro fund02">
+				<a href="http://kim.koreainvestment.com/fund/abroad_theme_gate.do?flag=1" target="_blank">
+					<h4 class="fund-title">해외 펀드</h4>
+					<div>
+						<div class="fund-subContainer">
+							<a class="sub-body" href="http://kim.koreainvestment.com/fund/abroad_theme_gate.do?flag=1" target="_blank">
+								<h5 class="fund-sub">이머징펀드</h5> <i
+								class="fa-solid fa-angle-right fa-3x"></i>
+							</a> <a class="sub-body" href="http://kim.koreainvestment.com/fund/abroad_theme_gate.do?flag=2" target="_blank">
+								<h5 class="fund-sub">선진국펀드</h5> <i
+								class="fa-solid fa-angle-right fa-3x"></i>
+							</a> <a class="sub-body" href="http://kim.koreainvestment.com/fund/abroad_theme_gate.do?flag=3" target="_blank">
+								<h5 class="fund-sub">섹터펀드</h5> <i
+								class="fa-solid fa-angle-right fa-3x"></i>
+							</a> <a class="sub-body" href="http://kim.koreainvestment.com/fund/fundTypeList.do?doGubun=2" target="_blank">
+								<h5 class="fund-sub">유형별펀드검색</h5> <i
+								class="fa-solid fa-angle-right fa-3x"></i>
+							</a>
+						</div>
+					</div>
+				</a>
+			</div>
+			<!-- 연금펀드 -->
+			<div class="fund_intro fund03">
+				<a href="http://kim.koreainvestment.com/fund/retire_theme_gate.do?flag=1" target="_blank">
+					<h4 class="fund-title">연금 펀드</h4>
+					<div>
+						<div class="fund-subContainer">
+							<a class="sub-body" href="http://kim.koreainvestment.com/fund/retire_theme_gate.do?flag=1" target="_blank">
+								<h5 class="fund-sub">TDF/TIF</h5> <i
+								class="fa-solid fa-angle-right fa-3x"></i>
+							</a> <a class="sub-body" href="http://kim.koreainvestment.com/fund/retire_theme_gate.do?flag=2" target="_blank">
+								<h5 class="fund-sub">개인연금저축펀드</h5> <i
+								class="fa-solid fa-angle-right fa-3x"></i>
+							</a> <a class="sub-body" href="http://kim.koreainvestment.com/fund/retire_theme_gate.do?flag=3" target="_blank">
+								<h5 class="fund-sub">퇴직연금펀드</h5> <i
+								class="fa-solid fa-angle-right fa-3x"></i>
+							</a> <a class="sub-body" href="http://kim.koreainvestment.com/fund/retireFundList.do" target="_blank">
+								<h5 class="fund-sub">유형별펀드검색</h5> <i
+								class="fa-solid fa-angle-right fa-3x"></i>
+							</a>
+						</div>
+					</div>
+				</a>
+			</div>
+			<!-- ETF -->
+			<div class="fund_intro fund04">
+				<a href="https://www.aceetf.co.kr/" target="_blank">
+					<h4 class="fund-title">ETF</h4>
+				</a>
+			</div>
+		</div>
+	</section>
+
+	
+	<footer th:replace="~{layout/footer :: #footer}"></footer>
+	<th:block th:replace="layout/scripts :: scripts"></th:block>
+	
+	
+</body>
+</html>
+
+<script type="text/javascript">
+	function movePage(pageUrl) {
+		var searchValue = document.getElementById("searchValue");
+		if (searchValue.value.length > 0) {
+			pageUrl = pageUrl + '&searchValue=' + searchValue.value;
+		} 
+		
+		location.href = encodeURI(pageUrl);
+	}
+</script>

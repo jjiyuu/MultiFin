@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//KO" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.multi.multifin.investedstock.model.mapper.InvestedStockMapper">
+	<!-- InvestedStock 테이블 -->
+	<resultMap type="INVESTEDSTOCK" id="InvestedStockResultMap">
+		<id property="orderNum" column="ORDERNUM" />
+		<result property="mNo" column="MNO" />
+		<result property="sNo" column="SNO" />
+		<result property="aNum" column="ANUM" />
+		<result property="id" column="ID"/>
+		<result property="orderDt" column="orderdt" />
+		<result property="stockCode" column="stockcode" />
+		<result property="stockNum" column="stockNUM" />
+		<result property="tradeStat" column="tradestat" />
+		<result property="price" column="price" />
+		<result property="cnt" column="cnt" />
+		<result property="totalPrice" column="totalPrice" />
+	</resultMap>
+	
+	<!-- 나의 체결 내역 전체 조회 -->
+	<select id="selectInvestedStockList" resultMap="InvestedStockResultMap" parameterType="map">
+		SELECT 
+		DISTINCT I.ORDERNUM, I.MNO, I.SNO, I.ANUM, I.orderdt, I.stockcode, I.stockNUM, I.tradestat, I.price, I.cnt, I.totalPrice  
+		FROM INVESTEDSTOCK AS I
+		LEFT OUTER JOIN MEMBER M ON I.MNO=M.MNO
+		WHERE M.ID = '${id}'
+		ORDER BY I.ORDERNUM DESC
+	</select>
+	
+	<!-- 체결 내역 삽입 -->
+	<insert id="insertInvestedStock" parameterType="InvestedStock">
+		INSERT INTO INVESTEDSTOCK(
+		ORDERNUM, MNO, SNO, ANUM, orderdt, stockcode, stockNUM, tradestat, price, cnt, totalPrice) 
+		VALUES(
+		0, 2, 43372, 1, default, 5930, 
+		#{stockNum}, #{tradeStat}, #{price}, #{cnt}, #{totalPrice}
+		)
+	</insert>
+	<!-- 나의 보유 주식 두개만 가져오기 -->
+	<select id="selectInvestedStockLimit2" resultMap="InvestedStockResultMap" parameterType="map">
+		SELECT 
+		DISTINCT I.ORDERNUM, I.MNO, I.SNO, I.ANUM, I.orderdt, I.stockcode, I.stockNUM, I.tradestat, I.price, I.cnt, I.totalPrice  
+		FROM INVESTEDSTOCK I
+		LEFT OUTER JOIN MEMBER M ON I.MNO=M.MNO
+		WHERE M.ID = '${id}' AND TRADESTAT = "매수"
+		ORDER BY ORDERNUM DESC LIMIT 2
+	</select>
+	<!-- 나의 보유 주식들의 totalPrice 가져오기 -->
+	<select id="selectTotalPrice" resultMap="InvestedStockResultMap" parameterType="map">
+		SELECT I.TOTALPRICE
+		FROM INVESTEDSTOCK AS I
+		LEFT OUTER JOIN MEMBER M ON I.MNO=M.MNO
+		WHERE M.ID = '${id}'
+	</select>
+	
+	<!-- 매수/매도한 주식 삭제 -->
+	<delete id="deleteInvestedStock" parameterType="int">
+		DELETE FROM INVESTEDSTOCK WHERE ORDERNUM=#{orderNum}
+	</delete>
+	
+</mapper>

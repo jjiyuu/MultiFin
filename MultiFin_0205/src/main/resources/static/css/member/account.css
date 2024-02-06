@@ -1,0 +1,61 @@
+
+.increase{ color: rgb(231, 76, 60);}
+.decrease{color:  rgb(52, 152, 219);}
+
+
+
+.point{display: flex; }
+.basic-money{width:300px;}
+.order:hover{ color: #C33C54 !important;}
+moeny_title,.moeny_title,.moeny_title{font-size: 18px;}
+
+.card_title{ margin-bottom: 30px; font-weight: 700;}
+.test_info_title{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+.money{font-weight: 700;}
+.account{
+  width: 100px;
+  height: 35px;
+  border-radius: 30px 30px 30px 30px;
+  background-color: rgb(13, 27, 72);
+  border: 2px solid  rgb(13, 27, 72);
+  color: white;
+  text-align: center;
+  line-height: 35px;
+  font-size: 15px;
+  margin-top: 5px;
+  font-weight: 600;
+}
+.account:hover{
+  background-color: transparent;
+  color: rgb(13, 27, 72);
+  transition: all 0.3s;
+}
+
+.company{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+.company_category{
+  display: flex;
+  margin-right: 15px;
+  margin-bottom: 15px;
+}
+.company_money{
+  text-align: right;
+}
+.in-area{margin-bottom: 15px;}
+.company_logo{
+  border-radius: 50%;
+  background-color: darkblue;
+  color: white;
+  margin-right: 15px;
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  line-height: 60px;
+}

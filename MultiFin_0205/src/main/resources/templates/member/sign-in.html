@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="layout/head :: config"></th:block>
+	<title>MultiFin:로그인</title>
+	<!-- 현재 페이지에서만 쓰는 css, script -->
+<style>
+    .title,.form-control,.email,.title_sub{  font-family: 'IBM Plex Sans KR', sans-serif;}
+    .title_sub{font-size: 15px;}
+    .here{font-weight: 600;}
+</style>
+</head>
+<body>
+    <main>
+        <!-- Section -->
+        <section class="min-vh-100 d-flex align-items-center section-image overlay-soft-dark py-5 py-lg-0" data-background="../../assets/img/common/form-image.jpg">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <div class="text-center text-md-center mb-3 mt-4 md-0 text-white">
+                            <h1 class="title mb-0 h3">로그인</h1>
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex align-items-center justify-content-center">
+                        <div class="signin-inner mt-3 mt-lg-0 bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
+                            <form th:action="@{/member/login}" method="post"> <!-- 여기까지 -->
+                                <!-- Form -->
+                                <div class="form-group">
+                                    <label for="email"><span class="title here">E-mail</span></label>
+                                    <div class="input-group mb-4">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><span class="fas fa-envelope"></span></span>
+                                        </div>
+                                        <input class="form-control" id="email" name="email" placeholder="이메일을 입력해주세요." type="text" aria-label="email address">
+                                    </div>
+                                </div>
+                                <!-- End of Form -->
+                                <div class="form-group">
+                                    <!-- Form -->
+                                    <div class="form-group">
+                                        <label for="password"><span class="title here">Password</span></label>
+                                        <div class="input-group mb-4">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><span class="fas fa-unlock-alt"></span></span>
+                                            </div>
+                                            <input class="form-control" id="password" name="userPwd" placeholder="비밀번호를 입력해주세요." type="password" aria-label="Password" required>
+                                        </div>
+                                    </div>
+                                    <!-- End of Form -->
+                                    <div class="d-flex justify-content-between align-items-center mb-4">
+                                        <div class="form-check">
+                                            
+                                            
+                                        </div>
+                                        <div><a th:href="@{/member/forgot-password}" class="text-right"><b class="title_sub">비밀번호를 잊으셨나요?</b></a></div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-block btn-primary"><span class="title">로그인</span></button>
+                            </form>
+                            
+                            <div class="d-block d-sm-flex justify-content-center align-items-center mt-4">
+                                <span class="title font-weight-normal">
+                                    아이디가 없으신가요?
+                                    <a href="./sign-up.html" class="font-weight-bold" th:href="@{/member/sign-up}"><b>가입하기</b></a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+<th:block th:replace="layout/scripts :: scripts"></th:block>
+</body>
+</html>

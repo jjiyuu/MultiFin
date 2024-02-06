@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//KO" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.multi.multifin.home.model.mapper.HomeBlueMapper">
+	
+		<resultMap type="Aptdetail" id="AptdetailResultMap">
+			<id property="aptDno" column="aptDno" />
+			<result property="bsnsMbyNm" column="bsns_mby_nm"/>
+			<result property="cnstrctEntrpsNm" column="cnstrct_entrps_nm"/>
+			<result property="cntrctCnclsBgnde" column="cntrct_cncls_bgnde"/>
+			<result property="cntrctCnclsEndde" column="cntrct_cncls_endde"/>
+			<result property="gnrlRnk1CrspareaRceptPd" column="gnrl_rnk1_crsparea_rcept_pd"/>
+			<result property="gnrlRnk1EtcAreaRcptdePd" column="gnrl_rnk1_etc_area_rcptde_pd"/>
+			<result property="hmpgAdres" column="hmpg_adres"/>
+			<result property="houseDtlSecdNm" column="house_dtl_secd_nm"/>
+			<result property="houseManageNo" column="house_manage_no"/>
+			<result property="houseNm" column="house_nm"/>
+			<result property="houseSecdNm" column="house_secd_nm"/>
+			<result property="hssplyAdres" column="hssply_adres"/>
+			<result property="hssplyZip" column="hssply_zip"/>
+			<result property="mdhsTelno" column="mdhs_telno"/>
+			<result property="mvnPrearngeYm" column="mvn_prearnge_ym"/>
+			<result property="nplnPrvoprPublicHouseAt" column="npln_prvopr_public_house_at"/>
+			<result property="parcprcUlsAt" column="parcprc_uls_at"/>
+			<result property="pblancNo" column="pblanc_no"/>
+			<result property="pblancUrl" column="pblanc_url"/>
+			<result property="przwnerPresnatnDe" column="przwner_presnatn_de"/>
+			<result property="publicHouseEarthAt" column="public_house_earth_at"/>
+			<result property="rceptBgnde" column="rcept_bgnde"/>
+			<result property="rceptEndde" column="rcept_endde"/>
+			<result property="rcritPblancDe" column="rcrit_pblanc_de"/>
+			<result property="rentSecdNm" column="rent_secd_nm"/>
+			<result property="specltRdnEarthAt" column="speclt_rdn_earth_at"/>
+			<result property="spsplyRceptBgnde" column="spsply_rcept_bgnde"/>
+			<result property="spsplyRceptEndde" column="spsply_rcept_endde"/>
+			<result property="subscrptAreaCodeNm" column="subscrpt_area_code_nm"/>
+			<result property="totSuplyHshldco" column="tot_suply_hshldco"/>
+		</resultMap>
+        
+        <resultMap type="OfficeDetail" id="OfficeDetailResultMap">
+        	<id property="officeDno" column="officeDno"/>
+        	<result property="bsnsMbyNm" column="bsns_mby_nm"/>
+        	<result property="cntrctCnclsBgnde" column="cntrct_cncls_bgnde"/>
+        	<result property="cntrctCnclsEndde" column="cntrct_cncls_endde"/>
+        	<result property="hmpgAdres" column="hmpg_adres"/>
+        	<result property="houseDtlSecdNm" column="house_dtl_secd_nm"/>
+        	<result property="houseManageNo" column="house_manage_no"/>
+        	<result property="houseNm" column="house_nm"/>
+        	<result property="houseSecdNm" column="house_secd_nm"/>
+        	<result property="hssplyAdres" column="hssply_adres"/>
+        	<result property="hssplyZip" column="hssply_zip"/>
+        	<result property="mdhsTelno" column="mdhs_telno"/>
+        	<result property="mvnPrearngeYm" column="mvn_prearnge_ym"/>
+        	<result property="pblancNo" column="pblanc_no"/>
+        	<result property="pblancUrl" column="pblanc_url"/>
+        	<result property="przwnerPresnatnDe" column="przwner_presnatn_de"/>
+        	<result property="rcritPblancDe" column="rcrit_pblanc_de"/>
+        	<result property="subscrptRceptBgnde" column="subscrpt_rcept_bgnde"/>
+        	<result property="subscrptRceptEndde" column="subscrpt_rcept_endde"/>
+        	<result property="totSuplyHshldco" column="tot_suply_hshldco"/>
+        </resultMap>
+        
+        <resultMap type="RemainDetail" id="RemainDetailResultMap">
+        	<id property="remainNo" column="remainNo"/>
+        	<result property="bsnsMbyNm" column="bsns_mby_nm"/>
+        	<result property="cntrctCnclsBgnde" column="cntrct_cncls_bgnde"/>
+        	<result property="cntrctCnclsRndde" column="cntrct_cncls_endde"/>
+        	<result property="gnrlRceptBgnde" column="gnrl_rcept_bgnde"/>
+        	<result property="gnrlRceptEndde" column="gnrl_rcept_endde"/>
+        	<result property="hmpgAdres" column="hmpg_adres"/>
+        	<result property="houseManageNo" column="house_manage_no"/>
+        	<result property="houseDtlSecdNm" column="house_dtl_secd_nm"/>
+        	<result property="houseNm" column="house_nm"/>
+        	<result property="houseSecdNm" column="house_secd_nm"/>
+        	<result property="hssplyAdres" column="hssply_adres"/>
+        	<result property="hssplyZip" column="hssply_zip"/>
+        	<result property="mdhsTelno" column="mdhs_telno"/>
+        	<result property="mvnPrearngeYm" column="mvn_prearnge_ym"/>
+        	<result property="pblancNo" column="pblanc_no"/>
+        	<result property="pblancUrl" column="pblanc_url"/>
+        	<result property="przwnerPresnatnDe" column="przwner_presnatn_de"/>
+        	<result property="rcritPblancDe" column="rcrit_pblanc_de"/>
+        	<result property="spsplyRceptBgnde" column="spsply_rcept_bgnde"/>
+        	<result property="spsplyRceptEndde" column="spsply_rcept_endde"/>
+        	<result property="subscrptRceptBgnde" column="subscrpt_rcept_bgnde"/>
+        	<result property="subscrptRceptEndde" column="subscrpt_rcept_endde"/>
+        	<result property="totSuplyHshldco" column="tot_suply_hshldco"/>
+        </resultMap>
+        
+		<select id="searchAptList" resultMap="AptdetailResultMap" parameterType="map">
+			SELECT
+				bsns_mby_nm ,	cnstrct_entrps_nm ,	cntrct_cncls_bgnde ,	cntrct_cncls_endde ,	gnrl_rnk1_crsparea_rcept_pd ,
+				gnrl_rnk1_etc_area_rcptde_pd,	hmpg_adres ,	house_dtl_secd_nm ,	house_manage_no ,	house_nm ,
+				house_secd_nm ,	hssply_adres ,	hssply_zip ,	mdhs_telno ,	mvn_prearnge_ym ,	npln_prvopr_public_house_at ,
+				parcprc_uls_at ,	pblanc_no ,	pblanc_url ,	przwner_presnatn_de ,	public_house_earth_at ,	rcept_bgnde ,
+				rcept_endde ,rcrit_pblanc_de ,rent_secd_nm ,speclt_rdn_earth_at ,spsply_rcept_bgnde,
+				spsply_rcept_endde ,subscrpt_area_code_nm ,tot_suply_hshldco
+			FROM aptdetail apt
+			WHERE 1=1
+			<if test="searchValue != null">
+				AND(
+					apt.house_nm like '%${searchValue}%' 
+				)
+			</if>
+			<if test="locationCheck != null">
+				AND(
+				<foreach collection="locationCheck" item="item" separator="or" index="index">
+		        		apt.hssply_adres LIKE '%${item}%'
+		    	</foreach>
+    			)
+			</if>
+			GROUP BY
+				bsns_mby_nm ,	cnstrct_entrps_nm ,	cntrct_cncls_bgnde ,	cntrct_cncls_endde ,	gnrl_rnk1_crsparea_rcept_pd ,
+				gnrl_rnk1_etc_area_rcptde_pd,	hmpg_adres ,	house_dtl_secd_nm ,	house_manage_no ,	house_nm ,
+				house_secd_nm ,	hssply_adres ,	hssply_zip ,	mdhs_telno ,	mvn_prearnge_ym ,	npln_prvopr_public_house_at ,
+				parcprc_uls_at ,	pblanc_no ,	pblanc_url ,	przwner_presnatn_de ,	public_house_earth_at ,	rcept_bgnde ,
+				rcept_endde ,rcrit_pblanc_de ,rent_secd_nm ,speclt_rdn_earth_at ,spsply_rcept_bgnde,
+				spsply_rcept_endde ,subscrpt_area_code_nm ,tot_suply_hshldco
+			order by rcrit_pblanc_de desc
+			LIMIT ${limit} OFFSET ${offset}
+		</select>
+		<select id="searchAptList2" resultMap="AptdetailResultMap" parameterType="map">
+	         SELECT
+	            bsns_mby_nm ,   cnstrct_entrps_nm ,   cntrct_cncls_bgnde ,   cntrct_cncls_endde ,   gnrl_rnk1_crsparea_rcept_pd ,
+	            gnrl_rnk1_etc_area_rcptde_pd,   hmpg_adres ,   house_dtl_secd_nm ,   house_manage_no ,   house_nm ,
+	            house_secd_nm ,   hssply_adres ,   hssply_zip ,   mdhs_telno ,   mvn_prearnge_ym ,   npln_prvopr_public_house_at ,
+	            parcprc_uls_at ,   pblanc_no ,   pblanc_url ,   przwner_presnatn_de ,   public_house_earth_at ,   rcept_bgnde ,
+	            rcept_endde ,rcrit_pblanc_de ,rent_secd_nm ,speclt_rdn_earth_at ,spsply_rcept_bgnde,
+	            spsply_rcept_endde ,subscrpt_area_code_nm ,tot_suply_hshldco
+	         FROM aptdetail apt
+	         WHERE 1=1
+	         <if test="searchValue != null">
+	            AND(
+	               apt.hssply_adres like '%${searchValue}%' 
+	            )
+	         </if>
+	         <if test="day != null">
+	            AND(
+	               apt.rcrit_pblanc_de > #{day}
+	            )
+	         </if>
+	         GROUP BY
+	            bsns_mby_nm ,   cnstrct_entrps_nm ,   cntrct_cncls_bgnde ,   cntrct_cncls_endde ,   gnrl_rnk1_crsparea_rcept_pd ,
+	            gnrl_rnk1_etc_area_rcptde_pd,   hmpg_adres ,   house_dtl_secd_nm ,   house_manage_no ,   house_nm ,
+	            house_secd_nm ,   hssply_adres ,   hssply_zip ,   mdhs_telno ,   mvn_prearnge_ym ,   npln_prvopr_public_house_at ,
+	            parcprc_uls_at ,   pblanc_no ,   pblanc_url ,   przwner_presnatn_de ,   public_house_earth_at ,   rcept_bgnde ,
+	            rcept_endde ,rcrit_pblanc_de ,rent_secd_nm ,speclt_rdn_earth_at ,spsply_rcept_bgnde,
+	            spsply_rcept_endde ,subscrpt_area_code_nm ,tot_suply_hshldco
+	         order by rcrit_pblanc_de desc
+	      </select>
+		<select id="searchAptList3" resultMap="AptdetailResultMap" parameterType="map">
+			SELECT
+	            bsns_mby_nm ,   cnstrct_entrps_nm ,   cntrct_cncls_bgnde ,   cntrct_cncls_endde ,   gnrl_rnk1_crsparea_rcept_pd ,
+	            gnrl_rnk1_etc_area_rcptde_pd,   hmpg_adres ,   house_dtl_secd_nm ,   house_manage_no ,   house_nm ,
+	            house_secd_nm ,   hssply_adres ,   hssply_zip ,   mdhs_telno ,   mvn_prearnge_ym ,   npln_prvopr_public_house_at ,
+	            parcprc_uls_at ,   pblanc_no ,   pblanc_url ,   przwner_presnatn_de ,   public_house_earth_at ,   rcept_bgnde ,
+	            rcept_endde ,rcrit_pblanc_de ,rent_secd_nm ,speclt_rdn_earth_at ,spsply_rcept_bgnde,
+	            spsply_rcept_endde ,subscrpt_area_code_nm ,tot_suply_hshldco
+	         FROM aptdetail apt
+	         WHERE 1=1
+	         <if test="searchValue != null">
+	            AND(
+	               apt.hssply_adres like '%${searchValue}%' 
+	            )
+	         </if>
+	         <if test="day != null">
+	            AND(
+	               DATE(apt.rcrit_pblanc_de)  >=DATE(${day}) 
+	            )
+	         </if>
+	         
+	         GROUP BY
+	            bsns_mby_nm ,   cnstrct_entrps_nm ,   cntrct_cncls_bgnde ,   cntrct_cncls_endde ,   gnrl_rnk1_crsparea_rcept_pd ,
+	            gnrl_rnk1_etc_area_rcptde_pd,   hmpg_adres ,   house_dtl_secd_nm ,   house_manage_no ,   house_nm ,
+	            house_secd_nm ,   hssply_adres ,   hssply_zip ,   mdhs_telno ,   mvn_prearnge_ym ,   npln_prvopr_public_house_at ,
+	            parcprc_uls_at ,   pblanc_no ,   pblanc_url ,   przwner_presnatn_de ,   public_house_earth_at ,   rcept_bgnde ,
+	            rcept_endde ,rcrit_pblanc_de ,rent_secd_nm ,speclt_rdn_earth_at ,spsply_rcept_bgnde,
+	            spsply_rcept_endde ,subscrpt_area_code_nm ,tot_suply_hshldco
+			order by rcrit_pblanc_de desc
+		</select>		
+		<select id="searchAptListName" resultMap="AptdetailResultMap" parameterType="map">
+			SELECT
+				bsns_mby_nm ,	cnstrct_entrps_nm ,	cntrct_cncls_bgnde ,	cntrct_cncls_endde ,	gnrl_rnk1_crsparea_rcept_pd ,
+				gnrl_rnk1_etc_area_rcptde_pd,	hmpg_adres ,	house_dtl_secd_nm ,	house_manage_no ,	house_nm ,
+				house_secd_nm ,	hssply_adres ,	hssply_zip ,	mdhs_telno ,	mvn_prearnge_ym ,	npln_prvopr_public_house_at ,
+				parcprc_uls_at ,	pblanc_no ,	pblanc_url ,	przwner_presnatn_de ,	public_house_earth_at ,	rcept_bgnde ,
+				rcept_endde ,rcrit_pblanc_de ,rent_secd_nm ,speclt_rdn_earth_at ,spsply_rcept_bgnde,
+				spsply_rcept_endde ,subscrpt_area_code_nm ,tot_suply_hshldco
+			FROM aptdetail apt
+			WHERE 1=1
+			<if test="name != null">
+				AND(
+					apt.hssply_adres like '%${name}%' 
+				)
+			</if>
+			GROUP BY
+				bsns_mby_nm ,	cnstrct_entrps_nm ,	cntrct_cncls_bgnde ,	cntrct_cncls_endde ,	gnrl_rnk1_crsparea_rcept_pd ,
+				gnrl_rnk1_etc_area_rcptde_pd,	hmpg_adres ,	house_dtl_secd_nm ,	house_manage_no ,	house_nm ,
+				house_secd_nm ,	hssply_adres ,	hssply_zip ,	mdhs_telno ,	mvn_prearnge_ym ,	npln_prvopr_public_house_at ,
+				parcprc_uls_at ,	pblanc_no ,	pblanc_url ,	przwner_presnatn_de ,	public_house_earth_at ,	rcept_bgnde ,
+				rcept_endde ,rcrit_pblanc_de ,rent_secd_nm ,speclt_rdn_earth_at ,spsply_rcept_bgnde,
+				spsply_rcept_endde ,subscrpt_area_code_nm ,tot_suply_hshldco
+			order by rcrit_pblanc_de desc
+		</select>
+		<select id="selectAptCount" resultType="int" parameterType="map">
+			SELECT COUNT(distinct apt.house_nm)
+			FROM aptdetail apt 
+			WHERE 1=1
+			<if test="searchValue != null">
+				AND(
+					apt.house_nm like '%${searchValue}%' 
+				)
+			</if>
+			<if test="locationCheck != null">
+				AND(
+				<foreach collection="locationCheck" item="item" separator="or" index="index">
+		        		apt.hssply_adres LIKE '%${item}%'
+		    	</foreach>
+    			)
+			</if>
+		</select>
+		<select id="searchOfficeList" resultMap="OfficeDetailResultMap" parameterType="map">
+			SELECT bsns_mby_nm,cntrct_cncls_bgnde,	cntrct_cncls_endde,	hmpg_adres,	house_dtl_secd_nm,
+				house_manage_no,house_nm,house_secd_nm,	hssply_adres,hssply_zip,mdhs_telno,	mvn_prearnge_ym,
+				pblanc_url,	przwner_presnatn_de,rcrit_pblanc_de,subscrpt_rcept_bgnde,subscrpt_rcept_endde,tot_suply_hshldco 
+			FROM OfficeDetail office
+			WHERE 1=1
+			<if test="searchValue != null">
+				AND(
+					office.house_nm like '%${searchValue}%' 
+				)
+			</if>
+			<if test="locationCheck != null">
+				AND(
+				<foreach collection="locationCheck" item="item" separator="or" index="index">
+		        		office.hssply_adres LIKE '%${item}%'
+		    	</foreach>
+    			)
+			</if>
+			GROUP BY 
+				bsns_mby_nm,cntrct_cncls_bgnde,	cntrct_cncls_endde, hmpg_adres, house_dtl_secd_nm,
+				house_manage_no,house_nm,house_secd_nm,	hssply_adres,hssply_zip,mdhs_telno,	mvn_prearnge_ym,
+				pblanc_url,	przwner_presnatn_de,rcrit_pblanc_de,subscrpt_rcept_bgnde,subscrpt_rcept_endde,tot_suply_hshldco
+			order by rcrit_pblanc_de desc
+			LIMIT ${limit} OFFSET ${offset}
+		</select>
+		<select id="selectOfficeCount" resultType="int" parameterType="map">
+			SELECT COUNT(distinct office.house_nm) 
+			FROM OfficeDetail office
+			WHERE 1=1
+			<if test="hssplyAdres != null">
+				AND(
+					office.hssply_adres like '%${hssplyAdres}%' 
+				)
+			</if>
+			<if test="houseNm != null">
+				AND(
+					office.house_nm like '%${houseNm}%' 
+				)
+			</if>
+		</select>
+		<select id="searchRemainList" resultMap="RemainDetailResultMap" parameterType="map">
+			SELECT 
+				bsns_mby_nm,cntrct_cncls_bgnde,cntrct_cncls_endde,gnrl_rcept_bgnde,gnrl_rcept_endde,hmpg_adres,
+				house_manage_no,house_dtl_secd_nm,house_nm,house_secd_nm,hssply_adres,hssply_zip,
+				mdhs_telno,	mvn_prearnge_ym,pblanc_no,pblanc_url,przwner_presnatn_de,rcrit_pblanc_de,spsply_rcept_bgnde,
+				spsply_rcept_endde,	subscrpt_rcept_bgnde,subscrpt_rcept_endde,tot_suply_hshldco
+			FROM RemainDetail remain
+			WHERE 1=1
+				<if test="searchValue != null">
+				AND(
+					remain.house_nm like '%${searchValue}%' 
+				)
+			</if>
+			<if test="locationCheck != null">
+				AND(
+				<foreach collection="locationCheck" item="item" separator="or" index="index">
+		        		remain.hssply_adres LIKE '%${item}%'
+		    	</foreach>
+    			)
+			</if>
+			GROUP BY bsns_mby_nm,cntrct_cncls_bgnde,cntrct_cncls_endde,gnrl_rcept_bgnde,gnrl_rcept_endde,hmpg_adres,
+				house_manage_no,house_dtl_secd_nm,house_nm,house_secd_nm,hssply_adres,hssply_zip,
+				mdhs_telno,	mvn_prearnge_ym,pblanc_no,pblanc_url,przwner_presnatn_de,rcrit_pblanc_de,spsply_rcept_bgnde,
+				spsply_rcept_endde,	subscrpt_rcept_bgnde,subscrpt_rcept_endde,tot_suply_hshldco
+			order by rcrit_pblanc_de desc
+			LIMIT ${limit} OFFSET ${offset}
+			
+		</select>
+		<select id="selectRemainCount" resultType="int" parameterType="map">
+			SELECT COUNT(distinct remain.house_nm)
+			FROM RemainDetail remain
+			WHERE 1=1
+				<if test="hssplyAdres != null">
+					AND(
+						remain.hssply_adres like '%${hssplyAdres}%' 
+					)
+				</if>
+				<if test="houseNm != null">
+					AND(
+						remain.house_nm like '%${houseNm}%' 
+					)
+				</if>
+		</select>
+
+</mapper>

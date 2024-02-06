@@ -1,0 +1,106 @@
+.mainTitle,.mainSubtitle,.form-control,.search_btn{
+    font-family: 'IBM Plex Sans KR', sans-serif;
+  }
+.section-header{padding-bottom: 50px;}
+.main_select,.movie-info{
+    width: 1200px;
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+  /*아이콘 위치*/
+
+  .icon-box{
+    display: flex;
+    justify-content: center;
+    flex: center;
+  }
+  
+  .btn-icon{ margin: 0 60px;}
+  .law__icon{
+    width: 170px;
+    height: 170px;
+    font-size: 70px;
+    line-height: 160px;
+    border: 2px solid rgb(34, 101, 145);
+    border-radius: 50%;
+    color: rgb(52, 152, 219) ;
+    margin: auto;
+    margin-bottom: 20px;
+    padding: 0px 52px;
+  }
+  .law__title,.major__description{
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    text-align: center;
+    color: rgb(13, 27, 72); 
+  }
+  .law__title{font-weight: 600;}
+  .law__description{  margin-bottom: 30px;}
+  .law__icon i{
+    color: rgb(43, 109, 153); 
+    transition: all .3s ease;
+    justify-content: center;
+} 
+  .law__icon:hover i{ 
+    color: rgb(13, 27, 72); 
+    transform: rotate(-30deg) scale(1.1);
+  }
+
+
+
+/*faq*/
+  .faq{background-color: rgb(245, 249, 254);}
+  .faq_title,.faq_sub,.icon-title,.faq-a
+  ,.question{font-family: 'IBM Plex Sans KR', sans-serif;}
+  .faq_title{font-weight: 600;}
+  .faq_sub{
+    text-align: center; 
+    line-height: 32px; 
+    font-size: 18px;
+    font-weight: 500;
+}
+.faq-card{ width: 1000px;}
+.faq_header{
+    display: flex;
+    justify-content: center;
+}
+.faq_header>i{
+    font-size: 36px;
+    margin-right: 10px;
+    margin-top: 2px;
+}
+
+.faq_q{
+    font-size: 18px;
+    line-height: 35px;
+    color: rgb(13, 27, 72); 
+}
+.faq-a{ color: rgb(47, 47, 47)}
+.question{
+    font-size: 18px; 
+    color: rgb(13, 27, 72) !important; 
+    font-weight: 500;
+    margin-top: 5px;
+}
+.here-total{display: flex; justify-content: center;}
+.faq_btn{
+    width: 150px;
+    height: 40px;
+    background-color: rgb(13, 27, 72);
+    border-radius: 4px;
+    border: 2px solid rgb(13, 27, 72);
+    color: white;
+    line-height: 38px;
+    font-weight: 500;
+}
+.faq_btn:hover{
+    background-color: transparent;
+    color: rgb(13, 27, 72);
+}
+
+/*영상정보*/
+.slides li{list-style: none;}
+.movie-info-title{
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    font-weight:600;
+}

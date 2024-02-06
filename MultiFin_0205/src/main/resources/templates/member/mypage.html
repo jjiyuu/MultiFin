@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="layout/head :: config"></th:block>
+	<title>MultiFin:마이페이지</title>
+	<!-- 현재 페이지에서만 쓰는 css, script -->
+<style>
+    .here{font-weight: 600;}
+    .btner{width: 120px;}
+    .address{display:flex; width:400px;}
+    .find-btn{
+	    width:150px; 
+	    color:white; 
+	    background-color: rgb(13, 27, 72);
+	    border-radius: 4px;
+	    font-weight: 600;
+	    padding:0px 15px;
+   }
+    .find-btn:hover{ background-color: black;}
+    .address_detail{width:465px;}
+    .form-control,.custom-select{border-color: lightgray;}
+</style>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+<header th:replace="~{layout/header :: #header}"></header>
+    <main>
+        <div class="section section-lg bg-soft">            
+            <div class="container">
+                <div class="row pt-5 pt-md-0">
+                    <div class="col-12 col-md-4 d-none d-lg-block">
+                        <!-- Navigation -->
+                        <div class="card border-light p-2">
+                            <div class="card-body p-2">
+                                <div class="profile-thumbnail small-thumbnail mx-auto">
+                                    <img src="/assets/img/member/mypage_img01 copy.jpg" class="card-img-top rounded-circle border-white" alt="Joseph Portrait">
+                                </div> 
+                                <h2 class="h5 font-weight-normal text-center mt-3 mb-0"><span class="title here" >[[${session.loginMember.name}]]</span></h2>
+                                <div class="list-group dashboard-menu list-group-sm mt-4">
+                                    <a href="/member/account" class="d-flex list-group-item list-group-item-action title">나의 계좌 <span class="icon icon-xs ml-auto"><span class="fas fa-chevron-right"></span></span> </a>
+                                    <a href="/member/mypage" class="d-flex list-group-item list-group-item-action title active ">회원정보변경<span class="icon icon-xs ml-auto"><span class="fas fa-chevron-right"></span></span> </a>
+                                    <a href="/member/mywrite" class="d-flex list-group-item list-group-item-action title">내 글 보기<span class="icon icon-xs ml-auto"><span class="fas fa-chevron-right"></span></span> </a>
+                                    <a href="/member/myreply" class="d-flex list-group-item list-group-item-action title">내 댓글 보기<span class="icon icon-xs ml-auto"><span class="fas fa-chevron-right"></span></span> </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-8">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card card-body bg-white border-light mb-4 pt-5 pb-5 pr-5 pl-5">
+                                    <h2 class="h4 mb-5 title here">회원정보</h2>
+                                    <form id="enroll-container" action="/member/update" method="post">
+                                          <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <div class="form-group">
+                                                    <label for="email" class="title here" >닉네임</label>
+                                                    <input class="form-control" name="id" th:value="${session.loginMember.id}" type="email" placeholder="ex@company.com" readonly="readonly">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <div class="form-group">
+                                                    <label for="phone" class="title here">이름</label>
+                                                    <input class="form-control" name="name" type="text" th:value="${session.loginMember.name}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <div class="form-group">
+                                                    <label for="email" class="title here" >E-mail</label>
+                                                    <input class="form-control" name="email" th:value="${session.loginMember.email}" type="email" placeholder="ex@company.com" readonly="readonly">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <div class="form-group">
+                                                    <label for="phone" class="title here">핸드폰 (- 제외)</label>
+                                                    <input class="form-control" name="phone" type="text" placeholder="+10 0000 0000" maxlength="11" th:value="${session.loginMember.phone}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h2 class="h5 my-4 title here">주소</h2>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                   <label for="zip" class="title here">우편번호</label>
+                                                   <div class="address">
+                                                    	<input type="text" class="form-control mb-3 mr-3" name="address" id="postcode" placeholder="우편번호" readonly="readonly" th:value="${#strings.substring(session.loginMember.address,0,5)}">
+                                                    	<input type="button" onclick="execDaumPostcode()"  class="find-btn mb-3" value="우편번호 찾기"></input>
+                                                    </div>
+                                                    <input 
+                                                    class="form-control mb-3 address_detail" type="text" name="address" id="roadAddress" 
+                                                    placeholder="도로명주소" readonly="readonly"
+                                                    th:value="${#strings.substringAfter(session.loginMember.address,',')}">
+                                                  
+                                                	<span id="guide" style="color:#999; display:none"></span>
+	                                                <input class="form-control" style="width:460px;" name="address" id="detailAddress" type="text" placeholder="상세 주소입력" >
+                                                </div>
+                                            </div>
+                                        </div>
+								        <input type="submit" class="mr-4 btn btn-primary title here btner"   value="저장" />
+								        <input type="button"  class="btn btn-primary title here btner" id="deleteMember" value="탈퇴" />
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+<footer th:replace="~{layout/footer :: #footer}"></footer>
+<th:block th:replace="layout/scripts :: scripts"></th:block>
+
+<!--제작한  js-->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/assets/js/mypage.js"></script>
+</body>
+</html>

@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="layout/head :: config"></th:block>
+	<title>MultiFin</title>
+	<!-- 현재 페이지에서만 쓰는 css, script -->
+	<link rel="stylesheet" th:href="@{/css/main/mymain.css}">
+	<!--주식차트-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<style>
+	.onlineChatBtn {background-color: #0d1b48;    color: white;    width: 80px;    height: 80px;    line-height: 80px;    border-radius: 50%;border: 1px solid white;}
+	#goingChat{ position: fixed; bottom: 1rem; right: 1rem; cursor: pointer; z-index: 1000;}
+</style>
+</head>
+
+<body>
+<header th:replace="~{layout/header :: #header}"></header>
+
+<main>
+    <!-- 배너 시작 -->
+    <section style="height: 550px;" class="section section-header section-image bg-primary overlay-primary text-white pb-4 pb-md-7" data-background="./../assets/img/ours/stock-exchange-g0fd88794a_1920.jpg">
+            <div class="container">
+                <div class="row justify-content-center mb-4 mb-xl-5">
+                    <div class="col-12 col-xl-10 text-center">
+                        <!-- Heading -->
+                        <h1 class="display-2 font-weight-bolder">
+                            Find your Multifin
+                        </h1>
+                        <!-- Text -->
+                        <p class="lead text-muted mt-4 px-md-6">
+                            은행 • 증권 • 부동산 • 법률 정보 등 다양한 정보를 제공하는<br>
+                            멀티핀을 통해 당신의 자산을 찾아보세요.
+                        </p>
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <div class="card p-md-2">
+                            <div class="card-body p-2 p-md-0">
+                                <form autocomplete="off" class="seach_box" method="get" th:action="@{/common/searchTotal}">
+                                    <select class="form-control options" name="check" id="">
+                                        <option th:value="0">전체</option>
+                                        <option th:value="0">은행</option>
+                                        <option th:value="1">증권</option>
+                                        <option th:value="2">부동산</option>
+                                        <option th:value="3">뉴스</option>
+                                        <option th:value="4">법률</option>
+                                    </select>
+                                    <div class="input-group">
+                                        <input id="search-location" type="text" class="form-control autocomplete" placeholder="검색어를 입력하세요" required th:value="${param.searchValue}" name="searchValue">
+                                    </div>
+                                    <div class="col-12 col-lg-3">
+                                        <button class="btn btn-lg btn-primary font-weight-bolder btn-block animate-up-2" type="submit">Search</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+    <!-- 배너 끝 -->
+</main>
+
+<!-- 주식 그래프 부분 시작 -->
+<section class="bg-white sc_new cs_stock">
+        <div class="api_subject_bx">
+            <div id="header" class="api_title_area">
+                <h2 class="main_title">TODAY STOCK INFO</h2>
+            </div>
+            <div class="graph_lst_bx">
+                <ul class="here">
+                    <li class="csp"><!-- 코스피(큰 그래프) -->
+                        <a href="/stock/stockList">
+                            <div class="card shadow-soft stock_graph_card main_card">
+                                <div class="stock_title_container">
+                                    <h5 class="stock_title">[[${kospiIndex.stockType}]]</h5> 
+                                </div>
+                               <div class="card-numbers mb-3">
+	                                <h5 class="text-gray number">[[${kospiIndex.fin}]]</h5>
+	                                <th:block th:if="${#strings.contains(kospiIndex.changePercent, '-') == true } ">
+			                              <h5 class="increase">▼ [[${kospiIndex.changePercent}]]</h5>
+									</th:block>	                                    
+									<th:block th:if="${#strings.contains(kospiIndex.changePercent, '-') == false } ">
+			                              <h5 class="increase">▲ [[${kospiIndex.changePercent}]]</h5>
+									</th:block>	 
+                              </div>
+                                <div class="main_graph">
+                                    <canvas id="KOSPI" style="width: 220px;"></canvas>
+                                </div>
+                                <div class="now">
+					                <div class="now-title">데이터 정보</div>
+					                <div class="now-sub">[[${#dates.format(kospiIndex.stockDate, 'MM/dd')}]]&nbsp; 18:00 KST 장마감</div>
+					            </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="csp col-3">
+                        <!-- 코스닥 -->
+                        <a id="kosdaqURl">
+                            <div class="card shadow-soft stock_graph_card_sub">
+                                <div class="stock_title_container">
+                                    <h5 class="stock_title_sub mt-1">[[${kosdaqIndex.stockType}]]</h5> 
+                                    <h6 class="today">[[${#dates.format(kosdaqIndex.stockDate, 'YY.MM.dd')}]]</h6>
+                                </div>
+                               <div class="card-numbers" style="height: 25px;">
+	                                <h6 class="text-gray number">[[${kosdaqIndex.fin}]]</h6>
+	                                <th:block th:if="${#strings.contains(kosdaqIndex.changePercent, '-') == true } ">
+			                              <h6 class="increase">▼ [[${kosdaqIndex.changePercent}]]</h6>
+									</th:block>	                                    
+									<th:block th:if="${#strings.contains(kosdaqIndex.changePercent, '-') == false } ">
+			                              <h6 class="increase">▲ [[${kosdaqIndex.changePercent}]]</h6>
+									</th:block>	 
+                              </div>
+                                <div class="main_graph_mini">
+                                    <canvas id="KOSDAQ" style="width: 220px; height: 70px;" ></canvas>
+                                </div>
+                            </div>
+                        </a>
+                        <!-- 나스닥 -->
+                        <a id="nasdaqURl">
+                            <div class="card shadow-soft stock_graph_card_sub">
+                                 <div class="stock_title_container">
+                                    <h5 class="stock_title_sub mt-1">[[${nasdaqIndex.stockType}]]</h5> 
+                                    <h6 class="today">[[${#dates.format(nasdaqIndex.stockDate, 'YY.MM.dd')}]]</h6>
+                                </div>
+                               <div class="card-numbers" style="height: 25px;">
+	                                <h6 class="text-gray number">[[${nasdaqIndex.fin}]]</h6>
+	                                <th:block th:if="${#strings.contains(nasdaqIndex.changePercent, '-') == true } ">
+			                              <h6 class="increase">▼ [[${nasdaqIndex.changePercent}]]</h6>
+									</th:block>	                                    
+									<th:block th:if="${#strings.contains(nasdaqIndex.changePercent, '-') == false } ">
+			                              <h6 class="increase">▲ [[${nasdaqIndex.changePercent}]]</h6>
+									</th:block>	 
+								</div>
+                                <div class="main_graph_mini">
+                                    <canvas id="NASDAQ" style="width: 220px; height: 70px;"></canvas>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="csp col-3"><!-- 환율 -->
+                        <!-- 달러 -->
+                        <a nocr="" onclick="return goOtherCR(this, 'a=nco_x70*1.item&amp;r=1&amp;i=18000004_000001140A85&amp;u=' + urlencode(this.href));"
+                        href="?where=nexearch&amp;sm=tab_etc&amp;mra=bjA3&amp;pkid=194&amp;qvt=0&amp;query=KOSPI"
+                        target="_blank">
+                            <div class="card shadow-soft stock_graph_card_sub">
+                                <div class="stock_title_container">
+                                    <h5 class="stock_title_sub">$ USD/KRW</h5> 
+                                </div>
+                                <div class="card-numbers">
+                               		 <h6 class="text-gray number">[[${#dates.format(USD.recorddate, 'YY.MM.dd')}]]</h6>
+                                	<h6 class="text-gray number">[[${USD.dealBasR}]] 원</h6>
+                             	</div>
+                                <div class="main_graph_mini">
+                                    <canvas id="USD" style="width: 220px; height: 73px;"></canvas>
+                                </div>
+                            </div>
+                        </a>
+                        <!-- 엔 -->
+                        <a nocr="" onclick="return goOtherCR(this, 'a=nco_x70*1.item&amp;r=1&amp;i=18000004_000001140A85&amp;u=' + urlencode(this.href));"
+                        href="?where=nexearch&amp;sm=tab_etc&amp;mra=bjA3&amp;pkid=194&amp;qvt=0&amp;query=KOSPI"
+                        target="_blank">
+                            <div class="card shadow-soft stock_graph_card_sub">
+                                <div class="stock_title_container">
+                                    <h5 class="stock_title_sub">¥JPY/KRW</h5> 
+                                </div>
+                                 <div class="card-numbers">
+                               		<h6 class="text-gray number">[[${#dates.format(JPY.recorddate, 'YY.MM.dd')}]]</h6>
+                                	<h6 class="text-gray number">[[${JPY.dealBasR}]] 원</h6>
+                             	</div>
+                                <div class="main_graph_mini">
+                                    <canvas id="JPY" style="width: 220px; height: 73px;"></canvas>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+</section>
+<!-- 주식 그래프 부분 끝-->
+
+<!-- 연하늘배경 은행 부분 시작 -->
+<section class="section bg-soft main-bank-skyblue pt-6">
+        <div class="container">
+            <h2 class="main_Bank_title">MULTIFIN BANK</h2>
+            <div class="row">
+                <div class="col-12 col-md-8 text-left">
+                    <h4 class="lead mt-3 main_bank_description">은행별 예•적금 및 대출 상품 정보와 8개 카드사의 주력 카드 정보를 비교할 수 있습니다.<br>
+                        MULTIFIN만의 정확하고 빠른 정보를 즐겨보세요.</h4>
+                </div>
+                <div>
+                    <!-- Tab -->
+                    <div class="nav-wrapper">
+                        <ul class="nav nav-pills nav-fill flex-column flex-sm-row mb-lg-4 mb-0" id="tab-32" role="tablist">
+                            <li id="bank_btn" class="nav-item mr-0 mr-sm-2 mr-md-0 mb-3 mb-lg-0">
+                                <a class="nav-link flex-sm-fill text-sm-center main-bank-tapbtn active" id="tab-find-space" data-toggle="tab"
+                                    href="#find-space" role="tab" aria-controls="find-space" aria-selected="true"><span class="far fa-building mr-2"></span>예•적금 비교</a>
+                            </li>
+                            <li id="loan_btn" class="nav-item">
+                                <a class="nav-link flex-sm-fill text-sm-center main-bank-tapbtn" id="tab-submit-space" data-toggle="tab" href="#submit-space"
+                                    role="tab" aria-controls="submit-space" aria-selected="false"><span class="far fa-money-bill-alt mr-2" ></span>대출 금리 비교</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- End of Tab Nav -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <!-- Tab Content -->
+                    <div class="tab-content mt-lg-5" id="tabcontentexample-3">
+                        <!-- 예적금 비교 탭 시작 -->
+                        <div class="tab-pane fade show active" id="find-space" role="tabpanel" aria-labelledby="tab-find-space">
+                            <div class="row">
+                                <div class="col-12 col-sm-6 col-lg-3 mb-4 mb-lg-0">
+                                    <!-- Card -->
+                                    <a th:href="|/bank/bankFind?no=${depositList0[0].finPrdtCd}|" class="card img-card fh-240 border-0 outer-bg card shadow-soft">
+                                        <div class="card-img-overlay d-flex align-items-center">
+                                            <div class="card-body text-dark p-3">
+                                                <div class="goods_title">
+                                                    <h4 class="font-weight-bolder text-left bank_sub">[[${depositList0[0].finPrdtNm}]]</h4>
+                                                </div>
+                                                <div class="goods_sub">
+                                                    <div class="rate-name">
+                                                        <span class="rate-title">세전이율</span>
+                                                    </div>
+                                                    <div class="rate-baseon">
+                                                        <span class="baseon-title">[[${depositList0[0].saveTrm}]]개월 기준</span>
+                                                    </div>
+                                                </div>
+                                                <h3 class="mt-3 rate">[[${depositList0[0].intrRate2}]]%</h3>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <!-- End of Card -->
+                                </div>
+                                <div class="col-12 col-sm-6 col-lg-3 mb-4 mb-lg-0">
+                                    <!-- Card -->
+                                    <a th:href="|/bank/bankFind?no=${depositList0[4].finPrdtCd}|" class="card img-card fh-240 border-0 outer-bg card shadow-soft">
+                                        <div class="card-img-overlay d-flex align-items-center">
+                                            <div class="card-body text-dark p-3">
+                                                <div class="goods_title">
+                                                    <h4 class="font-weight-bolder text-left bank_sub">[[${depositList0[4].finPrdtNm}]]</h4>
+                                                </div>
+                                                <div class="goods_sub">
+                                                    <div class="rate-name">
+                                                        <span class="rate-title">세전이율</span>
+                                                    </div>
+                                                    <div class="rate-baseon">
+                                                        <span class="baseon-title">[[${depositList0[4].saveTrm}]]개월 기준</span>
+                                                    </div>
+                                                </div>
+                                                <h3 class="mt-3 rate">[[${depositList0[4].intrRate2}]]%</h3>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <!-- End of Card -->
+                                </div>
+                                <div class="col-12 col-sm-6 col-lg-3 mb-4 mb-lg-0">
+                                    <!-- Card -->
+                                    <a th:href="|/bank/bankFind?no=${savingList0[1].finPrdtCd}|" class="card img-card fh-240 border-0 outer-bg card shadow-soft">
+                                        <div class="card-img-overlay d-flex align-items-center">
+                                            <div class="card-body text-dark p-3">
+                                                <div class="goods_title">
+                                                    <h4 class="font-weight-bolder text-left bank_sub">[[${savingList0[1].finPrdtNm}]]</h4>
+                                                </div>
+                                                <div class="goods_sub">
+                                                    <div class="rate-name">
+                                                        <span class="rate-title">세전이율</span>
+                                                    </div>
+                                                    <div class="rate-baseon">
+                                                        <span class="baseon-title">[[${savingList0[1].saveTrm}]]개월 기준</span>
+                                                    </div>
+                                                </div> 
+                                                <h3 class="mt-3 rate">[[${savingList0[1].intrRate2}]]%</h3>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <!-- End of Card -->
+                                </div>
+                                <div class="col-12 col-sm-6 col-lg-3 mb-4 mb-lg-0">
+                                    <!-- Card -->
+                                    <a th:href="|/bank/bankFind?no=${savingList0[6].finPrdtCd}|" class="card img-card fh-240 border-0 outer-bg card shadow-soft">
+                                        <div class="card-img-overlay d-flex align-items-center">
+                                            <div class="card-body text-dark p-3">
+                                                <div class="goods_title">
+                                                    <h4 class="font-weight-bolder text-left bank_sub">[[${savingList0[6].finPrdtNm}]]</h4>
+                                                </div>
+                                                <div class="goods_sub">
+                                                    <div class="rate-name">
+                                                        <span class="rate-title">세전이율</span>
+                                                    </div>
+                                                    <div class="rate-baseon">
+                                                        <span class="baseon-title">[[${savingList0[6].saveTrm}]]개월 기준</span>
+                                                    </div>
+                                                </div>
+                                                <h3 class="mt-3 rate">[[${savingList0[6].intrRate2}]]%</h3>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <!-- End of Card -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 예적금 비교 탭 끝 -->
+
+                        <!-- 대출 금리 비교 탭 시작 -->
+                        <div class="tab-pane fade" id="submit-space" role="tabpanel" aria-labelledby="tab-submit-space">
+                            <div class="row">
+                                <div class="col-12 col-sm-6 col-lg-3 mb-4 mb-lg-0">
+                                    <!-- Card -->
+                                    <a th:href="|/bank/bankDetail?no=${loanCreditList0[0].finPrdtCd}|" class="card img-card fh-240 border-0 outer-bg main-box-shadow">
+                                        <div class="card-img-overlay d-flex align-items-center">
+                                            <div class="card-body text-dark">
+                                                <h6>개인신용대출</h6>
+                                                <h4 class="font-weight-bolder text-left mb-5">[[${loanCreditList0[0].finPrdtNm}]]</h4>
+                                                <p class="loan-minrate mb-n2">평균금리 <span style="font-size: 1.6rem;">[[${loanCreditList0[0].crdtGradAvg}]]</span>%</p>
+                                                
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <!-- End of Card -->
+                                </div>
+                                <div class="col-12 col-sm-6 col-lg-3 mb-4 mb-lg-0">
+                                    <!-- Card -->
+                                    <a th:href="|/bank/bankDetail?no=${loanMortgageList0[0].finPrdtCd}|" class="card img-card fh-240 border-0 outer-bg main-box-shadow">
+                                        <div class="card-img-overlay d-flex align-items-center">
+                                            <div class="card-body text-dark">
+                                                <h6>주택담보대출</h6>
+                                                <h4 class="font-weight-bolder text-left mb-5">[[${loanMortgageList0[0].finPrdtNm}]]</h4>
+                                                <p class="loan-minrate mb-n2">평균금리 <span style="font-size: 1.6rem;">[[${loanMortgageList0[0].lendRateAvg}]]</span>%</p>
+                                                
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <!-- End of Card -->
+                                </div>
+                                <div class="col-12 col-sm-6 col-lg-3 mb-4 mb-lg-0">
+                                    <!-- Card -->
+                                    <a th:href="|/bank/bankDetail?no=${loanRentHoustList0[0].finPrdtCd}|" class="card img-card fh-240 border-0 outer-bg main-box-shadow">
+                                        <div class="card-img-overlay d-flex align-items-center">
+                                            <div class="card-body text-dark">
+                                                <h6>전세자금대출</h6>
+                                                <h4 class="font-weight-bolder text-left mb-5">[[${loanRentHoustList0[0].finPrdtNm}]]</h4>
+                                                <p class="loan-minrate mb-n2">평균금리 <span style="font-size: 1.6rem;">[[${loanRentHoustList0[0].lendRateAvg}]]</span>%</p>
+                                                
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <!-- End of Card -->
+                                </div>
+                                <div class="col-12 col-sm-6 col-lg-3 mb-4 mb-lg-0">
+                                    <!-- Card -->
+                                    <a th:href="|/bank/bankDetail?no=${loanRentHoustList0[1].finPrdtCd}|" class="card img-card fh-240 border-0 outer-bg main-box-shadow">
+                                        <div class="card-img-overlay d-flex align-items-center">
+                                            <div class="card-body text-dark">
+                                                <h6>전세자금대출</h6>
+                                                <h4 class="font-weight-bolder text-left mb-5">[[${loanRentHoustList0[1].finPrdtNm}]]</h4>
+                                                <p class="loan-minrate mb-n2">평균금리<span style="font-size: 1.6rem;">[[${loanRentHoustList0[1].lendRateAvg}]]</span>%</p>
+                                                
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <!-- End of Card -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+<!-- 연하늘배경 은행 부분 끝 -->
+
+<!-- 남색바 시작 -->
+<section class="bar">
+    <div class="navySection">
+        <div class="icons">
+            <div class="navy_icon">
+                <a  class="icon_btn" th:href="@{/bank/bankDeposit}">
+                    <i class="fa-solid fa-money-bill-transfer fa-3x"><br><span>예금 바로가기</span></i>
+                </a>
+            </div>
+            <div class="navy_icon">
+                <a class="icon_btn" th:href="@{/bank/bankDeposit?pageSaving=1&check=1}">
+                    <i class="fa-solid fa-piggy-bank fa-3x"><br><span>적금 바로가기</span></i>
+                </a>
+            </div>
+            <div class="navy_icon">
+                <a class="icon_btn"  th:href="@{/bank/bankLoan}">
+                    <i class="fa-solid fa-landmark fa-3x"><br><span>대출 바로가기</span></i>
+                </a>
+            </div>
+            <div class="navy_icon">
+                <a  class="icon_btn" th:href="@{/bank/bankCard}">
+                    <i class="fa-regular fa-credit-card fa-3x"><br><span>카드 바로가기</span></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- 남색바 끝 -->
+
+<!-- 뉴스와 커뮤니티 시작 -->
+<section id="news_commu" class="section pt-5 pb-5">
+    <div class="mainFinalSec">
+        <div class="col-5 pl-3 pr-3 finalSecBox">
+            <div class="news_title">
+                <span class="title">NEWS</span>
+                <div class="moreview">
+                    <a  th:href="@{/news/newsMain}">
+                        <span class="More_title">더보기</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="mini-news-banner mt-3">
+                <img src="https://imgnews.pstatic.net/image/upload/item/2018/08/29/183229335_%25BD%25C5%25B0%25ED%25B9%25E8%25B3%25CA.png" width="300" alt="뉴스 기사와 댓글로 인한 문제 발생 시 24시간 센터로 접수해주세요">
+            </div>
+            <ul class="section_list_ranking_press list-style-none" style="display: block;">
+                <li>
+                    <a href="https://n.news.naver.com/mnews/ranking/article/214/0001249146?ntype=RANKING&amp;sid=001" class="ranking_thumb nclicks('rig.renws2')">
+                        <img src="https://mimgnews.pstatic.net/image/origin/214/2023/01/20/1249146.jpg?type=nf88_60" width="88" height="60" alt="" onerror="this.src='https://ssl.pstatic.net/static.news/image/news/errorimage/noimage_88x60.png';">
+                    </a>
+                    <div class="list_text_wrap">
+                        <div class="list_text">
+                            <div class="list_text_inner">
+                                <a href="https://n.news.naver.com/mnews/ranking/article/214/0001249146?ntype=RANKING&amp;sid=001" class="list_tit nclicks('rig.renws2')">윤 대통령 국정 지지율 36%‥긍정·부정 이유 모두 "외교 …</a>
+                                    <a class="list_press nclicks('rig.renws2pname')" href="/main/ranking/office.naver?officeId=214"><span class="list_press_thumb"><img src="https://mimgnews.pstatic.net/image/upload/office_logo/214/2020/06/30/logo_214_56_20200630111130.png" width="16" height="16" alt=""></span>MBC</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="https://n.news.naver.com/mnews/ranking/article/023/0003741731?ntype=RANKING&amp;sid=001" class="ranking_thumb nclicks('rig.renws2')">
+                        <img src="https://mimgnews.pstatic.net/image/origin/023/2023/01/20/3741731.jpg?type=nf88_60" width="88" height="60" alt="" onerror="this.src='https://ssl.pstatic.net/static.news/image/news/errorimage/noimage_88x60.png';">
+                        
+                    </a>
+                    <div class="list_text_wrap">
+                        <div class="list_text">
+                            <div class="list_text_inner">
+                                <a href="https://n.news.naver.com/mnews/ranking/article/023/0003741731?ntype=RANKING&amp;sid=001" class="list_tit nclicks('rig.renws2')">항문에 대학 동기 DNA 넣고 “유사 강간당했다” 무고한  …</a>
+                                
+                                    <a class="list_press nclicks('rig.renws2pname')" href="/main/ranking/office.naver?officeId=023"><span class="list_press_thumb"><img src="https://mimgnews.pstatic.net/image/upload/office_logo/023/2020/04/29/logo_023_56_20200429140429.png" width="16" height="16" alt=""></span>조선일보</a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="https://n.news.naver.com/mnews/ranking/article/421/0006588904?ntype=RANKING&amp;sid=001" class="ranking_thumb nclicks('rig.renws2')">
+                        <img src="https://mimgnews.pstatic.net/image/origin/421/2023/01/20/6588904.jpg?type=nf88_60" width="88" height="60" alt="" onerror="this.src='https://ssl.pstatic.net/static.news/image/news/errorimage/noimage_88x60.png';">
+                        
+                    </a>
+                    <div class="list_text_wrap">
+                        <div class="list_text">
+                            <div class="list_text_inner">
+                                <a href="https://n.news.naver.com/mnews/ranking/article/421/0006588904?ntype=RANKING&amp;sid=001" class="list_tit nclicks('rig.renws2')">구룡마을 화재 최초 신고자 "화장실 갔다가 불 감지…주민들 …</a>
+                                    <a class="list_press nclicks('rig.renws2pname')" href="/main/ranking/office.naver?officeId=421"><span class="list_press_thumb"><img src="https://mimgnews.pstatic.net/image/upload/office_logo/421/2021/02/09/logo_421_56_20210209173713.jpg" width="16" height="16" alt=""></span>뉴스1</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="finalSecBox">
+            <div class="commu_title">
+                <span class="title">COMUNITY</span>
+                <div class="moreview">
+                    <a th:href="@{/community/noticeList}">
+                        <span class="More_title">더보기</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+            <table class="home-notice-table">
+				<th:block th:if="${list == null}">
+				<tr>
+					<td colspan="6" style="text-align: center;">조회된 글이 없습니다.</td>
+				</tr>
+			  </th:block>
+			  <th:block th:if="${list != null}">
+					<tr class="table_content" th:each="board : ${list}">
+						<td class="board-content board-title">
+							<a th:href="|/community/view?no=${board.bNo}&type=공지사항|">
+								 <h6 class="board_c_title"> [[${board.title}]] </h6>
+							</a>
+						</td>
+						<td class="board-content" th:text="${#dates.format(board.createDate, 'yyyy/MM/dd')}"/></td>
+					</tr>
+			</th:block>
+            </table>
+        </div>
+    </div>
+</section>
+<!-- 뉴스와 커뮤니티 끝 -->
+
+<!-- 챗봇 버튼 -->
+<th:block th:if="${loginMember != null}">
+	<div id="goingChat"><a th:href="@{/common/chatbot}" target="_blank" class="text-center"><i class="fa-solid fa-comments fa-2x onlineChatBtn m-4"></i></a></div>
+</th:block>
+<div class="py-0">
+    <div class="z-2">
+        <div class="maincontents">
+            <div class="section1">
+    			<div class="area">
+    				<a href="https://www.law.go.kr/lsSc.do?section=&menuId=1&subMenuId=15&tabMenuId=81&eventGubun=060101&query=%EB%B6%80%EB%8F%99%EC%82%B0" class="content1" title="상세 페이지로 이동" target="_blank">
+    					<div class="box">
+    						<div class="law_icon"></div>
+    						<div class="bg"></div>
+    					</div>
+    					<h3>부동산 법률 조회</h3>
+    				</a>
+                    <a href="https://www.law.go.kr/lsSc.do?section=&menuId=1&subMenuId=15&tabMenuId=81&eventGubun=060101&query=%EC%A6%9D%EA%B6%8C" class="content2" title="상세 페이지로 이동" target="_blank">
+                        <div class="box">
+                            <div class="law_icon"></div>
+                            <div class="bg"></div>
+                        </div>
+                        <h3>증권법률 조회</h3>
+                    </a>
+
+                    <a href="https://www.law.go.kr/lsSc.do?section=&menuId=1&subMenuId=15&tabMenuId=81&eventGubun=060101&query=%EA%B8%88%EC%9C%B5" class="content3" title="상세 페이지로 이동" target="_blank">
+                        <div class="box">
+                            <div class="law_icon small"></div>
+                            <div class="bg"></div>
+                        </div>
+                        <h3>금융법률 조회</h3>
+                    </a>
+
+                    <a href="https://glaw.scourt.go.kr/wsjo/panre/sjo050.do#1676786017046" class="content4" title="상세 페이지로 이동" target="_blank">
+                        <div class="box">
+                            <div class="law_icon small"></div>
+                            <div class="bg"></div>
+                        </div>
+                        <h3>판례 검색</h3>
+                    </a>
+
+                    <a th:href="@{/law/lawFAQ}" class="content5" title="상세 페이지로 이동" target="_blank">
+                        <div class="box">
+                            <div class="law_icon small"></div>
+                            <div class="bg"></div>
+                        </div>
+                        <h3>FAQ</h3>
+                    </a>
+    			</div>
+    		</div>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="bg-primary pt-6 mt-n9" style="height: 140px;">
+</div>
+<footer th:replace="~{layout/footer :: #footer}"></footer>
+<th:block th:replace="layout/scripts :: scripts"></th:block>
+<script>
+	$(document).ready(() => {
+		$("#kosdaqURl").on("click", (e) => {
+			location.href = "/stock/stockList#tab_second";
+		});
+		$("#nasdaqURl").on("click", (e) => {
+			location.href = "/stock/stockList#tab_third";
+		});
+		
+	});
+</script>
+<script src="/assets/js/main.js"></script>
+</body>
+
+</html>

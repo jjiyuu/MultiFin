@@ -1,0 +1,138 @@
+@charset "EUC-KR";
+.home-mainTitle,.type,.selling-type,.search_result,.more_title{
+ font-family: 'IBM Plex Sans KR', sans-serif;
+}
+.section-header{
+	padding-bottom: 50px;
+}
+.home_map {
+	float: right;
+}
+
+/*검색창*/
+.home_container{
+	width: 1220px !important;
+	margin-top:40px;
+	margin-bottom: 15px;
+	justify-content: space-between;
+}
+
+input[type="checkbox"]{
+	width: 15px; /*Desired width*/
+	height: 15px; /*Desired height*/
+}
+.type{font-size: 19px; font-weight: 500;}
+
+.input-container{
+	display: flex;
+	justify-content: center;
+}
+.form-group{
+	border: 1px solid rgb(233, 233, 233);
+	border-radius: 4px;
+}
+.search-detail{ 
+	width: 1200px; 
+	justify-content: center;
+	margin: 0 auto;
+}
+.sell-description{
+	width: 500px;
+}
+
+
+
+/*검색부분*/
+.search_box{
+	width: 1220px;
+	justify-content: center;
+	margin: 0 auto;
+	margin-top: 10px;
+	margin-bottom: 50px;
+}
+.selling-box{
+	width: 500px; 
+	height: 800px;
+}
+.selling_house_resultbox{display: flex; justify-content: space-between;}
+
+.search_result{font-size: 20px;}
+.type-money,.type-sell,.type-selling{font-family: 'IBM Plex Sans KR', sans-serif;}
+.sell-card{border: 1px solid lightgray;}
+.sell-card:hover{border: 1px solid orange;}
+.c {box-shadow: 5px 5px 5px 5px;}
+.ex1 {
+	border-radius: 30px;
+	border: 2px solid red;
+	width: 70px;
+	height: 27px;
+}
+.home_container {
+	width: 70%;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.card1 {
+	margin-left: 10px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+	word-wrap: break-word;
+	background-color: #ffffff;
+	background-clip: border-box;
+	border-radius: 0.45rem;
+}
+
+/*지도*/
+.map{
+	width: 700px;
+}
+
+.sell_map{
+	border: 1px solid lightgray;
+	border-radius: 4px;
+	width: 100%;
+	height: 800px;
+}
+
+/*------------------매물 상세-----------------------*/
+
+.infomation,.more-info,.location-infor{
+	width: 1200px;
+	justify-content: center;
+	margin: 0 auto;
+}
+.title,.sub,.another,.ex2,
+.money,.description,.main_title,.sub-sub,.table_info_header,
+.table_info_body{ 
+	font-family: 'IBM Plex Sans KR', sans-serif;}
+
+.main_title{text-align: center;}
+.another{color:black; font-weight: 500; font-size: 18px;}
+.title{font-size: 24px;}
+.sellInfo_table_container{text-align: center; vertical-align: middle;}
+.table_info_header{font-size: 20px;}
+.table_info_body{font-size: 17px; font-weight: 500;}
+.ex2 {
+	border-radius: 15px;
+	border: 2px solid rgb(13, 27, 72);
+	color: rgb(13, 27, 72);
+	width: 180px;
+	height: 35px;
+	line-height: 33px;
+	text-align: center;
+	font-weight: 600;
+}
+.description{
+	font-size: 18px;
+	font-weight: 500;
+}
+.infor{line-height: 40px;}
+.sub{
+	display: flex; 
+	justify-content: center;
+}
+.sub>h6{font-size: 18px;}
+.sub-sub{font-weight: 500;}

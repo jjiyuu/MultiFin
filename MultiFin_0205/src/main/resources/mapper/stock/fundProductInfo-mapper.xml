@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//KO" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.multi.multifin.stock.model.mapper.FundProductInfoMapper">
+	<resultMap type="FundProductInfo" id="FundProductInfoResultMap">
+		<id property="fpino" column="fpino"/>
+		<result property="basDt" column="basDt"/>
+		<result property="srtnCd" column="srtnCd"/>
+		<result property="fndNm" column="fndNm"/>
+		<result property="ctg" column="ctg"/>
+		<result property="setpDt" column="setpDt"/>
+		<result property="fndTp" column="fndTp"/>
+		<result property="prdClsfCd" column="prdClsfCd"/>
+		<result property="asoStdCd" column="asoStdCd"/>
+	</resultMap>
+	
+	<!-- 펀드 상품 조회(주식형, 채권형, 혼합형, MMF) -->
+	<select id="selectFundProduct" parameterType="map" resultMap="FundProductInfoResultMap">
+		SELECT * 
+		FROM FundProductInfo AS f
+		WHERE f.fndTp='주식형'
+		<if test="fndNm != null">
+		 AND f.fndNm LIKE '%${fndNm}%'
+		</if>
+		ORDER BY F.FPINO ASC LIMIT ${limit} OFFSET ${offset}
+	</select>
+	
+	<select id="selectFundCount" parameterType="map" resultType="int">
+		SELECT 
+		COUNT(DISTINCT F.FPINO) 
+		FROM FUNDPRODUCTINFO F
+		WHERE f.fndTp='주식형'
+		<if test="fndNm != null">
+		 AND f.fndNm LIKE '%${fndNm}%'
+		</if>
+	</select>
+	<!-- 채권형 조회 -->
+	<select id="selectFundProduct02" parameterType="map" resultMap="FundProductInfoResultMap">
+		SELECT * 
+		FROM FundProductInfo AS f
+		WHERE f.fndTp='채권형'
+		<if test="fndNm != null">
+		 AND f.fndNm LIKE '%${fndNm}%'
+		</if>
+		ORDER BY F.FPINO ASC LIMIT ${limit} OFFSET ${offset}
+	</select>
+	
+	<select id="selectFundCount02" parameterType="map" resultType="int">
+		SELECT 
+		COUNT(DISTINCT F.FPINO) 
+		FROM FUNDPRODUCTINFO F
+		WHERE f.fndTp='채권형'
+		<if test="fndNm != null">
+		 AND f.fndNm LIKE '%${fndNm}%'
+		</if>
+	</select>
+	<!--  혼합형 조회  -->
+	<select id="selectFundProduct03" parameterType="map" resultMap="FundProductInfoResultMap">
+		SELECT * 
+		FROM FundProductInfo AS f
+		WHERE f.fndTp='혼합채권형' or f.fndTp='혼합자산'
+		<if test="fndNm != null">
+		 AND f.fndNm LIKE '%${fndNm}%'
+		</if>
+		ORDER BY F.FPINO ASC LIMIT ${limit} OFFSET ${offset}
+	</select>
+	
+	<select id="selectFundCount03" parameterType="map" resultType="int">
+		SELECT 
+		COUNT(DISTINCT F.FPINO) 
+		FROM FUNDPRODUCTINFO F
+		WHERE f.fndTp='혼합채권형' or f.fndTp='혼합자산'
+		<if test="fndNm != null">
+		 AND f.fndNm LIKE '%${fndNm}%'
+		</if>
+	</select>
+	<!-- 재간접 조회 -->
+	<select id="selectFundProduct04" parameterType="map" resultMap="FundProductInfoResultMap">
+		SELECT * 
+		FROM FundProductInfo AS f
+		WHERE f.fndTp='재간접'
+		<if test="fndNm != null">
+		 AND f.fndNm LIKE '%${fndNm}%'
+		</if>
+		ORDER BY F.FPINO ASC LIMIT ${limit} OFFSET ${offset}
+	</select>
+	
+	<select id="selectFundCount04" parameterType="map" resultType="int">
+		SELECT 
+		COUNT(DISTINCT F.FPINO) 
+		FROM FUNDPRODUCTINFO F
+		WHERE f.fndTp='재간접'
+		<if test="fndNm != null">
+		 AND f.fndNm LIKE '%${fndNm}%'
+		</if>
+	</select>
+</mapper>
+
+
+
+
+

@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="layout/head :: config"></th:block>
+	<title>MultiFin:모의투자</title>
+	<!-- 현재 페이지에서만 쓰는 css, script -->
+	<link rel="stylesheet" type="text/css" th:href="@{/css/stock/stockTest.css}">
+	<!--주식차트-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+<header th:replace="~{layout/header :: #header}"></header>
+    <main>
+            <section class="section-header section-image bg-primary overlay-primary text-white" data-background="../../assets/img/stock/earth.jpg">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-md-10 text-center">
+                            <h1 class="mb-3 stock-mainTitle">모의 주식 투자</h1>
+                            <p class="lead px-lg-5 mb-5 stock-mainSubtitle">MULTIFIN애서 가상 계좌를 개설하고 모의투자를 해보며<br> 투자 실력을 늘려가보세요!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+    </main>
+    <section class="choice">
+        <div class="stock_test_tabs shadow-soft">
+            <ul class="tabs">
+                <li class="tab-choice current" data-tab="tab-1">
+                <div class="tab_title new">
+                        <i class="fa-solid fa-arrow-right"></i>
+                        <h5 class="tab-title_description new">처음이신가요?</h5>
+                </div>
+                <div id="tab-1" class="tab-content new current">
+                    <div class="content_container first_container">
+                                <a class="menu_btn" href="/stock/createAccount" id="createAccount">
+                                <div class="tab_sub">
+                                    <i class="fa-solid fa-money-check-dollar"></i>
+                                    <h5 class="sub_title">계좌 만들기</h5>
+                                </div>
+                            </a>
+                            <a class="menu_btn" href="#searchStock">
+                                <div class="tab_sub">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                    <h5 class="sub_title">종목찾기</h5>
+                                </div>
+                            </a>
+                            <a class="menu_btn" th:href="@{/common/chatbot}" target="blank">
+                                <div class="tab_sub">
+                                    <i class="fa-solid fa-comments"></i>
+                                    <h5 class="sub_title">멀티핀 챗봇</h5>
+                                </div>
+                            </a>
+                            <a class="menu_btn" href="/law/lawFAQ">
+                                <div class="tab_sub">
+                                    <i class="fa-solid fa-circle-question"></i>
+                                    <h5 class="sub_title">이용 안내</h5>
+                                </div>
+                            </a>
+                    </div>
+                </div>
+                </li>
+                <li class="tab-choice" data-tab="tab-2">
+                    <div id="tab-2" class="tab-content freqeuncy">
+                        <div class="content_container second_container">
+                            <a class="menu_btn" href="/member/account">
+                                <div class="tab_sub">
+                                    <i class="fa-solid fa-circle-dollar-to-slot"></i>
+                                    <h5 class="sub_title freqeuncy">계좌 보기</h5>
+                                </div>
+                            </a>
+                            <a class="menu_btn" href="/stock/stockPredicate">
+                                <div class="tab_sub">
+                                    <i class="fa-solid fa-chart-column"></i>
+                                    <h5 class="sub_title freqeuncy">주가동향</h5>
+                                </div>
+                            </a>
+                            <a class="menu_btn" href="/news/newsMain">
+                                <div class="tab_sub">
+                                    <i class="fa-solid fa-newspaper"></i>
+                                    <h5 class="sub_title freqeuncy">경제 뉴스</h5>
+                                </div>
+                            </a>
+                        </div>
+                </div>
+                    <div class="tab_title freqeuncy">
+                        <i class="fa-solid fa-star"></i>
+                        <h5 class="tab-title_description freqeuncy">자주 찾는 메뉴</h5>
+                </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section class="future">
+            <div class="test_info_container">
+                <div class="card shadow-soft test_info_card">     
+                    <h4 class="card_title">총 자산</h4>
+                    <th:block th:if="${myAcc == null}">
+                    	<tr>
+                    		<td>나의 계좌 정보가 없습니다.<br>계좌 생성 후 이용 가능합니다!</td>
+                    	</tr>
+                    </th:block>
+                    <th:block th:if="${myAcc != null}">
+                    	<div class="test_info_title"  style="text-align: left;" >
+	                        <h3 class="money">[[${#numbers.formatInteger(10000000 +(base-totalP), 0, 'COMMA')}]] 원</h3>
+	                        <div th:onclick="movePage('/member/account');" class="account">내 계좌 보기</div>
+                    	</div>
+                    	<div class="companies">
+                        	<h5 class="in-area font-weight-bolder">국내주식</h5>
+                           <div th:each="nowStock : ${nowStock}">
+                           		<div class="company">
+				                    <div class="company_category">
+				                        <div class="company_logo">S</div>
+				                        <div class="company_detail">
+				                            <h6 class="company_name">[[${nowStock.stockNum}]]</h6>
+				                            <h6  class="company_have_stock">[[${nowStock.cnt}]]주</h6>
+				                        </div>
+				                    </div>
+					             
+				                    <div class="company_money">
+				                        <h5 th:text="|${#numbers.formatInteger(nowStock.price*nowStock.cnt, 3, 'COMMA')} 원|" class="now_money"></h5> 
+				                        <a class="sellBtn" th:href="|/stock/stockSell?no=${nowStock.stockCode}|">매도</a>
+				                    </div>  
+		                   		</div>
+                           </div>
+                    	</div>
+                    </th:block>	
+                </div>
+                <div class="card shadow-soft test_info_card">     
+                    <h4 class="card_title"> 내 수익률</h4>
+                    <th:block th:if="${myAcc == null}">
+                    	<tr>
+                    		<td>나의 계좌 정보가 없습니다.<br>계좌 생성 후 이용 가능합니다!</td>
+                    	</tr>
+                    </th:block>
+                    <th:block th:if="${myAcc != null}">
+                    	<div class="test_info_title">
+                        <h3 class="money">[[${#numbers.formatInteger(base-totalP, 0, 'COMMA')}]] 원</h3>
+                    </div>
+                    <div class="gain_percent">
+                        <div class="gain_money">
+                            <h5 class="moeny_title">원금</h5>
+                            <h5 class="moeny">10,000,000 원</h5>
+                        </div>
+                        <div class="day_money">
+                            <h5 class="moeny_title">현재 보유 자산</h5>
+                            <h5 class="moeny increase">[[${#numbers.formatInteger(10000000 +(base-totalP), 0, 'COMMA')}]] 원</h5>
+                        </div>  
+                        <div class="total_money">
+                            <h5 class="moeny_title">보유중인 한화</h5>
+                            <h5 class="moeny increase">[[${#numbers.formatInteger(10000000 -totalP, 0, 'COMMA')}]] 원</h5>
+                        </div>
+                        <div class="total_money">
+                            <h5 class="moeny_title">주식 평단가</h5>
+                             <th:block th:if="${totalP != 0 &&  cnt != 0}">
+                            	<h5 th:text="|${#numbers.formatInteger(totalP/cnt, 3, 'COMMA')} 원|"class="moeny increase"></h5>
+                        	 </th:block>
+                        </div>
+                    </div>
+                    <!--  <div class="sell">
+                        <h5 class="sell_title font-weight-bolder">판매수익</h5>
+                        <h6 class="sell_money">판매된 주식이 없습니다.</h6>
+                    </div> -->
+                    </th:block>                                      
+                </div>
+                <div class="card shadow-soft test_info_card">     
+                    <h4 class="card_title"> 추천 주식</h4>
+                    <div class="companies">
+                        <h5 class="in-area font-weight-bolder">국내주식</h5>
+                        <div class="company">
+                            <div class="company_category">
+                                <div class="want_company_logo">K</div>
+                                <div class="company_detail">
+                                    <h6 class="want_company_name">카카오</h6>
+                                </div>
+                            </div>
+                            <div class="company_money">
+                                <h5 class="now_money"> 62,400 원 </h5>
+                                <h6 class="now_percent decrease">▼ 3.4%</h6>
+                            </div>
+                        </div>
+                        <div class="company">
+                            <div class="company_category">
+                                <div class="want_company_logo">S</div>
+                                <div class="company_detail">
+                                    <h6 class="want_company_name">삼성전자</h6>
+                                </div>
+                            </div>
+                            <div class="company_money">
+                                <h5 class="now_money"> 63,100 원 </h5>
+                                <h6 class="now_percent increase">▲ .69%</h6>
+                            </div>
+                        </div>
+                        <div class="company">
+                            <div class="company_category">
+                                <div class="want_company_logo">L</div>
+                                <div class="company_detail">
+                                    <h6 class="want_company_name">LG</h6>
+                                </div>
+                            </div>
+                            <div class="company_money">
+                                <h5 class="now_money"> 76,600 원 </h5>
+                                <h6 class="now_percent increase">▲ 1.06%</h6>
+                            </div>
+                        </div>                       
+                    </div>
+                </div>
+            </div>
+    </section>
+   <section class="bg-white  stock_description_container">
+    <div class="card shadow-soft stock_details">     
+        <h4 class="stock_details_title">나의 체결 내역</h4>
+        <table class="stock_table">
+          <tr class="table_row table_header">
+            <th class="table-header">주문번호</th>
+            <th class="table-header" >날짜</th>
+            <th class="table-header">종목코드</th>
+            <th class="table-header">종목명</th>
+            <th class="table-header">가격</th>
+            <th class="table-header">수량</th>
+            <th class="table-header">상태</th>
+          </tr>
+          <th:block th:if="${myStock == null}">
+			<tr>
+				<td colspan="7" style="text-align: center;"> 체결 내역이 없습니다.</td>
+			</tr>
+			</th:block>
+			<th:block th:if="${myStock != null}">
+				<tr th:each="myStock, number: ${myStock}" class="table_row">
+					<td th:text="${#numbers.formatInteger(myStock.orderNum, 8)}" class="board-content"></td>										
+					<td th:text="${#dates.format(myStock.orderDt, 'yyyy-MM-dd')}" class="board-content"></td>											
+					<td th:text="${#numbers.formatInteger(myStock.stockCode, 6)}" class="board-content"></td>
+					<td th:text="${myStock.stockNum}" class="board-content"></td>																						
+					<td th:if="${myStock.tradeStat == 'B'}" class="board-content">매수</td>				
+					<td th:text="${#numbers.formatInteger(myStock.price, 3, 'COMMA')}" class="board-content"></td>
+					<td th:text="${myStock.cnt}" class="board-content"></td>
+					<th:block th:if="${myStock.tradeStat == '매수'}">
+						<td th:text="${myStock.tradeStat}" class="increase font-weight-bold"></td>		
+					</th:block>
+					<th:block th:if="${myStock.tradeStat == '매도'}">
+						<td th:text="${myStock.tradeStat}" class="decrease font-weight-bold"></td>		
+					</th:block>			
+																							
+				</tr>
+			</th:block>
+          
+        </table>
+        <div class="table-buttons">
+            <button onclick="" class="table-button">&lt;&lt;</button>
+            <button onclick="" class="table-button">&lt;</button>
+            <button onclick="" class="table-button">1</button>
+            <button onclick="" class="table-button">&gt;</button>
+            <button onclick="" class="table-button">&gt;&gt;</button>
+        </div> 
+    </div>
+   </section>
+   <section id="stock_genre" class="bg-white  stock_sellBuy_container">
+        <div class="card shadow-soft stock_details">     
+            <h5 class="stock_details_title" id="searchStock">주식 종목</h5>
+            <!-- 검색창 -->
+            <form autocomplete="off" class="row search" method="get" th:action="@{/stock/stockTest}">
+					<div class="col-12 mb-3 mb-lg-4">
+						<div class="form-group form-group-lg mb-0">
+							<div class="input-group">
+								<input id="searchValue" type="text"
+									class="form-control autocomplete border-gray-500 border-right-0 fw-280 "
+									placeholder="검색어 입력" th:value="${param.searchValue}" name="searchValue">
+								<button
+									class="bankMainSubmit border border-gray-500 border-left-0 bg-white text-dark fw-60"
+									type="submit">
+									<i class="fa-solid fa-magnifying-glass"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+			</form>
+			<!--  검색창 종료  -->
+            <table class="stock-rank-table">
+                <tr class="table_row">
+                  <th class="table-header">종목코드</th>
+                  <th class="table-header" >종목명</th>
+                  <th class="table-header">현재가</th>
+                  <th class="table-header">전일비</th>
+                  <th class="table-header">등락률</th>
+                  <th class="table-header">상장주식수</th>
+                  <th class="table-header">시가총액</th>
+                  <th class="table-header" colspan="2">매매</th>
+                </tr>
+                <th:block th:if="${allStock == null}">
+            		<tr>
+            			<td>조회된 내용이 없습니다.</td>
+            		</tr>
+            	</th:block>
+            	<th:block th:if="${allStock != null}" id="search">
+            		<tr th:each="stock : ${allStock}">
+            			<td th:text="${#numbers.formatInteger(stock.srtnCd, 6)}" class="board-content"></td>
+            			<td th:text="${stock.itmsNm}" class="board-content"></td>
+            			<td th:text="${#numbers.formatInteger(stock.clpr, 3, 'COMMA')}" class="board-content"></td>
+            			<th:block th:if="${#strings.contains(stock.fltRt, '-') == true } ">
+		                      <td th:text="|▼ ${stock.fltRt}%|" class="decrease font-weight-bold"></td>    
+						</th:block>
+						<th:block th:if="${#strings.contains(stock.fltRt, '-') == false } ">
+		                      <td th:text="|▲ ${stock.fltRt}%|" class="increase font-weight-bold"></td>    
+						</th:block>
+						<th:block th:if="${#strings.contains(stock.vs, '-') == true } ">
+		                      <td th:text="|${stock.vs} 원|" class="decrease font-weight-bold"></td>    
+						</th:block>
+						<th:block th:if="${#strings.contains(stock.vs, '-') == false } ">
+		                      <td th:text="|+${stock.vs} 원|" class="increase font-weight-bold"></td>    
+						</th:block>         		 	           	
+            			<td th:text="${#numbers.formatInteger(stock.lstgStCnt, 3, 'COMMA')}" class="board-content"></td>
+            			<td th:text="${#numbers.formatInteger(stock.mrktTotAmt, 3, 'COMMA')}" class="board-content"></td>
+                  		<td class="board-content "> <a class="stock_buy__btns" th:href="|/stock/stockSelling?no=${stock.srtnCd}|">매수</a></td>
+                  		<!-- <td class="board-content"> <button class="stock_sell__btns"  onclick="window.open('./stockSelling.html')">매도</button></td> -->
+            		</tr>
+            	</th:block>
+              </table>
+              <!-- page 부 시작 -->
+				<div class="table-buttons" align="center">
+					<!--처음 페이지 -->
+					<button onclick="movePage('/stock/stockTest?page=1');" class="table-button">&lt;&lt;</button>
+					<!--이전 페이지 -->
+					<button th:onclick="|movePage('/stock/stockTest?page=${pageInfo.prevPage}');|" class="table-button">&lt;</button>
+					<!-- 10개 페이지 -->
+					<th:block th:each="num, status : ${#numbers.sequence(pageInfo.startPage, pageInfo.endPage)}" class="table-button">
+						<th:block th:if="${status.current == pageInfo.currentPage}" class="table-button">
+							<button class="table-button" disabled>[[${status.current}]]</button>
+						</th:block>
+						<th:block th:if="${status.current != pageInfo.currentPage}" class="table-button">
+							<button th:onclick="|movePage('/stock/stockTest?page=${status.current}');|" class="table-button">[[${status.current}]]</button>
+						</th:block>
+					</th:block>
+					<!--다음 페이지 -->
+					<button
+						th:onclick="|movePage('/stock/stockTest?page=${pageInfo.nextPage}');|"
+						class="table-button">&gt;</button>
+					<!-- 마지막 페이지 -->
+					<button th:onclick="|movePage('/stock/stockTest?page=${pageInfo.maxPage}');|" class="table-button">&gt;&gt;</button>
+				</div>   
+        </div>
+   </section>
+<section class="stock__total pb-4">
+  <div class="stock__total_table">
+    <div class="kr_stock">
+      <div class="stock__table mb-3 mr-1">
+        <h5 class="rank_title">KOSPI <span style="color: rgb(231, 76, 60);">TOP5</span></h5>
+        <table class="stock">
+			<tr th:each="KOSPI, number : ${KOSPI}">
+				<td class="stock__rank" th:text="${number.index}+1"></td>
+				<td th:text="${KOSPI.itmsNm}"></td>
+				<td class="table-content">[[${#numbers.formatInteger(KOSPI.clpr, 0, 'COMMA')}]] 원</td>
+				<th:block th:if="${#strings.contains(KOSPI.fltRt, '-') == true } ">
+			         <td class="decrease">▼ [[${KOSPI.fltRt}]] %</td>
+				</th:block>	                                    
+				<th:block th:if="${#strings.contains(KOSPI.fltRt, '-') == false } ">
+			         <td class="increase">▲ [[${KOSPI.fltRt}]] %</td>
+				</th:block>
+			</tr>
+         </table>
+      </div>
+      <div class="stock__table mb-3 mr-1">
+        <h5 class="rank_title">KOSDAQ <span style="color: rgb(231, 76, 60);">TOP5</span></h5>
+        <table class="stock">
+			<tr th:each="KOSDAQ, number : ${KOSDAQ}">
+				<td class="stock__rank" th:text="${number.index}+1"></td>
+				<td th:text="${KOSDAQ.itmsNm}"></td>
+				<td class="table-content">[[${#numbers.formatInteger(KOSDAQ.clpr, 0, 'COMMA')}]] 원</td>
+				<th:block th:if="${#strings.contains(KOSDAQ.fltRt, '-') == true } ">
+			         <td class="decrease">▼[[${KOSDAQ.fltRt}]] %</td>
+				</th:block>	                                    
+				<th:block th:if="${#strings.contains(KOSDAQ.fltRt, '-') == false } ">
+			         <td class="increase">▲[[${KOSDAQ.fltRt}]] %</td>
+				</th:block>
+			</tr>
+         </table>
+      </div>
+    </div>
+    <div class="stock__table er mr-1">
+      <h5 class="rank_title"><span style="color: rgb(231, 76, 60);">Today's</span> Exchange rate </h5>
+      <table class="stock">
+        <tr>
+          <td>1</td>
+          <td>[[${#dates.format(USD.recorddate, 'MM/dd')}]]</td>
+          <td>[[${USD.curUnit}]] / KRW</td>
+          <td class="table_money">[[${USD.dealBasR}]] 원</td>
+          <td class="table_name">[[${USD.curNm}]]</td>
+        </tr>
+         <tr>
+          <td>2</td>
+          <td>[[${#dates.format(JPY.recorddate, 'MM/dd')}]]</td>
+          <td>JPY / KRW</td>
+          <td class="table_money">[[${JPY.dealBasR}]] 원</td>
+          <td class="table_name">[[${JPY.curNm}]]</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>[[${#dates.format(GBP.recorddate, 'MM/dd')}]]</td>
+          <td>[[${GBP.curUnit}]] / KRW</td>
+          <td class="table_money">[[${GBP.dealBasR}]] 원</td>
+          <td class="table_name">[[${GBP.curNm}]]</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>[[${#dates.format(HKD.recorddate, 'MM/dd')}]]</td>
+          <td>[[${HKD.curUnit}]] / KRW</td>
+          <td class="table_money">[[${HKD.dealBasR}]] 원</td>
+          <td class="table_name">[[${HKD.curNm}]]</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>[[${#dates.format(EUR.recorddate, 'MM/dd')}]]</td>
+          <td>[[${EUR.curUnit}]] / KRW</td>
+          <td class="table_money">[[${EUR.dealBasR}]] 원</td>
+          <td class="table_name">[[${EUR.curNm}]]</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>[[${#dates.format(CNH.recorddate, 'MM/dd')}]]</td>
+          <td>[[${CNH.curUnit}]] / KRW</td>
+          <td class="table_money">[[${CNH.dealBasR}]] 원</td>
+          <td class="table_name">[[${CNH.curNm}]]</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>[[${#dates.format(AUD.recorddate, 'MM/dd')}]]</td>
+          <td>[[${AUD.curUnit}]] / KRW</td>
+          <td class="table_money">[[${AUD.dealBasR}]] 원</td>
+          <td class="table_name">[[${AUD.curNm}]]</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>[[${#dates.format(SGD.recorddate, 'MM/dd')}]]</td>
+          <td>[[${SGD.curUnit}]] / KRW</td>
+          <td class="table_money">[[${SGD.dealBasR}]] 원</td>
+          <td class="table_name">[[${SGD.curNm}]]</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>[[${#dates.format(THB.recorddate, 'MM/dd')}]]</td>
+          <td>[[${THB.curUnit}]] / KRW</td>
+          <td class="table_money">[[${THB.dealBasR}]] 원</td>
+          <td class="table_name">[[${THB.curNm}]]</td>
+        </tr>
+         <tr>
+          <td>10</td>
+          <td>[[${#dates.format(CAD.recorddate, 'MM/dd')}]]</td>
+          <td>[[${CAD.curUnit}]] / KRW</td>
+          <td class="table_money">[[${CAD.dealBasR}]] 원</td>
+          <td class="table_name">[[${CAD.curNm}]]</td>
+        </tr>
+      </table>
+    </div>
+    <div class="stock__table adver">
+            <div>
+                <i class="fa-solid fa-arrow-trend-up"></i>
+            </div>
+            <h5 class="adver__Title">증권</h5>
+            <h6 class="adver__description">모의 투자 경험을 바탕으로 실제 주식 투자에 도전해 보세요!</h6>
+            <button class="adver_btn"  onclick="location.href='/stock/stockList'">더보기</button>
+    </div>
+  </div>
+</section>
+<footer th:replace="~{layout/footer :: #footer}"></footer>
+<th:block th:replace="layout/scripts :: scripts"></th:block>
+<script> 
+
+    $(document).ready(function(){
+	
+	$('ul.tabs li').click(function(){
+		var tab_id = $(this).attr('data-tab');
+
+		$('ul.tabs li').removeClass('current');
+		$('.tab-content').removeClass('current');
+		$(this).addClass('current');
+		$("#"+tab_id).addClass('current');
+	})
+});
+
+</script>
+
+<!-- 페이지 이동 -->
+<script type="text/javascript">
+	function movePage(pageUrl) {
+		var searchValue = document.getElementById("searchValue");
+		if (searchValue.value.length > 0) {
+			pageUrl = pageUrl + '&searchValue=' + searchValue.value;
+		} 	
+	
+		location.href = encodeURI(pageUrl);
+	}
+	
+	function comma(str) {
+        str = String(str);
+        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    }
+
+    function uncomma(str) {
+        str = String(str);
+        return str.replace(/[^\d]+/g, '');
+    } 
+    
+    function inputNumberFormat(obj) {
+        obj.value = comma(uncomma(obj.value));
+    }
+    
+    function inputOnlyNumberFormat(obj) {
+        obj.value = onlynumber(uncomma(obj.value));
+    }
+    
+    function onlynumber(str) {
+	    str = String(str);
+	    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g,'$1');
+	}
+    /*계좌 생성코드*/
+	$("#createAccount").on("click", (e) => {
+		if(confirm("계좌를 생성하시겠습니까?")) {
+			location.replace("/stock/createAccount");
+		}
+	});
+</script>
+
+
+</body>
+</html>

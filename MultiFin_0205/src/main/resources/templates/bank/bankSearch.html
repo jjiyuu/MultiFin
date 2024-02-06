@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="layout/head :: config"></th:block>
+	<title>MultiFin:은행검색</title>
+	<!-- 현재 페이지에서만 쓰는 css, script -->
+	<link rel="stylesheet" th:href="@{/css/bank/bank.css}">
+	<link rel="stylesheet" th:href="@{/css/common/searchTotal.css}">
+</head>
+<body>
+<header th:replace="~{layout/header :: #header}"></header>
+    <main>
+<!-- 배너 시작 -->
+    <!-- Hero -->
+    <section class="section section-header bg-soft pt-6">
+        <div class="container">
+            <div class="row justify-content-between align-items-center bankMain">
+                <div class="col-12 col-md-5  bankMain_Title">
+                    <h1 class="main_maintitle">더 나은 금융</h1>
+                    <h5 class="font-weight-normal main_subtitle">은행별 예•적금, 대출, 카드 상품을 비교할 수 있습니다.<br>멀티핀을 통해 당신에게 맞는 상품을 선택하세요.</h5>
+                    <form autocomplete="off" class="row" method="get" th:action="@{/bank/bankSearch}">
+                        <div class="col-12 mb-3 mb-lg-4">
+                            <div class="form-group form-group-lg mb-0">
+                                <div class="input-group">
+                                    <input id="search-bank" type="text" class="mian_form-control autocomplete" placeholder="금융회사명 또는 카드사명을 입력해주세요" required th:value="${param.searchValue}" name="searchValue">
+                                    <input class="bankMainSubmit" type="submit" value="search">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="img_container">
+                   <!-- Image --> 
+                   <img th:src="@{/assets/img/ours/mobile-banking-vector-free-illustration.png}" class="img-fluid" alt="Forest Illustration">
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- 배너 끝 -->
+    </main>
+    <section class="bg-white search_result_tab">
+        <div class="container">
+            <div id="tab-1" class="tab-content current">
+                <h5 class="search_result_description">검색 결과 <sapn style="color: orange;"> [[${depositList.size + savingList.size + loanCreditList0.size + loanMortgageList0.size + loanRentHoustList0.size + debitList.size + creditList.size}]]</sapn> 건</h5>
+               	<th:block th:if="${depositList.size == 0}">
+					<h4 class="mt-5 mb-1">조회된 예금상품이 없습니다.</h4>
+				</th:block>
+               	<th:block th:if="${depositList.size != 0}">
+               		<h4 class="mt-5 mb-1">예금상품</h4>
+                	<table class="board_table_bank mt-0">
+	                    <tr class="table_row table_header_bank">
+	                      <th class="table-header_bank">번호</th>
+	                      <th class="table-header_bank">금융상품</th>
+	                      <th class="table-header_bank">이율</th>
+	                      <th class="table-header_bank">금융회사</th>
+	                      <th class="table-header_bank">가입방법</th>
+	                      <th class="table-header_bank">적립유형</th>
+	                    </tr>
+	                    <tr class="table_row table_header_bank" th:each="depositList, number : ${depositList}" th:onclick="|location.href='/bank/bankFind?no=@{${depositList.finPrdtCd}}'|">
+	                        <td class="board-content">[[(${pageDepositInfo.currentPage}-1)*10+${number.index}+1]]</td>
+	                        <td class="board-content board-title" style="width:240px;">[[${depositList.finPrdtNm}]]</td>
+	                        <td class="board-content">[[${depositList.intrRate2}]]</td>
+	                        <td class="board-content">[[${depositList.korCoNm}]]</td>
+	                        <td class="board-content">[[${depositList.joinWay}]]</td>
+	                        <td class="board-content" style="width:72px;">[[${depositList.intrRateTypeNm}]]</td>
+	                    </tr>
+	                </table>
+                </th:block>
+	            <th:block th:if="${savingList.size == 0}">
+					<h4 class="mt-5 mb-1">조회된 적금상품이 없습니다.</h4>
+				</th:block>
+               	<th:block th:if="${savingList.size != 0}">
+               		<h4 class="mt-5 mb-1">적금상품</h4>
+                	<table class="board_table_bank mt-0">
+	                    <tr class="table_row table_header_bank">
+	                      	<th class="table-header">번호</th>
+	                        <th class="table-header" >금융상품</th>
+	                        <th class="table-header">이율</th>
+	                        <th class="table-header">금융회사</th>
+	                        <th class="table-header">가입방법</th>
+	                        <th class="table-header">적립유형</th>
+	                    </tr>
+	                    <tr class="table_row table_header_bank" th:each="savingList, number : ${savingList}" th:onclick="|location.href='/bank/bankFind?no=@{${savingList.finPrdtCd}}'|">
+	                        <td class="board-content">[[(${pageSavingInfo.currentPage}-1)*10+${number.index}+1]]</td>
+	                        <td class="board-content board-title">[[${savingList.finPrdtNm}]]</td>
+	                        <td class="board-content">[[${savingList.intrRate2}]]</td>
+	                        <td class="board-content">[[${savingList.korCoNm}]]</td>
+	                        <td class="board-content">[[${savingList.joinWay}]]</td>
+	                        <td class="board-content">[[${savingList.intrRateTypeNm}]]</td>
+	                    </tr>
+	                </table>
+                </th:block>
+                <th:block th:if="${loanCreditList0.size == 0 && loanMortgageList0.size == 0 && loanRentHoustList0.size == 0}">
+					<h4 class="mt-5 mb-1">조회된 대출상품이 없습니다.</h4>
+				</th:block>
+               	<th:block th:if="${loanCreditList0.size != 0}">
+               		<h4 class="mt-5 mb-1">개인신용대출</h4>
+                	<table class="board_table_bank mt-0">
+	                    <tr class="table_row table_header_bank">
+	                      	<th class="table-header">번호</th>
+	                        <th class="table-header" >금융회사명</th>
+	                        <th class="table-header" >금융상품</th>
+	                        <th class="table-header">대출종류명</th>
+	                        <th class="table-header">금리구분</th>
+	                        <th class="table-header">평균금리</th>
+	                    </tr>
+	                    <tr class="table_row table_header_bank" th:each="loanCreditList0, number : ${loanCreditList0}" th:onclick="|location.href='/bank/bankDetail?no=@{${loanCreditList0.finPrdtCd}}'|">
+	                        <td class="board-content">[[${number.index}+1]]</td>
+	                        <td class="board-content board-title" style="width:240px;">[[${loanCreditList0.korCoNm}]]</td>
+	                        <td class="board-content board-title" style="width:240px;">[[${loanCreditList0.finPrdtNm}]]</td>
+	                        <td class="board-content">[[${loanCreditList0.crdtPrdtTypeNm}]]</td>
+	                        <td class="board-content">[[${loanCreditList0.crdtLendRateTypeNm}]]</td>
+	                        <td class="board-content" style="width:72px;">[[${loanCreditList0.crdtGradAvg}]]</td>
+	                    </tr>
+	                </table>
+                </th:block>
+                <th:block th:if="${loanMortgageList0.size != 0}">
+               		<h4 class="mt-5 mb-1">주택담보대출</h4>
+                	<table class="board_table_bank mt-0">
+	                    <tr class="table_row table_header_bank">
+	                      	<th class="table-header">번호</th>
+	                        <th class="table-header" >금융회사명</th>
+	                        <th class="table-header" >금융상품</th>
+	                        <th class="table-header">대출상환유형</th>
+	                        <th class="table-header">대출금리유형</th>
+	                        <th class="table-header">평균금리</th>
+	                    </tr>
+	                    <tr class="table_row table_header_bank" th:each="loanMortgageList0, number : ${loanMortgageList0}" th:onclick="|location.href='/bank/bankDetail?no=@{${loanMortgageList0.finPrdtCd}}'|">
+	                        <td class="board-content">[[${number.index}+1]]</td>
+							<td class="board-content board-title" style="width:240px;">[[${loanMortgageList0.korCoNm}]]</td>
+							<td class="board-content board-title" style="width:240px;">[[${loanMortgageList0.finPrdtNm}]]</td>
+	                        <td class="board-content">[[${loanMortgageList0.rpayTypeNm}]]</td>
+	                        <td class="board-content">[[${loanMortgageList0.lendRateTypeNm}]]</td>
+	                        <td class="board-content" style="width:72px;">[[${loanMortgageList0.lendRateAvg}]]</td>
+	                    </tr>
+	                </table>
+                </th:block>
+                <th:block th:if="${loanRentHoustList0 != 0}">
+               		<h4 class="mt-5 mb-1">전세자금대출</h4>
+                	<table class="board_table_bank mt-0">
+	                    <tr class="table_row table_header_bank">
+	                      	<th class="table-header">번호</th>
+	                        <th class="table-header" >금융회사명</th>
+	                        <th class="table-header" >금융상품</th>
+	                        <th class="table-header">대출상환유형</th>
+	                        <th class="table-header">대출금리유형</th>
+	                        <th class="table-header">평균금리</th>
+	                    </tr>
+	                    <tr class="table_row table_header_bank" th:each="loanRentHoustList0, number : ${loanRentHoustList0}" th:onclick="|location.href='/bank/bankDetail?no=@{${loanRentHoustList0.finPrdtCd}}'|">
+	                        <td class="board-content">[[${number.index}+1]]</td>
+	                        <td class="board-content board-title" style="width:240px;">[[${loanRentHoustList0.korCoNm}]]</td>
+	                        <td class="board-content board-title" style="width:240px;">[[${loanRentHoustList0.finPrdtNm}]]</td>
+	                        <td class="board-content">[[${loanRentHoustList0.rpayTypeNm}]]</td>
+	                        <td class="board-content">[[${loanRentHoustList0.lendRateTypeNm}]]</td>
+	                        <td class="board-content" style="width:72px;">[[${loanRentHoustList0.lendRateAvg}]]</td>
+	                    </tr>
+	                </table>
+                </th:block>
+                <th:block th:if="${debitList.size == 0 || creditList.size == 0}">
+					<h4 class="mt-5 mb-1">조회된 카드상품이 없습니다.</h4>
+				</th:block>
+               	<th:block th:if="${debitList.size != 0}">
+               		<h4 class="mt-5 mb-1">신용카드</h4>
+                	<table class="board_table_bank mt-0">
+	                    <tr class="table_row table_header_bank">
+	                      	<th class="table-header" style="width: 45px;">번호</th>
+	                        <th class="table-header" style="width: 100px;">카드사명</th>
+	                        <th class="table-header" style="width: 180px;">상품명</th>
+	                        <th class="table-header" style="width: 240px;">상품특징</th>
+	                        <th class="table-header">주요혜택</th>
+	                        <th class="table-header" style="width: 100px;">상세정보</th>
+	                    </tr>
+	                    <tr class="table_row table_header_bank" th:each="debitList, number : ${debitList}">
+	                        <td class="board-content">[[${number.index}+1]]</td>
+	                        <td class="board-content board-logoimg">
+	                            <img th:src="${debitList.companyImg}">
+	                        </td>
+	                        <td class="board-content board-cardimg">
+	                            <img th:src="${debitList.productImg}">
+	                            [[${debitList.productNm}]]
+	                        </td>
+	                        <td class="board-content">[[${debitList.productChar}]]</td>
+	                        <td class="board-content text-left">
+	                        	[(${debitList.keyBenefit})]
+	                        <td class="board-content"><a th:href="${debitList.detailUrl}" target="_blank">바로가기</a></td>
+	                    </tr>
+	                </table>
+                </th:block>
+               	<th:block th:if="${creditList.size != 0}">
+               		<h4 class="mt-5 mb-1">체크카드</h4>
+                	<table class="board_table_bank mt-0">
+	                   	<tr class="table_row table_header_bank">
+	                      	<th class="table-header" style="width: 45px;">번호</th>
+	                        <th class="table-header" style="width: 100px;">카드사명</th>
+	                        <th class="table-header" style="width: 180px;">상품명</th>
+	                        <th class="table-header" style="width: 240px;">상품특징</th>
+	                        <th class="table-header">주요혜택</th>
+	                        <th class="table-header" style="width: 100px;">상세정보</th>
+	                    </tr>
+	                    <tr class="table_row table_header_bank" th:each="creditList, number : ${creditList}">
+	                        <td class="board-content">[[${number.index}+1]]</td>
+	                        <td class="board-content board-logoimg">
+	                            <img th:src="${creditList.companyImg}">
+	                        </td>
+	                        <td class="board-content board-cardimg">
+	                            <img th:src="${creditList.productImg}">
+	                            [[${creditList.productNm}]]
+	                        </td>
+	                        <td class="board-content">[[${creditList.productChar}]]</td>
+	                        <td class="board-content text-left">
+	                        	[(${creditList.keyBenefit})]
+	                        <td class="board-content"><a th:href="${creditList.detailUrl}" target="_blank">바로가기</a></td>
+	                    </tr>
+	                </table>
+                </th:block>
+            </div>
+        </div>
+    </section>
+
+<footer th:replace="~{layout/footer :: #footer}"></footer>
+
+<th:block th:replace="layout/scripts :: scripts"></th:block>
+
+<script> 
+
+// Background images for sections
+$('[data-background]').each(function () {
+$(this).css('background-image', 'url(' + $(this).attr('data-background') + ')');
+});
+$('[data-background-inner]').each(function () {
+    $(this).find('.inner-bg').css('background-image', 'url(' + $(this).attr('data-background-inner') + ')');
+});
+$('[data-background-color]').each(function () {
+    $(this).css('background-color', $(this).attr('data-background-color'));
+});
+$('[data-color]').each(function () {
+    $(this).css('color', $(this).attr('data-color'));
+});
+
+$(document).ready(function(){
+	
+	$('ul.tabs li').click(function(){
+		var tab_id = $(this).attr('data-tab');
+
+		$('ul.tabs li').removeClass('current');
+		$('.tab-content').removeClass('current');
+
+		$(this).addClass('current');
+		$("#"+tab_id).addClass('current');
+	})
+
+});
+</script>
+</body>
+</html>

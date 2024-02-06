@@ -1,0 +1,153 @@
+.home-mainTitle,.searchLeft,.searchRight{
+    font-family: 'IBM Plex Sans KR', sans-serif;
+}
+.section-header{padding-bottom: 60px;}
+
+
+
+
+/*청약조회==========================================================*/
+
+.Blue_search_container{
+    width: 1250px;
+    margin: 0 auto;
+    justify-content: center;
+    margin-top: 80px; 
+    margin-bottom: 50px;
+}
+.container{width: 1300px;}
+.homeBlueLeft-border{
+    border: 1px solid gainsboro;
+    padding: 30px;
+}
+.optionTitle,.locationCheck,.search_title
+{font-family: 'IBM Plex Sans KR', sans-serif;}
+.optionTitle{
+    margin-bottom: 20px; 
+    display: block;
+    font-weight: 600;
+    font-size: 19px;
+}
+.local{display: flex;}
+.local div{margin-right: 30px;}
+.search_container{
+    display: flex;
+    justify-content: space-between;
+}
+.search-left{
+    width: 280px;
+    padding: 30px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+.search_title{
+    font-size: 17px;
+    font-weight: 500;
+}
+
+input[type="checkbox"]{
+    width: 15px; /*Desired width*/
+    height: 15px; /*Desired height*/
+    margin-right: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.question{margin-bottom: 20px;}
+.btnCheck{
+    display: flex;
+    justify-content: space-between;
+}
+.search_btn{width:100px;}
+hr{
+    background-color: gray;
+}
+
+
+/*==============청약 오른쪽*/
+.form_container{height: 50px;}
+.searching{
+    margin: 0 auto; 
+    float: right;
+    display: flex;
+}
+.input_text{
+    width: 280px; height: 38px;
+    border: 1px solid gray;
+    border-radius: 4px 0px 0px 4px;
+    border-right: none;
+    padding: 10px;
+    font-family: 'IBM Plex Sans KR', sans-serif;
+}
+.input_btn{ 
+    height: 38px; width:100px; 
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    font-weight: 600;
+    border: 1px solid rgb(13, 27, 72);
+    background-color: rgb(13, 27, 72);
+    color: white;
+}
+.input_btn:hover{
+    background-color:black;
+}
+/* 게시판 리스트 */
+.board-table{
+    width: 100%;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-collapse: collapse;
+}
+
+
+.table-header{
+    padding: 10px 5px;
+    background-color: rgb(13, 27, 72);
+}
+
+.board-content{
+    text-align: center;
+    padding: 10px 0px;
+    border-bottom: 1px solid black;
+    font-weight: 500;
+}
+
+.board-none{
+   text-align :right;
+    padding: 10px 0px;
+    border-bottom: 1px solid black;
+    font-weight: 500;
+ 	color : gray;
+ 	padding-right:50px;
+}
+
+.board-title{
+    text-align: left;
+    padding-left: 50px;
+    max-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.table-buttons{
+    text-align: center;
+}
+.table-button{
+    text-align: center;
+    border-radius: 0px;
+    background-color: white;
+    border-radius: 3px;
+    border: 1px solid gray;
+    margin: 20px 0px;
+    width:40px;
+    height: 30px;
+    font-weight: 700;
+    color:rgb(13, 27, 72);
+}
+.table-button:hover{
+    background-color:rgb(13, 27, 72) ;
+    color:white;
+}
+
+

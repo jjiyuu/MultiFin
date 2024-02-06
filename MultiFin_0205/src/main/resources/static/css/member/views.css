@@ -1,0 +1,269 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;900&family=Noto+Sans+KR:wght@100;300;400;500;700&family=Paytone+One&family=Secular+One&display=swap');
+
+body{
+	background-color: rgb(255, 255, 255);
+	margin: 0 auto;
+  	padding: 0px;
+  	box-sizing: border-box;
+}
+#board-write-container{
+    /* background-color: #ca5959; */
+  width: 1200px;
+  margin: 0 auto;
+  padding:0px 20px;
+}
+
+/*버튼*/
+button{
+  float: right;
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  width: 90px;
+  height: 35px;
+  top: 2px;
+  background-color: rgb(13, 27, 72);
+  color:white;
+  border: 0px;
+  font-weight: 800;
+  font-size: 15px;
+  padding: 2px;
+  border-radius: 4px;
+  border: 2px solid rgb(13, 27, 72);
+}
+button:hover{
+  background-color: black;
+  color:white;
+  transition: .1s ease-in;
+}
+
+
+/*게시판 윗부분*/
+.bnts{
+	margin-bottom:20px;
+}
+.board-table{
+  width: 100%;
+  border-top: 3px solid rgb(157, 157, 157);
+  border-collapse: collapse;
+}
+.board-title{
+	/* background-color: rgb(187, 172, 153); */
+  padding: 25px 0px;
+  border-bottom: 1px solid rgb(31, 31, 31);
+  text-align: left;
+  padding-left: 70px;
+  max-width: 400px;
+  font-size: 18px
+}
+.category{
+  font-weight: 800;
+  margin-right: 10px;
+}
+
+.info-sub, .info-main{
+  padding: 20px 70px;
+  padding-bottom: 20px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.info-sub{
+  text-align: right;
+}
+
+
+/*게시판 알맹이*/
+.board-contents{
+  margin: 30px 20px;
+  margin-top: 15px;
+  /* background-color: rgb(129, 66, 66); */
+  border-bottom: 1px solid gray;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+}
+
+.textarea{
+  margin: 0px 30px;
+  resize: none;
+  border: none;
+  background-color: #fff;
+  text-align: left;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 20px;
+}
+
+.file-img{
+	width: 60%;
+	margin-left: 20%;
+}
+.imgarea{
+	background-color: rgb(255, 255, 255);
+	padding-top:30px;
+    border-top: 1px solid gray;
+}
+	
+	
+/*댓글테이블*/
+#tbl-comment{
+    /* background-color: #885959; */
+    width:1150px;
+    margin:0 auto; 
+    border-collapse:collapse; 
+    clear:both; 
+} 
+
+#tbl-comment tr td{
+    
+  border-bottom:1px solid black; 
+  text-align:left; 
+  line-height:200%;
+}
+table#tbl-comment tr td:first-of-type{
+  padding: 5px 6px 7px 70px;
+}
+
+table#tbl-comment tr td:last-of-type { width: 100px;}
+.comment-count{
+  font-weight: 800;
+  color: rgb(13, 27, 72);
+}
+
+table#tbl-comment button.btn-delete{
+  display:none;
+  margin: 10px 0px;
+  line-height: 50%;
+  margin-right: 70px;
+}
+
+table#tbl-comment button.btn-update{
+  display:none;
+  margin: 10px 0px;
+  line-height: 50%;
+  margin-right: 10px;
+}
+
+.reply-btns{
+	display: flex;
+    height: 50px;
+}
+
+table#tbl-comment tr:hover button.btn-delete{
+  display:inline-block;
+  background-color: black;
+  color: white;
+}
+table#tbl-comment tr:hover button.btn-update{
+  display:inline-block;
+  background-color: black;
+  color: white;
+}
+
+#comment:hover td{
+  background-color: lightgray;
+}
+.commnet:hover td{
+	background-color: transparent;
+}
+.comment-count:hover td{
+  background-color: transparent;
+}
+
+table#tbl-comment sub.comment-writer {
+  color:navy; 
+  font-size:18px;
+  font-weight: 600;
+  background-color: transparent;
+}
+table#tbl-comment sub.comment-date {
+  color:tomato; 
+  font-size:15px;
+  background-color: transparent;
+}
+/*댓글 입력창*/
+.comment-editor{
+  display: flex;
+  justify-content: center;
+}
+#replyContent{
+  margin: 30px 10px;
+  resize: none;
+  background-color: transparent;
+  text-align: left;
+  font-family: 'Noto Sans KR', sans-serif;
+  padding: 15px;
+  font-size: 15px;
+}
+#btn-insert{
+  width: 70px;
+  height: 40px;
+  margin-top: 85px;
+}
+.comment-inputer{
+  margin-bottom: 50px;
+}
+
+/*고객센터 */
+.bnr-bottom-wrap {
+  clear: both;
+  width: 100%;
+  background: white;
+}
+.bnr-bottom {
+  width: 1200px;
+  display: table;
+  margin: 0px auto;
+  background-color: white;
+  display: flex;
+}
+.bnr-bottom-01, .bnr-bottom-02{
+  background-color: white;
+}
+.icon-container{
+  background-color: white;
+  padding: 20px;
+  border: 2px solid rgb(151, 151, 151);
+  border-radius: 50%;
+}
+.fa-phone-volume, .fa-pen-to-square{
+  font-size: 30px;
+  background-color: white;
+  color: rgb(151, 151, 151);
+}
+.bnr-bottom .bnr-bottom-01 {
+  display: flex;
+  align-items: center;
+  padding-left: 120px;
+  position: relative;
+  border-right: 1px solid lightgray;
+  margin: 15px 0px;
+}
+
+
+.bnr-bottom .bnr-bottom-02 {
+  display: flex;
+  align-items: center;
+  padding-left: 50px;
+  margin: 15px 0px;
+}
+.bnr-bottom > div {
+  width: 50%;
+  height: 120px;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.bottom-title{
+  font-weight: 600;
+  font-size: 18px;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  background-color: white;
+}
+.bottom-sub{
+  background-color: white;
+  font-size: 15px;
+  display: block;
+}
+.info-container{
+  background-color: white;
+  margin-left: 20px;
+}

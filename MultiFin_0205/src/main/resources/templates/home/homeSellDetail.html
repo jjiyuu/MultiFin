@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="layout/head :: config"></th:block>
+	<title>MultiFin:매물 상세</title>
+	<!-- 현재 페이지에서만 쓰는 css, script -->
+	<link type="text/css" th:href="@{/css/home/homeSell.css}" rel="stylesheet">
+<script type="text/javascript">
+window.onload = function(){
+document.getElementById("img_form_url").src = "[[${apart_img}]]";
+}
+</script>
+</head>
+<body >
+<header th:replace="~{layout/header :: #header}"></header>
+	<main>
+		<!-- Hero -->
+		<section>
+				<div class="section section-header section-image bg-tertiary overlay-primary text-white overflow-hidden" data-background="../../assets/img/home/new-york-hero.jpg">
+					<div class="container z-2">
+							<div class="row justify-content-center pt-3">
+									<div class="col-12 text-center">
+											<h1 class="home-mainTitle">부동산 매물 상세보기</h1></span></h1>
+									</div>
+							</div>
+					</div>
+			</div>
+		</section>
+		<section class="infomation mt-6 mb-6">
+			<div class="bg-white" >
+				<div class="card shadow-soft pt-5 pb-5 pr-6 pl-6">
+					<div class="row">
+						<div class="col d-flex justify-content-start">
+							<img class="mr-4 mt-1" src="../../assets/img/home/apartment.png" style="height: 55px; width: auto;">
+							<h4 class="h4 mb-0" style="line-height: 40px;">
+								<b class="title" >[[${homeInfo[0].Apartment_Name}]]아파트</b>
+								<p class="sub mb-0">해당 매물의 상세정보입니다.</p>
+							</h4>
+						</div>
+						<div class="col d-flex justify-content-end">
+							<a th:href="@{/home/homeSell}" class="another">다른 매물 보기&nbsp; <span class="icon icon-xs"><span
+									class="fas fa-chevron-right mt-2"></span></span></a>
+						</div>
+					</div>
+					<div class="col-lg-12 mb-3 pl-0 pt-4">
+						<div
+							class="card bg-white flex-lg-row align-items-center no-gutters">
+								<img style="height: 300px; width: auto;"  id="img_form_url" src="../../assets/img/home/white.png"alt="themesberg office" 
+								class="card-img-top rounded">
+							<div class="card-body d-flex flex-column justify-content-between col-auto pl-xl-6 pt-xl-1">
+								<div class="ex2 mb-1">[[${homeInfo[0].Apartment_Name}]] 아파트</div>
+								<div th:if="${homeInfo[0].Monthly_Rent}>0">
+								<div class="py-2" >
+								<h3 class="money">월세 [[${homeInfo[0].Monthly_Rent}]]만원</h3>
+										<table>
+									<tr>
+										<td class="info-content">
+											<img class="mr-2" src="../../assets/img/home/home.png" style="height: 17px; width: 20px;"> 
+											<span class="description">월세</span>
+										</td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+										<td>
+											<img class="mr-2" src="../../assets/img/home/ruler.png" style="height: 17px; width: 20px;">
+											<span class="description">[[${homeInfo[0].Area}]]㎡</span>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<img class="mr-2" src="../../assets/img/home/button.png" style="height: 17px; width: 20px;">
+											<span class="description">[[${homeInfo[0].Floor}]]층</span>
+										</td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+										<td>
+											<img class="mr-2" src="../../assets/img/home/receipt.png" style="height: 17px; width: 20px;"> 
+											<span class="description">[[${homeInfo[0].Monthly_Rent}]]만원</span>
+										</td>
+									</tr>
+								</table>
+								<p></p>
+								<ul class="list-group mb-3 py-2">
+									<li class="list-group-item small p-0 infor">
+										<span class="fas fa-map-marker-alt mr-2"></span>
+										<span class="description"> 위치 : [[${homeInfo[0].Dong}]] [[${homeInfo[0].Jibun}]] </span>
+									</li>
+									<li class="list-group-item small p-0">
+										<span class="fas fa-bullseye mr-2"></span>
+										<span class="description" th:if="${homeInfo[0].Term_Contract} =='null'"> 계약기간 : 협의</span>
+										<span class="description" th:unless="${homeInfo[0].Term_Contract}=='null'"> 계약기간 : [[${homeInfo[0].Term_Contract}]] </span>
+									</li>
+								</ul>
+								</div>
+								</div>
+								<!--  월세 전세  -->
+								<div th:unless="${homeInfo[0].Monthly_Rent}>0">
+								<div class="py-2">
+								<h3 class="money">전세 [[${homeInfo[0].Deposit}]]만원</h3>
+								</div>
+								<table>
+									<tr>
+										<td class="info-content">
+											<img class="mr-2" src="../../assets/img/home/home.png" style="height: 17px; width: 20px;"> 
+											<span class="description">전세</span>
+										</td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+										<td>
+											<img class="mr-2" src="../../assets/img/home/ruler.png" style="height: 17px; width: 20px;">
+											<span class="description">[[${homeInfo[0].Area}]]㎡</span>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<img class="mr-2" src="../../assets/img/home/button.png" style="height: 17px; width: 20px;">
+											<span class="description">[[${homeInfo[0].Floor}]]층</span>
+										</td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+										<td>
+											<img class="mr-2" src="../../assets/img/home/receipt.png" style="height: 17px; width: 20px;"> 
+											<span class="description">[[${homeInfo[0].Deposit}]]만원</span>
+										</td>
+									</tr>
+								</table>
+								<p></p>
+								<ul class="list-group mb-3 py-2">
+									<li class="list-group-item small p-0 infor">
+										<span class="fas fa-map-marker-alt mr-2"></span>
+										<span class="description"> 위치 : [[${homeInfo[0].Dong}]] [[${homeInfo[0].Jibun}]] </span>
+									</li>
+									<li class="list-group-item small p-0">
+										<span class="fas fa-bullseye mr-2"></span>
+										<span class="description" th:if="${homeInfo[0].Term_Contract} =='null'"> 계약 기간 : 협의 </span>
+										<span class="description" th:unless="${homeInfo[0].Term_Contract}=='null'"> 계약기간 : [[${homeInfo[0].Term_Contract}]] </span>
+									</li>
+								</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="more-info mb-5">
+			<div class="mb-4" >
+				<h3 class="main_title">
+					<b>매물 상세 정보</b>
+				</h3>
+			</div>
+		<div th:if="${homeInfo[0].Monthly_Rent}>0">
+			<div class="bg-white">
+				<div class="card shadow-soft pt-3 pb-5 pr-6 pl-6">
+						<table class="table_left"
+							style="margin-top: 20px; margin-left: auto; margin-right: auto;">
+							<tr height="70">
+								<td><b class="table_info_header">계약 종류</b></td>
+								<td width="100"></td>
+								<td class="table_info_body">[[${homeInfo[0].Contract_Type}]]</td>
+								<td width="200"></td>
+								<td><b class="table_info_header">면적</b></td>
+								<td width="100"></td>
+								<td class="table_info_body">[[${homeInfo[0].Area}]]㎡</td>
+							</tr>
+							<tr height="70">
+								<td><b class="table_info_header")>거래 유형</b></td>
+								<td width="100"></td>
+								<td class="table_info_body">월세 - [[${homeInfo[0].Monthly_Rent}]]만원</td>
+								<td width="200"></td>
+								<td><b class="table_info_header">위치</b></td>
+								<td width="100"></td>
+								<td class="table_info_body">[[${homeInfo[0].Dong}]] [[${homeInfo[0].Jibun}]] </td>
+							</tr>
+							<tr height="70">
+								<td><b class="table_info_header">매물/층</b></td>
+								<td width="100"></td>
+								<td class="table_info_body">아파트 / [[${homeInfo[0].Floor}]]층</td>
+								<td width="200"></td>
+								<td><b class="table_info_header">건축년도</b></td>
+								<td width="100"></td>
+								<td class="table_info_body">[[${homeInfo[0].Build_Year}]]년</td>
+							</tr>
+							<tr height="70">
+								<td><b class="table_info_header">등록일</b></td>
+								<td width="100"></td>
+								<td class="table_info_body">2023.[[${homeInfo[0].Deal_Month}]].[[${homeInfo[0].Deal_Day}]]</td>
+								<td width="200"></td>
+								<td><b class="table_info_header">수정일</b></td>
+								<td width="100"></td>
+								<td class="table_info_body">2023.[[${homeInfo[0].Deal_Month}]].[[${homeInfo[0].Deal_Day}]]</td>
+							</tr>
+						</table>
+				</div>
+			</div>
+			</div>
+			<div th:unless="${homeInfo[0].Monthly_Rent}>0">
+			<div class="bg-white">
+				<div class="card shadow-soft pt-3 pb-5 pr-6 pl-6">
+						<table class="table_left"
+							style="margin-top: 20px; margin-left: auto; margin-right: auto;">
+							<tr height="70">
+								<td><b class="table_info_header">계약 종류</b></td>
+								<td width="100"></td>
+								<td class="table_info_body">[[${homeInfo[0].Contract_Type}]]</td>
+								<td width="200"></td>
+								<td><b class="table_info_header">면적</b></td>
+								<td width="100"></td>
+								<td class="table_info_body">[[${homeInfo[0].Area}]]㎡</td>
+							</tr>
+							<tr height="70">
+								<td><b class="table_info_header")>거래 유형</b></td>
+								<td width="100"></td>
+								<td class="table_info_body"> 전세 - [[${homeInfo[0].Deposit}]]만원</td>
+								<td width="200"></td>
+								<td><b class="table_info_header">위치</b></td>
+								<td width="100"></td>
+								<td class="table_info_body">[[${homeInfo[0].Dong}]] [[${homeInfo[0].Jibun}]]</td>
+							</tr>
+							<tr height="70">
+								<td><b class="table_info_header">매물/층</b></td>
+								<td width="100"></td>
+								<td class="table_info_body">아파트 / [[${homeInfo[0].Floor}]]층</td>
+								<td width="200"></td>
+								<td><b class="table_info_header">건축년도</b></td>
+								<td width="100"></td>
+								<td class="table_info_body">[[${homeInfo[0].Build_Year}]]년</td>
+							</tr>
+							<tr height="70">
+								<td><b class="table_info_header">등록일</b></td>
+								<td width="100"></td>
+								<td class="table_info_body">2023.[[${homeInfo[0].Deal_Month}]].[[${homeInfo[0].Deal_Day}]]</td>
+								<td width="200"></td>
+								<td><b class="table_info_header">수정일</b></td>
+								<td width="100"></td>
+								<td class="table_info_body">2023.[[${homeInfo[0].Deal_Month}]].[[${homeInfo[0].Deal_Day}]]</td>
+							</tr>
+						</table>
+				</div>
+			</div>
+			</div>
+		</section>
+		<section class="location-infor mb-6">
+			<div class="mb-4">
+				<h3 class="main_title">
+					<span class="fas fa-map-marker-alt mr-2 mt-4"></span>
+					<b>위치 및 주변 시설</b>
+				</h3>
+				<div class="sub mt-3">
+					<h6 class="sub-sub">매물 위치 및 주변 시설을 확인해 보세요</h6>
+				</div>
+			</div>
+			<div class="container pr-0 pl-0 ml-0">
+				<iframe class="rounded" name = "ifrm" id="ifrm"
+					style="border: 0; width: 1200px; height: 500px; float: center;"
+					th:src="${mainAddress}">
+				</iframe>
+			</div>
+		</section>
+	</main>
+<footer th:replace="~{layout/footer :: #footer}"></footer>
+<th:block th:replace="layout/scripts :: scripts"></th:block> 
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="layout/head :: config"></th:block>
+	<title>MultiFin:회원가입</title>
+	<!-- 현재 페이지에서만 쓰는 css, script -->
+<style>
+    .title{  font-family: 'IBM Plex Sans KR', sans-serif;}
+    .here{font-weight: 600;}
+</style>
+</head>
+<body>
+    <main>
+        <section class="align-items-center section-image pb-6" data-background="../../assets/img/common/form-image.jpg">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div style="height:150px" class="col-12">
+                        <div class="text-center text-md-center mb-5 mt-md-0 text-white">
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex align-items-center justify-content-center">
+                        <div class="signin-inner mt-3 mt-lg-0 bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
+                            <form action="/member/sign-up" id="signup" method="post">
+                            <!-- 이메일 입력 Form -->
+                                <div class="form-group" >
+                                    <label for="exampleInputIcon4"><span class="title"><span class="title here">이메일</span></span></label>
+                                    <div class="input-group mb-4">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><span class="fas fa-envelope"></span></span>
+                                        </div>
+                                        <input class="form-control" id="newEmail" style="width:150px;" placeholder="이메일을 입력해주세요." name="email" type="email" aria-label="email adress" >
+                                    </div>
+                                </div>
+                                
+                                	<div class="d-flex justify-content-between align-items-center mb-4" style="height: 20px">
+                                        <div class="form-check">
+                                        </div>
+                                        <!-- 이메일 중복검사 버튼 Form -->
+                                        <div class="form-group">
+                                            <input type="button" class="find-btn mb-3" value="중복검사" id="checkDuplicate" style="width:100px; height:35px; border-radius:5px; font-weight: 500 ; margin-top:30px; color: white; background-color: #0d1b48" onclick="checkDuplicateFunc();"></input>
+                                	</div>
+                                    </div>
+                               	<!-- End of Form -->
+                                <!-- 닉네임 입력 Form -->
+                                <div class="form-group">
+                                    <label for="exampleInputIcon4"><span class="title"><span class="title here">닉네임</span></span></label>
+                                    <div class="input-group mb-4">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><span class="far fa-user-circle"></span></span>
+                                        </div>
+                                        <input class="form-control" id="Id" placeholder="닉네임을 입력해주세요.(2자 이상 6자 이하)" name="id" type="text" aria-label="text">
+                                    </div>
+                                </div>
+                                <!-- End of Form -->
+                                
+                                	
+                                <!-- 이름 입력 Form -->
+                                <div class="form-group">
+                                    <label for="exampleInputIcon4"><span class="title"><span class="title here">이름</span></span></label>
+                                    <div class="input-group mb-4">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><span class="far fa-user"></span></span>
+                                        </div>
+                                        <input class="form-control" id="exampleInputIcon4" placeholder="이름을 입력해주세요." name="name" type="text" aria-label="text">
+                                    </div>
+                                </div>
+                                <!-- End of Form -->
+                                
+                                <!-- 전화번호 입력 Form -->
+                                <div class="form-group">
+                                    <label for="exampleInputIcon4"><span class="title"><span class="title here">핸드폰</span></span></label>
+                                    <div class="input-group mb-4">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><span class="fas fa-mobile-alt"></span></span>
+                                        </div>
+                                        <input class="form-control" id="exampleInputIcon4"  placeholder="핸드폰 입력해주세요.(- 제외)" name="phone" type="text" aria-label="text" required>
+                                    </div>
+                                </div>
+                                <!-- End of Form -->
+                                
+								<!-- 주소 입력 Form -->			
+                                <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                   <label for="zip" class="title here">주소</label>
+                                                   <div class="address"  style="width:400px; overflow: hidden; ">
+                                                    	<input type="text" class="form-control mb-3 mr-3" style="width:150px; float:left;" name="address" id="postcode" placeholder="우편번호">
+                                                    	<input type="button" onclick="execDaumPostcode()"  class="find-btn mb-3" value="주소 찾기"
+                                                    	style="width:100px; height:44px; border-radius:7px; font-weight: 500 ; margin-left:10px; float:right; color: white; background-color: #0d1b48; "></input>
+                                                    </div>
+                                                    <input 
+                                                    class="form-control mb-3 address_detail" type="text" name="address" id="roadAddress" 
+                                                    placeholder="주소"style="width:400px;" >
+                                                  
+                                                	<span id="guide" style="color:#999; display:none"></span>
+	                                                <input class="form-control" style="width:400px;" name="address" id="detailAddress" type="text" placeholder="상세 주소입력" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                <!-- End of Form -->
+                                <!-- 비밀번호 입력 Form -->
+                                <div class="form-group">
+                                    
+                                    <div class="form-group">
+                                        <label for="password"><span class="title here">비밀번호</span></label>
+                                        <div class="input-group mb-4">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><span class="fas fa-unlock-alt"></span></span>
+                                            </div>
+                                            <input class="form-control" id="pass1" placeholder="비밀번호를 입력해주세요.(4자 이상 20자 이하)" type="password" name="password" aria-label="Password" required>
+                                        </div>
+                                    </div>
+                                    <!-- End of Form -->
+                                    <!-- Form -->
+                                    <div class="form-group">
+                                        <label for="password_confirm"> <span class="title here">비밀번호 확인</span></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><span class="fas fa-unlock-alt"></span></span>
+                                            </div>
+                                            <input class="form-control" id="pass2" placeholder="비밀번호를 다시 입력해주세요." type="password" aria-label="Password" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group"><span class="title here">문제</span>
+                                        <select class="form-control select2-hidden-accessible" name="answer1" id="country" data-toggle="select" title="Country" data-live-search="true" data-live-search-placeholder="Country" data-select2-id="1" tabindex="-1" aria-hidden="true" required>
+                                            <!-- <option data-select2-id="3"></option> -->
+                                            <option>내가 태어난 도시 이름은?</option>
+                                            <option>어릴 때 키우던 강아지 이름은?</option>
+                                            <option>어머니 고향은?</option>
+                                            <option>가장 무서웠던 선생님 성함은?</option>
+                                            <option>기억에 남는 추억의 장소는?</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="address"><span class="title here">답</span></label>
+                                        <input class="form-control" id="address" type="text" name="answer2" required>
+                                    </div>
+                                    <!-- End of Form -->
+                                    <div class="form-check mb-4">
+                                        <input class="form-check-input" type="checkbox"  id="myCheckbox" required>
+                                        <label class="form-check-label" for="myCheckbox">
+                                            <span class="title">다음 <a class="text-secondary title" href="#"><b class="title">약관</b></a>에 동의합니다.</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-block btn-primary" id="signup" onclick="boxchecking()" ><span class="title">가입하기</span></button>
+                            </form>
+                            
+                            <div class="d-block d-sm-flex justify-content-center align-items-center mt-4">
+                                <span class="font-weight-normal title">
+                                    이미 계정이 존재하나요?
+                                    <a th:href="@{/member/sign-in}" class="font-weight-bold"><b>로그인</b></a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+ <script type="text/javascript">
+	$(function() {
+		$("#pass2").blur((event) => {
+			let pass1 = $("#pass1").val();			
+			let pass2 = $(event.target).val();
+			
+			if(pass1.trim() != pass2.trim()) {
+				alert("비밀번호가 일치하지 않습니다.");
+				
+				$("#pass1").val("");
+				$(event.target).val("");
+				$("#pass1").focus();
+			}
+		});
+    	
+	    $("#enrollSubmit").on("click", () => {
+	    	// TODO 전송하기 전에 각 영역에 유효성 검사로직을 추가하는 부분!
+	    	//return false;
+	    });
+	});
+	
+	
+	// email 중복을 확인하는 AJAX 코드 
+    function checkDuplicateFunc() {
+    	let email = $("#newEmail").val().trim();
+    	
+    	if(email.length < 4){
+    		alert("이메일은 최소 4글자입니다.")
+    		return;
+    	}
+    	
+    	if(email.indexOf('@') < 0){
+    		alert("이메일 형식이 아닙니다.")
+    		return;
+    	}
+    	let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+    	if(regex.test(email) == false){
+    		alert("이메일 형식이 아닙니다.")
+    		return;
+    	}
+    	
+    	$.ajax({
+    		type:"get",
+    		url:"/member/emailCheck?email="+ email,
+    		// data:{email}, // 속성값이 키값과 같은 이름을 가질때 하나로만 key-value 채운다.
+    		success:
+    			(data)=>{ // validate key값
+    				console.log(data);
+    				if(data.validate === true){
+    					alert("이미 사용중인 이메일입니다.")
+    					
+    				} else{
+    					alert("사용 가능합니다.")
+    				}
+    			},
+    		error:
+    			(e)=>{
+					console.log(e);	    				
+    			}
+    	});
+    }
+	
+    function boxchecking() {
+		// 체크박스 요소를 가져옴
+		var checkbox = document.getElementById("myCheckbox");
+
+		// 체크박스가 선택되지 않은 경우
+		if (checkbox.checked===false) {
+			alert("약관 동의는 필수사항입니다.")
+			return;
+		}
+    } 
+    
+</script>
+
+            
+        </section>
+    </main>
+<th:block th:replace="layout/scripts :: scripts"></th:block>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/assets/js/mypage.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="layout/head :: config"></th:block>
+	<title>MultiFin:부동산 메인</title>
+	<!-- 현재 페이지에서만 쓰는 css, script -->
+	<link type="text/css" th:href="@{/css/home/homeMain.css}" rel="stylesheet">
+	 <link rel="stylesheet" href="../../css/korea.css" />
+	
+</head>
+<body>
+<header th:replace="~{layout/header :: #header}"></header>
+    <main>
+     <!-- Hero -->
+     <div class="section section-header section-image bg-tertiary overlay-primary text-white overflow-hidden pb-9" data-background="../../assets/img/home/new-york-hero.jpg">
+        <div class="container z-2">
+            <div class="row justify-content-center pt-3">
+                <div class="col-12 text-center">
+                    <h1 class="home-mainTitle">쉽게 보는 부동산</span></h1>
+                    <p class="lead px-lg-5 mb-5 home-mainSubtitle">MULTIFIN에서 부동산의 모든 것을 간편하게 확인해 보세요!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="section section-md pt-0">
+            <div class="container mt-n7">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card border-light p-md-2">
+                            <div class="card-body p-4">
+                                <form autocomplete="off" method="get" th:action="@{/home/homeMainSearch}">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="form-group form-group-lg mb-lg-0">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><span class="fas fa-map-marker-alt"></span></span>
+                                                            </div>
+                                                            <input id="search-location" type="text" class="form-control autocomplete location" name="searchValue" th:value="${param.searchValue}" placeholder="지역을 입력하세요" tabindex="1" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-lg-4">
+                                                    <div class="form-group form-group-lg mb-0">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                                            </div>
+                                                            <input class="form-control date" name="day"  th:value="${param.day}"placeholder="날짜를 선택하세요" type="date" >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p></p>
+                                    <p></p>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="row align-items-center">
+                                                <div class="col-6 col-lg-4 mb-3 mb-lg-0">
+                                                    <button class="btn btn-primary btn-block animate-up-2 search_btn" type="submit">Search</button>
+                                                </div>
+                                                <div class="col-6 col-lg-4 mb-3 mb-lg-0">
+                                                    <button class="btn btn-outline-gray btn-block animate-up-2 reset_btn" type="reset">Reset</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+      
+        <section class="auction_info">
+            <div class="detail_title">
+                <i class="fa-regular fa-calendar"></i>
+                <h3 class="title">청약 일정</h3> 
+            </div>
+            <div class="auction_calendar">
+                <table id="" class="board-table">
+                     <tr class="text-center bg-info text-white" >
+                        <th class="table-header">공급유형</th>
+                        <th class="table-header" >주택명</th>
+                        <th class="table-header">모집공고일</th>
+                        <th class="table-header">홈페이지</th>
+                    </tr>
+                     
+                    <tr>
+                    <tr th:each="Aptlist: ${Aptlist2}">
+                        <td class="board-content board_type">APT</td>
+                        <td class="board-content board_title">[[${Aptlist.houseNm}]]</td>
+                        <td class="board-content">[[${Aptlist.rcritPblancDe}]]</td>
+                        <td class="board-content">
+                            <a class="address"th:href="${Aptlist.pblancUrl}"  target="_blank">
+                                <span class="adress_decription"> 
+                                    <i style="padding-top: 3px; margin-right: 10px;" class="fas fa-home"></i>
+                                    홈페이지
+                                </span>
+                            </a>
+                        </td>
+                    </tr>
+                    <th:block th:if="${Aptlist2.size == 0}">
+                    	<tr>
+                    		<td colspan="6">검색된 청약이 없습니다.</td>
+                    	</tr>
+                    </th:block>
+                </table>
+            </div>
+            
+        </section>
+        
+        <section class="auction_info">
+            <div class="detail_title">
+                <i class="fa-regular fa-calendar"></i>
+                <h3 class="title">매물 검색</h3> 
+            </div>
+            <div class="auction_calendar">
+                <table id="" class="board-table">
+                    <tr class="text-center bg-info text-white">
+                        <th class="table-header">건축년도</th>
+                        <th class="table-header" >아파트명</th>
+                        <th class="table-header">상세위치</th>
+                        <th class="table-header">상세정보</th>
+                    </tr>
+                    
+                    <tr th:each="homelist : ${list}"
+								th:if="${homelistStat.index} < 7">
+                        <td class="board-content board_type">[[${homelist.build_Year}]]년</td>
+                        <td class="board-content board_title">[[${homelist.apartment_Name}]]</td>
+                        <td class="board-content">[[${homelist.dong}]]-[[${homelist.jibun}]]/  [[${homelist.Floor}]]층</td>
+                        <td class="board-content">
+                            <a class="address"th:href="@{/home/homeSellDetail(RealEstateDealNo=${homelist.RealEstateDealNo})}">
+                                <span class="adress_decription"> 
+                                    <i style="padding-top: 3px; margin-right: 10px;" class="fas fa-home"></i>
+                                    상세정보 이동하기
+                                </span>
+                            </a>
+                        </td>
+                    </tr>
+                    <th:block th:if="${list.size == 0}">
+                    	<tr>
+                    		<td colspan="6">검색된 매물이 없습니다.</td>
+                    	</tr>
+                    </th:block>
+                </table>
+            </div>
+            
+        </section>
+</main>
+<footer th:replace="~{layout/footer :: #footer}"></footer>
+<th:block th:replace="layout/scripts :: home_scripts"></th:block> 
+</body>
+</html>

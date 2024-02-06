@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//KO" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.multi.multifin.bank.model.mapper.BankCompanyMapper">
+	<resultMap type="BankCompany" id="companyResultMap">
+		<id property="bankCompanyNo" column="bankCompanyNo"/>
+		<result property="dclsMonth" column="dcls_month"/>
+		<result property="finCoNo" column="fin_co_no"/>
+		<result property="korCoNm" column="kor_co_nm"/>
+		<result property="dclsChrgMan" column="dcls_chrg_man"/>
+		<result property="hompUrl" column="homp_url"/>
+		<result property="calTel" column="cal_tel"/>
+		<result property="areaCd" column="area_cd"/>
+		<result property="areaNm" column="area_nm"/>
+		<result property="exisYn" column="exis_yn"/>
+		<result property="logoUrl" column="logo_url"/>
+	</resultMap>
+	
+	<select id="selectCompanyList" resultMap="companyResultMap" parameterType="map">
+		SELECT * FROM BankCompany BC
+		WHERE 1=1
+		<if test="korCoNm != null">
+			AND(
+				BC.kor_co_nm like '%${korCoNm}%' 
+			)
+		</if>
+		LIMIT ${limit} OFFSET ${offset}
+	</select>
+	
+	<select id="selectCompanyCount" resultType="int" parameterType="map">
+		SELECT COUNT(*) FROM BankCompany
+		WHERE 1=1
+		<if test="korCoNm != null">
+			AND(
+				BC.kor_co_nm like '%${korCoNm}%' 
+			)
+		</if>
+	</select>
+	
+ 	<select id="selectLogoList" resultMap="companyResultMap">
+ 		SELECT kor_co_nm, logo_url FROM BankCompany 
+ 		WHERE 1=1
+		<if test="korCoNm != null">
+			AND(
+				BC.kor_co_nm like '%${korCoNm}%' 
+			)
+		</if>
+ 		GROUP BY kor_co_nm, logo_url;
+ 	</select>
+	
+</mapper>

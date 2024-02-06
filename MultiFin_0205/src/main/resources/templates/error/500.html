@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<th:block th:replace="layout/head :: config"></th:block>
+<title>500</title>
+</head>
+
+<body>
+    <main>
+        <section class="min-vh-100 d-flex align-items-center justify-content-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center text-dark d-flex align-items-center justify-content-center">
+                        <div>
+                            <a th:href="/"><img class="img-fluid w-50" th:src="@{/assets/img/illustrations/server-error.svg}" alt="girl illustration"></a>
+                            <h1 class="mt-4">500 Server <span class="font-weight-bolder text-primary">error</span></h1>
+                            <p class="lead my-4 px-lg-9 px-xl-11">Something has went seriously wrong. We should be back by the time you finish your coffee.</p>
+                            <a class="btn btn-secondary animate-hover" th:href="@{/}"><span class="fas fa-chevron-left mr-3 pl-2 animate-left-3"></span>Go back home</a></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+<th:block th:replace="layout/scripts :: scripts"></th:block>
+</body>
+
+</html>

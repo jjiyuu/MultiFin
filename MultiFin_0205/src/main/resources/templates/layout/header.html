@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<!-- @@@@@@@@@@@@@@ 헤더 시작 @@@@@@@@@@@@@@ -->
+<header id="header" class="header-global">
+    <nav id="navbar-main" class="navbar navbar-main navbar-theme-primary navbar-expand-lg headroom py-lg-3 px-lg-6 navbar-dark navbar-transparent navbar-theme-primary">
+        <div class="container">
+            <a class="navbar-brand @@logo_classes" th:href="@{/}">
+                <img class="navbar-brand-dark common" th:src="@{/assets/img/ours/logo_white_text.png}" height="35" alt="Logo light">
+                <img class="navbar-brand-light common" th:src="@{/assets/img/ours/logo_blue_text.png}" height="35" alt="Logo dark">
+            </a>
+            <div class="navbar-collapse collapse" id="navbar_global">
+                <div class="navbar-collapse-header">
+                    <!-- 창 너비가 좁을 때 뜨는 메뉴 시작 -->
+                    <div class="row">
+                        <div class="col-6 collapse-brand">
+                            <a th:href="@{/}">
+                                <img th:src="@{/assets/img/ours/logo01_blue.png}" height="35" alt="Logo Impact"><span class="header_title" style="color: rgb(13, 27, 72);">Multi</span><span class="header_title">fin</span>
+                            </a>
+                        </div>
+                        <div class="col-6 collapse-close">
+                            <a href="#navbar_global" role="button" class="fas fa-times" data-toggle="collapse"
+                                data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false"
+                                aria-label="Toggle navigation"></a>
+                        </div>
+                    </div>
+                    <!-- 창 너비가 좁을 때 뜨는 메뉴 끝 -->
+                </div>
+                <!-- 헤더 메뉴 시작-->
+                <ul class="navbar-nav navbar-nav-hover justify-content-center">
+                    <li class="nav-item dropdown"> <!-- 은행 -->
+                        <a href="#" id="mainPagesDropdown" class="nav-link dropdown-toggle" aria-expanded="false" data-toggle="dropdown">
+                            <span class="nav-link-inner-text mr-1">은행</span>
+                            <i class="fas fa-angle-down nav-link-arrow"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-megamenu-sm p-3 p-lg-4" aria-labelledby="mainPagesDropdown">
+                            <div>
+                                <a th:href="@{/bank/bankMain}">
+                                    <h6 class="d-block mb-3 text-primary">은행 메인</h6>
+                                </a>
+                                <ul class="list-style-none">
+                                    <li class="mb-2 megamenu-item">
+                                        <a class="megamenu-link" th:href="@{/bank/bankDeposit}">예금 • 적금</a>
+                                    </li>
+                                    <li class="mb-2 megamenu-item">
+                                        <a class="megamenu-link" th:href="@{/bank/bankLoan}">대출</a>
+                                    </li>
+                                    <li class="mb-2 megamenu-item">
+                                        <a class="megamenu-link" th:href="@{/bank/bankCard}">신용/체크카드</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown"> <!-- 증권 -->
+                        <a href="#" id="dashboardPagesDropdown" class="nav-link dropdown-toggle" aria-expanded="false" data-toggle="dropdown">
+                            <span class="nav-link-inner-text mr-1">증권</span>
+                            <i class="fas fa-angle-down nav-link-arrow"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-megamenu-sm p-3 p-lg-4" aria-labelledby="dashboardPagesDropdown">
+                            <div>
+                                <a th:href="@{/stock/stockMain}">
+                                    <h6 class="d-block mb-3 text-primary">증권 메인</h6>
+                                </a>
+                                <h6 class="d-block mb-3 text-primary">주식</h6>
+                                <ul class="list-style-none">
+                                    <li class="mb-2 megamenu-item">
+                                        <a class="megamenu-link" th:href="@{/stock/stockList}">주식 시세</a>
+                                    </li>
+                                    <li class="mb-2 megamenu-item">
+                                        <a class="megamenu-link" th:href="@{/stock/stockPredicate}">주가 동향 확인 / 예측</a>
+                                    </li>
+                                    <li class="mb-2 megamenu-item">
+                                        <a class="megamenu-link" th:href="@{/stock/stockTest}">모의 투자</a>
+                                    </li>
+                                </ul>
+                                <h6 class="d-block pt-2 mb-3 text-primary">펀드</h6>
+                                <ul class="list-style-none">
+                                    <li class="mb-2 megamenu-item">
+                                        <a class="megamenu-link" th:href="@{/stock/stockFund}">펀드</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown"> <!-- 부동산 -->
+                        <a href="#" id="dashboardPagesDropdown" class="nav-link dropdown-toggle" aria-expanded="false" data-toggle="dropdown">
+                            <span class="nav-link-inner-text mr-1">부동산</span>
+                            <i class="fas fa-angle-down nav-link-arrow"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-megamenu-sm p-3 p-lg-4" aria-labelledby="dashboardPagesDropdown">
+                            <div>
+                                <a th:href="@{/home/homeMain}">
+                                    <h6 class="d-block mb-3 text-primary">부동산 메인</h6>
+                                </a>
+                                <ul class="list-style-none">
+                                    <li class="mb-2 megamenu-item">
+                                        <a class="megamenu-link" th:href="@{/home/homeSell}">매물(월세/전세/매매)</a>
+                                    </li>
+                                </ul>
+                                <h6 class="d-block pt-2 mb-3 text-primary">청약</h6>
+                                <ul class="list-style-none">
+                                    <li class="mb-2 megamenu-item">
+                                        <a class="megamenu-link" th:href="@{/home/homeBlue}">아파트</a>
+                                    </li>
+                                    <li class="mb-2 megamenu-item">
+                                        <a class="megamenu-link" th:href="@{/home/homeBlue2}">오피스텔</a>
+                                    </li>
+                                    <li class="mb-2 megamenu-item">
+                                        <a class="megamenu-link" th:href="@{/home/homeBlue3}">기타</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item"> <!-- 뉴스 -->
+                        <a th:href="@{/news/newsMain}" class="nav-link dropdown-toggle">
+                            <span class="nav-link-inner-text mr-1">뉴스</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown"> <!-- 법률 -->
+                        <a href="#" id="dashboardPagesDropdown" class="nav-link dropdown-toggle" aria-expanded="false" data-toggle="dropdown">
+                            <span class="nav-link-inner-text mr-1">법률</span>
+                            <i class="fas fa-angle-down nav-link-arrow"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-megamenu-sm p-3 p-lg-4" aria-labelledby="dashboardPagesDropdown">
+                            <div>
+                                <a th:href="@{/law/lawMain}">
+                                    <h6 class="d-block mb-3 text-primary">법률 메인</h6> <!-- 법률 메인 -->
+                                </a>
+                                <ul class="list-style-none">
+                                    <li class="mb-2 megamenu-item">
+                                        <a class="megamenu-link" th:href="@{/law/lawFAQ}">자주 묻는 질문</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown"> <!-- 커뮤니티 -->
+                        <a href="#" id="dashboardPagesDropdown" class="nav-link dropdown-toggle" aria-expanded="false" data-toggle="dropdown">
+                            <span class="nav-link-inner-text mr-1">커뮤니티</span>
+                            <i class="fas fa-angle-down nav-link-arrow"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-megamenu-sm p-3 p-lg-4" aria-labelledby="dashboardPagesDropdown">
+                            <div>
+                                <ul class="list-style-none">
+                                    <li class="mb-2 megamenu-item">
+                                        <a class="megamenu-link" th:href="@{/community/noticeList}">공지사항</a>
+                                    </li>
+                                    <li class="mb-2 megamenu-item">
+                                        <a class="megamenu-link" th:href="@{/community/freeList}">자유게시판</a>
+                                    </li>
+                                    <li class="mb-2 megamenu-item">
+                                        <a class="megamenu-link" th:href="@{/common/sitemap}">사이트맵</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <th:block th:if="${session.loginMember == null}">
+	            <div class="d-none d-lg-block @@cta_button_classes">
+	                <a th:href="@{/member/sign-up}" class="btn btn-md btn-outline-white animate-up-2 mr-3"><i class="fa-solid fa-user"></i> <span class="d-xl-none">Docs</span> <span class="d-none d-xl-inline">회원가입</span></a>
+	                <a th:href="@{/member/sign-in}" class="btn btn-md btn-secondary animate-up-2"><i class="fa-solid fa-arrow-right-to-bracket"></i> 로그인</a>
+	            </div>
+            </th:block>
+            <th:block th:if="${session.loginMember != null}">
+	            <div class="d-none d-lg-block @@cta_button_classes">
+	                <a th:href="@{/member/mypage}" class="btn btn-md btn-outline-white animate-up-2 mr-3"><i class="fa-solid fa-user"></i> <span class="d-xl-none">Docs</span> <span class="d-none d-xl-inline">마이페이지</span></a>
+	                <a th:href="@{/member/logout}" class="btn btn-md btn-secondary animate-up-2"><i class="fa-solid fa-arrow-right-to-bracket"></i> 로그아웃</a>
+	            </div>
+            </th:block>
+            <div class="d-flex d-lg-none align-items-center">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global"
+                    aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation"><span
+                        class="navbar-toggler-icon"></span></button>
+            </div>
+        </div>
+    </nav>
+</header>
+</body>
+</html>

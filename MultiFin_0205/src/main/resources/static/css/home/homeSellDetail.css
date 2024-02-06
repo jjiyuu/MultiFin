@@ -1,0 +1,44 @@
+@charset "EUC-KR";
+.home-mainTitle,.type,.selling-type,.search_result,.more_title{
+ font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
+/*------------------매물 상세-----------------------*/
+
+.infomation,.more-info,.location-infor{
+	width: 1200px;
+	justify-content: center;
+	margin: 0 auto;
+}
+.title,.sub,.another,.ex2,
+.money,.description,.main_title,.sub-sub,.table_info_header,
+.table_info_body{ 
+	font-family: 'IBM Plex Sans KR', sans-serif;}
+
+.main_title{text-align: center;}
+.another{color:black; font-weight: 500; font-size: 18px;}
+.title{font-size: 24px;}
+.sellInfo_table_container{text-align: center; vertical-align: middle;}
+.table_info_header{font-size: 20px;}
+.table_info_body{font-size: 17px; font-weight: 500;}
+.ex2 {
+	border-radius: 15px;
+	border: 2px solid rgb(13, 27, 72);
+	color: rgb(13, 27, 72);
+	width: 180px;
+	height: 35px;
+	line-height: 33px;
+	text-align: center;
+	font-weight: 600;
+}
+.description{
+	font-size: 18px;
+	font-weight: 500;
+}
+.infor{line-height: 40px;}
+.sub{
+	display: flex; 
+	justify-content: center;
+}
+.sub>h6{font-size: 18px;}
+.sub-sub{font-weight: 500;}

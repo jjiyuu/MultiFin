@@ -1,0 +1,39 @@
+#container {
+	width: 700px;
+	min-height: 570px;
+	float: left;
+
+}
+
+#states path {
+	fill: #B8B8B8;
+	stroke: #C3C3C3;
+	stroke-width: 2.5px;
+}
+
+#states path:hover {
+	fill: #0080ff;
+}
+
+#states .active {
+	fill: #00B700;
+}
+
+#states .activeDetail {
+	fill: #00B700;
+}
+
+#states path {
+	cursor: pointer;
+}
+
+#states text {
+	cursor: pointer;
+	font-size: 12px;
+	fill: #000000;
+	font-weight: bold;
+}
+
+#map {
+	fill: #fff;
+}

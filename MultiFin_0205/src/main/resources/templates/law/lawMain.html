@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="layout/head :: config"></th:block>
+	<title>MultiFin:법률</title>
+	<!-- 현재 페이지에서만 쓰는 css, script -->
+	<link type="text/css" th:href="@{/css/law/lawMain.css}" rel="stylesheet">
+	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+<header th:replace="~{layout/header :: #header}"></header>
+    <main>
+        <section class="section-header section-image bg-primary overlay-primary text-white"  data-background="../../assets/img/common/network.jpg">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-10 text-center">
+                        <h1 class="mb-3 mainTitle">간편한 법률 조회</h1>
+                        <p class="lead mb-5 mainSubtitle">MULTIFIN에서 경제 법률에 관한 정보를 찾아보세요!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <section class="main_select mt-5 mb-3">
+        <div class="icon-box">
+            <div class="btn-icon p-5" data-aos="fade-up" data-aos-offset="50">
+            <a href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=6838#0000" target="_blank">
+              <div class="law__icon">
+                <i class="fa-solid fa-book"></i>
+              </div>
+              <h3 class="law__title">경제법 검색</h3>
+              <div class="law__description">궁금한 경제 법을 검색해보세요</div>
+              </a>
+            </div>
+            <div class="btn-icon p-5" data-aos="fade-up" data-aos-offset="100">
+            <a href="https://glaw.scourt.go.kr/wsjo/intesrch/sjo022.do" target="_blank">
+              <div class="law__icon">
+                <i class="fa-solid fa-magnifying-glass-arrow-right"></i>
+              </div>
+              <h3 class="law__title">판례 검색</h3>
+              <div class="law__description">경제 관련 판례를 검색해 보세요</div>
+              </a>
+            </div>
+          </div>
+    </section>
+    <section class="faq pt-6 pb-6">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center faq_header">
+                    <i class="fa-solid fa-lightbulb"></i>
+                    <h2 class="faq_title mb-4">자주 묻는 질문</h2>
+                </div>
+                <p class="faq_sub mb-3">경제법에 관련해 자주 묻는 질문들을 모아봤습니다.<br>
+                MULTIFIN에서 궁금한 경제법에 관련된 정보들을 검색하고 해결책을 찾아가세요!</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="faq-card">
+                     <!--Accordion-->
+                     <div class="accordion mt-5">
+                        <div class="card card-body border-light mb-0 pr-5 pl-5 faqCard">
+                            <a href="#panel-what-is-spaces" data-target="#panel-what-is-spaces"
+                                class="accordion-panel-header" data-toggle="collapse" aria-expanded="false"
+                                aria-controls="panel-what-is-spaces">
+                                <span class="icon-title mb-0 font-weight-bold faq_q">전세가 만료 되었는데 주인이 전세금을 돌려주지 않습니다.<br>
+                                    전세금 반환 소송을 하면 전세금을 다 돌려받을 수 있나요?</span>
+                                <span class="icon"><span class="fas fa-plus"></span></span>
+                            </a>
+                            <div class="collapse" id="panel-what-is-spaces">
+                                <div class="pt-3 faq-a">
+                                    <p>주택임대차보호법에 따라 임대차계약 기간이 만료되기 6개월전 부터 2개월 전까지 임대인에게 임대차계약이 종료되었다는 사실 및 전세금 반환
+                                        의무가 있다는 사실을 통지하면 가능합니다!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card card-body border-light mb-0 pr-5 pl-5">
+                            <a href="#panel-demo" data-target="#panel-demo" class="accordion-panel-header"
+                                data-toggle="collapse" aria-expanded="false" aria-controls="panel-demo">
+                                <span class="icon-title mb-0 font-weight-bold faq_q">주택청약에 당첨 되었는데 소유권 이전 등기는 언제 신청하면
+                                    되는 걸까요?</span>
+                                <span class="icon"><span class="fas fa-plus"></span></span>
+                            </a>
+                            <div class="collapse" id="panel-demo">
+                                <div class="pt-3">
+                                    <p class="mb-0  faq-a">준공검사 완료 후 보전등기가 진행이 된 다음 60일 이내에 이전 등기가 의무화 되어있습니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card card-body border-light mb-0 pr-5 pl-5">
+                            <a href="#panel-updates" data-target="#panel-updates" class="accordion-panel-header"
+                                data-toggle="collapse" aria-expanded="false" aria-controls="panel-updates">
+                                <span class="icon-title mb-0 font-weight-bold faq_q">펀드에 가입하려면 어떻게 해야하나요?</span>
+                                <span class="icon"><span class="fas fa-plus"></span></span>
+                            </a>
+                            <div class="collapse" id="panel-updates">
+                                <div class="pt-3  faq-a">
+                                    <p>펀드 가입을 위해서는 펀드를 판매하는 판매회사(은행, 증권, 보험사 등)에 적어도 한 번은 방문하셔야 합니다. 
+                                        <br> 판매회사의 홈페이지나 홈트레이딩시스템(HTS)을 통해서도 가입이 가능하나 실명확인 절차가 반드시 필요하므로 판매회사의 영업점에 방문하셔야 합니다. 판매회사의
+                                        거래계좌(증권회사의 경우 위탁계좌 등)를 이미 가지고 계신 분이라면 해당 판매회사에 실명확인을 거친 상태이므로 홈페이지나 HTS를 통해
+                                        펀드 가입이 가능합니다. <br><br>다만, 판매회사의 시스템 인프라 또는 판매정책에 따라 홈페이지나 HTS를 통해 거래할 수 있는 펀드의 종류나
+                                        거래방법 등이 다를 수 있으므로 해당 판매회사의 고객센터로 연락하셔서 정확한 내용을 파악하신 후 거래하시기 바랍니다. 저희 멀티핀의
+                                        펀드를 판매하고 있는 판매회사에 대한 자세한 정보(회사명, 콜센타. 홈페이지 주소 등)는 "고객센터>판매사안내" 에서 확인하실 수
+                                        있습니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card card-body border-light mb-0 pr-5 pl-5">
+                            <a href="#panel-money-back" data-target="#panel-money-back"
+                                class="accordion-panel-header" data-toggle="collapse" aria-expanded="false"
+                                aria-controls="panel-money-back">
+                                <span class="icon-title mb-0 font-weight-bold faq_q">펀드 투자시 원금은 보존되나요?</span>
+                                <span class="icon"><span class="fas fa-plus"></span></span>
+                            </a>
+                            <div class="collapse" id="panel-money-back">
+                                <div class="pt-3 faq-a">
+                                    <p>펀드는 원금이 보존되지 않습니다.<br>
+                                        왜냐하면 펀드에서 투자한 주식, 채권 등 자산 가격의 하락으로 펀드 투자실적은 손실 발생(원금 손실)이
+                                        가능한데, 펀드는 이 투자실적을 그대로 돌려주는 실적배당형 금융상품이기 때문에 그렇습니다.<br><br> 따라서 펀드 투자 시에는 가급적 여유자금을
+                                        장기투자, 분산투자, 적립식투자의 방법으로 투자하는 것이 현명한 방법이라고 판단됩니다. 또한 연령, 소득, 위험선호도, 은퇴시기,
+                                        투자목적 등을 고려하여 그에 맞는 펀드 투자를 계획하는 것이 중요합니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card card-body border-light mb-0 pr-5 pl-5">
+                            <a href="#panel-support" data-target="#panel-support" class="accordion-panel-header"
+                                data-toggle="collapse" aria-expanded="false" aria-controls="panel-support">
+                                <span class="icon-title mb-0 font-weight-bold faq_q">모의투자는 어떻게 하나요?</span>
+                                <span class="icon"><span class="fas fa-plus"></span></span>
+                            </a>
+                            <div class="collapse" id="panel-support">
+                                <div class="pt-3 faq-a">
+                                    <p>멀티핀 홈페이지에서 회원가입을 해주세요. <br>
+                                        기존회원이시거나 가입되셨다면 계좌개설을 신청해주세요.<br>
+                                        신청이 완료되었다면 금액 설정 후 투자종목을 선정해주시고,종목 선정이 완료되셨다면 종목을 구매하시면 됩니다.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End of Accordion-->
+                </div>
+            </div>
+            <div class="row mt-lg-5 mt-5">
+                <div class="col text-center here-total">
+                    <p class="text-italic question mr-4">찾으시는 항목이 없으신가요?</p>
+                    <a href="../law/lawFAQ" class="faq_btn">자주묻는 질문</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="movie-info mt-6 mb-6">
+        <div class="container">
+            <div class="row justify-content-center mb-3">
+                <div class="col-12 col-lg-9 text-center">
+                    <h2 class=" mb-4 movie-info-title">영상 법률 정보</h2>
+                </div>
+            </div>
+            <div class="sell-cards">
+                <div class="basic-carousel owl-carousel owl-theme">
+                    <div class="item">
+                        <div class="youtube animate-up-9">
+                            <iframe width="350" height="200" src="https://www.youtube.com/embed/vKuEXW3sVes"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="item">
+                        <div class="youtube animate-up-9">
+                            <iframe width="350" height="200" src="https://www.youtube.com/embed/S6xSsXgvIMg"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="item">
+                        <div class="youtube animate-up-9">
+                            <iframe width="350" height="200" src="https://www.youtube.com/embed/lAaO5QKpE9k"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                    <!-- Item 4 -->
+                    <div class="item">
+                        <div class="youtube animate-up-9">
+                            <iframe width="350" height="200" src="https://www.youtube.com/embed/nmnr5UAQkpc" 
+                            title="YouTube video player" frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>       
+    </section>
+<footer th:replace="~{layout/footer :: #footer}"></footer>
+<th:block th:replace="layout/scripts :: home_scripts"></th:block>
+</body>
+</html>

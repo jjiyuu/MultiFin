@@ -1,0 +1,70 @@
+.home-mainTitle,.searchLeft,.searchRight{
+ font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
+.section-header{padding-bottom: 60px;}
+/*검색*/
+.home_auction_search{ 
+    margin: 0 auto;
+    margin-top: 50px; 
+    margin-bottom: 50px;
+    width: 1400px;
+    background-color: rgb(248, 248, 248);
+}
+.auction_search_form{
+    padding: 50px 30px;
+    justify-content: center;
+    margin: 0 auto;
+}
+.rowSearchBtn{justify-content: center; display: flex;}
+.auction_description{
+    display: flex; 
+    justify-content: center;
+    margin-bottom: 30px;
+}
+.searchLeft,.searchRight{font-size: 20px;}
+
+
+.searchLeft{
+    font-size:larger;
+    font-weight: 600;
+    margin-left: 15%;
+    margin-right: 5%;
+    display: block;
+}
+.searchRight{
+    display: block;
+    float: right;
+    font-size: large;
+    width: 70%;
+}
+.searchRight span{
+    margin-right: 3%;
+    font-weight: 500;
+}
+
+input[type="checkbox"]{
+    width: 15px; /*Desired width*/
+    height: 15px; /*Desired height*/
+    margin-right: 1%;
+    
+}
+.input-group{
+    width: 80%;
+}
+.search_btn{
+    line-height: 23px;
+    font-weight: 600;
+}
+
+/*매물*/
+.more_view{width: 1200px; margin: 0 auto;}
+.auction_description_title,.detail,.discount,.now{
+    font-family: 'IBM Plex Sans KR', sans-serif;
+}
+.auction_description_title{line-height: 35px;}
+.detail{font-size: 16px; line-height: 30px;}
+.now{font-weight: 500; font-size: 16px;}
+.money{height:30px ;}
+.discount{color: rgb(231, 76, 60);}
+.percent{margin-bottom: 0px;}

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//KO" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.multi.multifin.bank.model.mapper.LoanCreditMapper">
+	<resultMap type="LoanCredit" id="loanCreditResultMap">
+		<id property="loanCreditNo" column="loanCreditNo"/>
+		<result property="dclsMonth" column="dcls_month"/>
+		<result property="finCoNo" column="fin_co_no"/>
+		<result property="korCoNm" column="kor_co_nm"/>
+		<result property="finPrdtCd" column="fin_prdt_cd"/>
+		<result property="finPrdtNm" column="fin_prdt_nm"/>
+		<result property="joinWay" column="join_way"/>
+		<result property="crdtPrdtType" column="crdt_prdt_type"/>
+		<result property="crdtPrdtTypeNm" column="crdt_prdt_type_nm"/>
+		<result property="cbName" column="cb_name"/>
+		<result property="dclsStrtDay" column="dcls_strt_day"/>
+		<result property="dclsEndDay" column="dcls_end_day"/>
+		<result property="finCoSubmDay" column="fin_co_subm_day"/>
+		
+		<result property="crdtLendRateType" column="crdt_lend_rate_type"/>
+		<result property="crdtLendRateTypeNm" column="crdt_lend_rate_type_nm"/>
+		<result property="crdtGrad1" column="crdt_grad_1"/>
+		<result property="crdtGrad4" column="crdt_grad_4"/>
+		<result property="crdtGrad5" column="crdt_grad_5"/>
+		<result property="crdtGrad6" column="crdt_grad_6"/>
+		<result property="crdtGradAvg" column="crdt_grad_avg"/>
+	</resultMap>
+	
+	<!-- 신용대출전체 -->
+	<select id="selectLoanCreditList" resultMap="loanCreditResultMap">
+		SELECT dcls_month,kor_co_nm,fin_prdt_cd,fin_prdt_nm,join_way,crdt_prdt_type_nm,MIN(crdt_grad_avg) as crdt_grad_avg 
+		FROM LoanCredit
+		WHERE crdt_lend_rate_type='A'
+		GROUP BY dcls_month,kor_co_nm,fin_prdt_cd,fin_prdt_nm,join_way,crdt_prdt_type_nm
+	</select>
+	
+	<select id="selectLoanCreditListAll" resultMap="loanCreditResultMap" parameterType="string">
+		SELECT * FROM LoanCredit LC
+		WHERE LC.fin_prdt_cd = #{finPrdtCd}
+	</select>
+	
+	<select id="selectLoanCreditCountAll" resultType="int" parameterType="map">
+		SELECT COUNT(*) FROM LoanCredit LC
+		WHERE 1=1
+		<if test="korCoNm != null">
+			AND(
+				LC.kor_co_nm like '%${korCoNm}%' 
+			)
+		</if>
+	</select>
+	
+	<select id="selectLoanCreditListUnique" resultMap="loanCreditResultMap" parameterType="map">
+		SELECT dcls_month,kor_co_nm,fin_prdt_cd,fin_prdt_nm,join_way,crdt_prdt_type_nm,crdt_lend_rate_type_nm,MIN(crdt_grad_avg) as crdt_grad_avg
+		FROM LoanCredit LC
+		WHERE crdt_lend_rate_type='A'
+		<if test="korCoNm != null">
+			AND(
+				LC.kor_co_nm like '%${korCoNm}%' 
+			)
+		</if>
+		GROUP BY dcls_month,kor_co_nm,fin_prdt_cd,fin_prdt_nm,join_way,crdt_prdt_type_nm,crdt_lend_rate_type_nm
+		LIMIT ${limit} OFFSET ${offset}
+	</select>
+	
+	<select id="selectLoanCreditCountUnique" resultType="int" parameterType="map">
+		SELECT COUNT(DISTINCT fin_prdt_cd)
+		FROM LoanCredit LC
+		WHERE 1=1
+		<if test="korCoNm != null">
+			AND(
+				LC.kor_co_nm like '%${korCoNm}%' 
+			)
+		</if>
+	</select>
+</mapper>

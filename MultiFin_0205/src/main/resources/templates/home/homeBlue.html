@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="layout/head :: config"></th:block>
+	<title>MultiFin:부동산 청약:아파트</title>
+	<!-- 현재 페이지에서만 쓰는 css, script -->
+	<link type="text/css" th:href="@{/css/home/homeBlue.css}" rel="stylesheet">
+</head>
+<body>
+<header th:replace="~{layout/header :: #header}"></header>
+    <main>
+        <!-- Hero -->
+        <div class="section section-header section-image bg-tertiary overlay-primary text-white overflow-hidden" data-background="../../assets/img/home/new-york-hero.jpg">
+            <div class="container z-2">
+                <div class="row justify-content-center pt-3">
+                    <div class="col-12 text-center">
+                        <h1 class="home-mainTitle">아파트 청약</h1></span></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 상품 검색 시작 -->
+<form autocomplete="off" class="search" method="get" th:action="@{/home/homeBlue}" >
+<section class="section Blue_search_container pt-0 pb-5">
+	<div class="container" style="width:1200px;">
+        <div class="search_container">
+            <div class="search-left">
+                <h5 class="optionTitle">지역선택</h5>
+                <div class="search-form" >
+                    <div class="question">
+                        <div class="local">
+                            <div>
+                                <input type="checkbox" name="locationCheck" id="서울" value="서울"
+                                th:checked="${#arrays.contains(paramMap.locationCheck, '서울')  ? 'checked' : null}"
+                                ><span class="search_title">서울</span><br>
+                                <input type="checkbox" name="locationCheck" id="인천" value="인천"
+                                  th:checked="${#arrays.contains(paramMap.locationCheck, '인천')  ? 'checked' : null}"
+                                ><span class="search_title">인천</span><br>      
+                                <input type="checkbox" name="locationCheck" id="세종" value="세종"
+                                 th:checked="${#arrays.contains(paramMap.locationCheck, '세종')  ? 'checked' : null}"
+                                 ><span class="search_title">세종</span><br>
+                                 <input type="checkbox" name="locationCheck" id="광주" value="광주"
+                                 th:checked="${#arrays.contains(paramMap.locationCheck, '광주')  ? 'checked' : null}"
+                                ><span class="search_title">광주</span><br>
+                                  <input type="checkbox" name="locationCheck" id="대구" value="대구"
+                                 th:checked="${#arrays.contains(paramMap.locationCheck, '대구')  ? 'checked' : null}"
+                                 ><span class="search_title">대구</span><br>
+                                <input type="checkbox" name="locationCheck" id="울산" value="울산" 
+                                 th:checked="${#arrays.contains(paramMap.locationCheck, '울산')  ? 'checked' : null}"
+                                ><span class="search_title">울산</span><br>
+                                  <input type="checkbox" name="locationCheck" id="부산" value="부산"
+                                 th:checked="${#arrays.contains(paramMap.locationCheck, '부산')  ? 'checked' : null}"
+                                 ><span class="search_title">부산</span><br>
+                            </div>
+                            <div>
+                               <input type="checkbox" name="locationCheck" id="경기" value="경기"
+                                 th:checked="${#arrays.contains(paramMap.locationCheck, '경기')  ? 'checked' : null}"
+                                 ><span class="search_title">경기</span><br>
+                                 <input type="checkbox" name="locationCheck" id="강원" value="강원"
+                                 th:checked="${#arrays.contains(paramMap.locationCheck, '강원')  ? 'checked' : null}"
+                                ><span class="search_title">강원</span><br>
+                                    <input type="checkbox" name="locationCheck" id="충청" value="충청"
+                                 th:checked="${#arrays.contains(paramMap.locationCheck, '충청')  ? 'checked' : null}"
+                                ><span class="search_title">충청</span><br>
+                                <input type="checkbox" name="locationCheck" id="전라" value="전라"
+                                 th:checked="${#arrays.contains(paramMap.locationCheck, '전라')  ? 'checked' : null}"
+                                 ><span class="search_title">전라</span><br>
+                                <input type="checkbox" name="locationCheck" id="경상" value="경상"
+                                 th:checked="${#arrays.contains(paramMap.locationCheck, '경상')  ? 'checked' : null}"
+                                 ><span class="search_title">경상</span><br>
+                                <input type="checkbox" name="locationCheck" id="제주" value="제주"
+                                 th:checked="${#arrays.contains(paramMap.locationCheck, '제주')  ? 'checked' : null}"
+                                 ><span class="search_title">제주</span><br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="btnCheck">
+                        <button class="search_btn btn btn-primary" type="submit">Search</button>
+                        <button class="search_btn btn btn-outline-gray" type="reset">Reset</button>
+                    </div><!--버튼끝-->
+                </div>
+            </div>
+            <div class="col-sm-9 border-gray-500">
+               <div class="form_container">
+                    <div class="search"  >
+                        <div class="searching">
+                            <input class="input_text" type="text" placeholder="검색어를 입력하세요" required id="searchValue" th:value="${param.searchValue}" name="searchValue">
+                            <input class="input_btn" type="submit" value="Search">
+                        </div>
+                    </div>
+               </div>
+               <div>
+                <table id="tbl-board" class="board-table">
+                    <tr class="text-center bg-info text-white"> 
+                        <th class="table-header">번호</th>
+                        <th class="table-header">주택명</th>
+                        <th class="table-header">주소</th>
+                        <th class="table-header">모집공고일</th>
+                        <th class="table-header">상세보기</th>
+                    </tr>
+                    <th:block th:if="${Aptlist.size == 0}">
+                    	<tr>
+                    		<td></td>
+                    		<td></td>
+                    		<td class="board-none">조회된 상품이 없습니다.</td>
+                    		<td></td>
+                    		<td></td>
+                    	</tr>
+                    </th:block>
+                    <th:block th:if="${Aptlist.size != 0}">
+	                    <tr th:each="Aptlist, number : ${Aptlist}">
+	                        <td class="board-content">[[(${pageInfo.currentPage}-1)*10+${number.index}+1]]</td>
+	                        <td class="board-content board-title">[[${Aptlist.houseNm}]]</td>
+	                        <td class="board-content">[[${Aptlist.hssplyAdres[0]}]][[${Aptlist.hssplyAdres[1]}]][[${Aptlist.hssplyAdres[2]}]][[${Aptlist.hssplyAdres[3]}]][[${Aptlist.hssplyAdres[4]}]][[${Aptlist.hssplyAdres[5]}]][[${Aptlist.hssplyAdres[6]}]]...</td>
+	                        <td class="board-content">[[${Aptlist.rcritPblancDe}]]</td>
+	                        <td class="board-content"><a th:href="${Aptlist.pblancUrl}" target="_blank">바로가기</a></td>
+	                    </tr> 
+                    </th:block>
+                </table>
+                <div class="table-buttons"> 
+	                    <button th:onclick="|movePage2('/home/homeBlue?page=1');|" class="table-button">&lt;&lt;</button>
+	                    <button th:onclick="|movePage2('/home/homeBlue?page=${pageInfo.prevPage}');|" class="table-button">&lt;</button>
+	                    <th:block th:each="num, status : ${#numbers.sequence(pageInfo.startPage, pageInfo.endPage)}">
+							<th:block th:if="${status.current == pageInfo.currentPage}">
+								<button class="btn-primary" disabled >[[${status.current}]]</button>
+							</th:block>
+							<th:block th:if="${Aptlist.size != 0}">
+								<th:block th:if="${status.current != pageInfo.currentPage}">
+									<button th:onclick="|movePage2('/home/homeBlue?page=${status.current}');|" class="table-button">
+										[[${status.current}]]
+									</button>
+								</th:block>
+							</th:block>
+						</th:block>
+	                    <button th:onclick="|movePage2('/home/homeBlue?page=${pageInfo.nextPage}');|" class="table-button">&gt;</button>
+	                    <button th:onclick="|movePage2('/home/homeBlue?page=${pageInfo.maxPage}');|" class="table-button">&gt;&gt;</button>
+	                </div>
+               </div>
+            </div>
+        </div>
+    </div>
+</section>
+</form>
+<!-- 상품 검색 끝 -->
+<script type="text/javascript">
+	function movePage2(pageUrl){
+		var searchValue = document.getElementById("searchValue");
+		var locationCheck = document.getElementsByName("locationCheck");
+		if(searchValue.value.length > 0){
+			pageUrl = pageUrl + '&searchValue=' + searchValue.value; 
+		}
+		
+		for(var i = 0; i <locationCheck.length; i++){
+			if(locationCheck[i].checked == true){
+				var locationStr = locationCheck[i].value;
+				pageUrl = pageUrl + '&locationCheck=' + locationStr; 
+			}
+		}
+		
+/* 		alert('pageUrl : ' + pageUrl) */
+		location.href = pageUrl;
+	}
+</script>
+
+</main>
+<footer th:replace="~{layout/footer :: #footer}"></footer>
+<th:block th:replace="layout/scripts :: scripts"></th:block> 
+</body>
+
+</html>

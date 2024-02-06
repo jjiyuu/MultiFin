@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="layout/head :: config"></th:block>
+	<title>MultiFin:펀드상세</title>
+	<!-- 현재 페이지에서만 쓰는 css, script -->
+	<link rel="stylesheet" type="text/css" th:href="@{/css/stock/stockFundDetail.css}">
+</head>
+<body>
+<header th:replace="~{layout/header :: #header}"></header>
+        <!-- Hero -->
+        <section class="section-header section-image bg-primary overlay-primary text-white"   data-background="../../assets/img/stock/earth.jpg">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-10 text-center">
+                        <h1 class="mb-3 fund-mainTitle">펀드 상세</h1>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="fund-tab mt-5 mb-6">
+            <div class="fund_tab_container">
+                <ul class="tabs"> 
+                    <li class="tab-link current" data-tab="tab-1">
+                        <p class="fund-detail-title font-weight-bolder">국내펀드</p>
+                    </li>
+                    <li id="tab_second" class="tab-link" data-tab="tab-2">
+                        <p class="fund-detail-title font-weight-bolder">해외펀드</p>
+                    </li>
+                    <li class="tab-link" data-tab="tab-3">
+                        <p class="fund-detail-title font-weight-bolder">연금펀드</p>
+                    </li>
+                </ul>
+                <div id="tab-1" class="tab-content current">
+                    <div class="tabContainer">
+                        <div class="tabContents-Title mb-3">
+                            <h5 class="tabContent__title mb-0">국내펀드</h5>
+                        </div>
+                        <div class="con_detailBox">	
+                            <!-- 한국투자 네비게이터 펀드[주식] -->
+                            <div class="fund_box clearfix pt-4 pb-4 mb-0">
+                                    <p class="leftBox">
+                                        <span class="thumbSimsa">한국투자신탁운용준법감시인심사필 제23-250호(2022.09.27~2023.09.26)</span>
+                                        <a href="/fund/domestic_fund.do?flag=2&amp;fundCd=04813">
+                                        <img src="http://kim.koreainvestment.com/images/fund/domestic_banner_02.jpg" alt="한국투자신탁운용준법감시인심사필 제18-33호(2017.08.18~2018.08.17) 10년동안 거센 풍랑을 이겨온 대형펀드, 어디 있습니까? 한국투자 네비게이터 펀드[주식]"></a>
+                                    </p>
+                                    <div class="rightBox txt_area">
+                                        <ul class="text_title pl-4">
+                                            <li class="mb10 theme_tit brown02">
+                                                <a href="/fund/domestic_fund.do?flag=2&amp;fundCd=04813" style="color:rgb(13, 27, 72)">
+                                                    한국투자 <span class="blue02">네비게이터</span> 펀드[주식]
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <ul class="dot_gray023">
+                                            <li>철저한 리서치와 탐방을 통해 기업의 펀더멘털을 중장기적으로 분석</li>
+                                            <li>미래 성장성(이익 증가율)과 밸류에이션에 비해 저평가된 종목에 투자</li>
+                                        </ul>
+                                    </div>
+                            </div>
+                            <!-- 한국투자 한국의 힘 증권펀드 [주식]   -->
+                            <div class="fund_box clearfix pt-4 pb-4 mb-0">
+                                    <p class="leftBox">
+                                        <span class="thumbSimsa">한국투자신탁운용준법감시인심사필 제23-250호(2022.09.27~2023.09.26)</span>
+                                        <a href="/fund/domestic_fund.do?flag=4&amp;fundCd=40001">
+                                        <img src="http://kim.koreainvestment.com/images/fund/domestic_banner_04.jpg" alt="한국투자신탁운용준법감시인심사필 제18-33호(2017.08.18~2018.08.17) 한국 1등이 세계 1등 No.1 Brand가 늘어날수록 한국의 힘도 커집니다! 한국투자 한국의 힘 증권펀드 [주식]"></a>
+                                    </p>
+                                    <div class="rightBox txt_area">
+                                        <ul class="text_title pl-4">
+                                            <li class="mb10 theme_tit brown02">
+                                                <a href="/fund/domestic_fund.do?flag=4&amp;fundCd=40001" style="color:rgb(13, 27, 72);">
+                                                    한국투자 <span class="blue02">한국의힘</span> 증권펀드[주식]
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <ul class="dot_gray023">
+                                            <li>글로벌 선도기업을 엄선하여 투자</li>
+                                            <li>구조적 성장기업에 투자</li>
+                                        </ul>
+                                    </div>
+                            </div>
+                            <!-- 한국투자 삼성그룹 적립식 증권펀드 1호[주식]  -->
+                            <div class="fund_box clearfix  pt-4 pb-4  mb-0">
+                                    <p class="leftBox"><a href="/fund/domestic_fund.do?flag=1&amp;fundCd=03Y03">
+                                        <span class="thumbSimsa">한국투자신탁운용준법감시인심사필 제23-250호(2022.09.27~2023.09.26)</span>
+                                        <img src="http://kim.koreainvestment.com/images/fund/domestic_banner_01.jpg" alt="한국투자신탁운용준법감시인심사필 제18-33호(2017.08.01~2018.07.31) 4차 산업혁명 시대, 새로운 토투자의 길을 제시합니다.[주식]"></a></p>
+                                    <div class="rightBox txt_area">
+                                        <ul  class="text_title pl-4">
+                                            <li class="mb10 theme_tit brown02">
+                                                <a href="/fund/domestic_fund.do?flag=1&amp;fundCd=03Y03" style="color: rgb(13, 27, 72);">
+                                                    한국투자 <span class="blue02">삼성그룹</span> 적립식 증권펀드 1호[주식]
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <ul class="dot_gray023">
+                                            <li>글로벌 최고 기업으로 성장하고 있는 삼성그룹을 중심으로 투자</li>
+                                            <li>그룹내 차세대 성장동력을 확보해 가고 있는 종목에 주목</li>
+                                            <li>그룹 지배구조 개선 및 배당 확대</li>
+                                        </ul>
+                                    </div>
+                            </div>
+                            <!-- 한국투자 한국의 제4차산업혁명 펀드 -->
+                            <div class="fund_box clearfix  pt-4 pb-4  mb-0">
+                                    <p class="leftBox">
+                                        <span class="thumbSimsa">한국투자신탁운용준법감시인심사필 제23-250호(2022.09.27~2023.09.26)</span>
+                                        <a href="/fund/domestic_fund.do?flag=12&amp;fundCd=05K69">							
+                                        <img src="http://kim.koreainvestment.com/images/fund/domestic_banner_12.jpg" alt="한국투자신탁운용준법감시인심사필 제18-33호(2017.08.18~2018.08.17) 적립식 펀드로 이만한 펀드가 또 있을까? 한국투자 삼성그룹 적립식 증권펀드 1호[주식]"></a></p>
+                                    <div class="rightBox txt_area">
+                                        <ul class="text_title pl-4">
+                                            <li class="mb10 theme_tit brown02"><a href="/fund/domestic_fund.do?flag=12&amp;fundCd=05K69" style="color: rgb(13, 27, 72);">
+                                                한국투자 <span class="blue02">한국의 제4차산업혁명</span> 펀드[주식]
+                                            </a>
+                                        </li>
+                                        </ul>
+                                        <ul class="dot_gray023">
+                                            <li>산업간 융합과 기업 혁신으로 이전 산업혁명보다 가속화된 성장률 기대</li>
+                                            <li>4차산업혁명 4대 핵심기술을 활용한 5가지 미래성장산업에 투자</li>
+                                            <li>한국운용 글로벌/국내리서치본부 협업을 통한 국내혁신기업 발굴</li>
+                                            
+                                        </ul>
+                                    </div>
+                            </div>
+                            <!-- 한국투자 배당리더 펀드[주식]   -->
+                            <div class="fund_box clearfix pt-4  pb-4  mb-0">
+                                    <p class="leftBox">
+                                        <span class="thumbSimsa">한국투자신탁운용준법감시인심사필 제23-250호(2022.09.27~2023.09.26)</span>
+                                        <a href="/fund/domestic_fund.do?flag=3&amp;fundCd=03V09">							
+                                        <img src="http://kim.koreainvestment.com/images/fund/domestic_banner_03.jpg" alt="한국투자신탁운용준법감시인심사필 제18-33호(2017.08.18~2018.08.17) 당신의 배당주투자, 막힘이 없어야 합니다! 한국투자 배당리더 펀드[주식]"></a></p>
+                                    <div class="rightBox txt_area">
+                                        <ul class="text_title pl-4">
+                                            <li class="mb10 theme_tit brown02" style="letter-spacing:-4px;">
+                                                <a href="/fund/domestic_fund.do?flag=3&amp;fundCd=03V09" style="color: rgb(13, 27, 72);">
+                                                    한국투자 <span class="blue02">배당리더</span> 펀드[주식]
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <ul class="dot_gray023">
+                                            <li>배당촉진 정책에 따른 한국 기업의 배당성향 증가와 주가상승 기대 </li>
+                                            <li>배당여력이 높은 우량주와 저평가 배당주에 집중투자</li>
+                                            <li>특정 스타일에 치우치지 않는 리서치 기반의 종목발굴 능력</li>
+                                        </ul>
+                                    </div>
+                            </div>
+                            <!-- 한국투자 롱텀밸류 펀드[주식] -->
+                            <div class="fund_box clearfix pt-4 pb-4  mb-0">
+                                    <p class="leftBox">
+                                        <span class="thumbSimsa">한국투자신탁운용준법감시인심사필 제23-250호(2022.09.27~2023.09.26)</span>
+                                        <a href="/fund/domestic_fund.do?flag=5&amp;fundCd=04Y19">							
+                                        <img src="http://kim.koreainvestment.com/images/fund/domestic_banner_05.jpg" alt="한국투자신탁운용준법감시인심사필 제18-33호(2017.08.18~2018.08.17) 기업의 투자가치는 책상에서 찾아지지 않습니다 한국투자 롱텀밸류 펀드[주식]"></a></p>
+                                    <div class="rightBox txt_area">
+                                        <ul class="text_title pl-4">
+                                            <li class="mb10 theme_tit brown02" style="letter-spacing:-4px;">
+                                                <a href="/fund/domestic_fund.do?flag=5&amp;fundCd=04Y19" style="color: rgb(13, 27, 72);">
+                                                    한국투자 <span class="blue02">롱텀밸류</span> 펀드[주식]
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <ul class="dot_gray023">
+                                            <li>현장중심의 중견기업 발굴로 수익 기회 포착</li>
+                                            <li>변동성 최소화 추구를 위한 다수의 종목 균등수준 투자</li>
+                                            <li>최대한 싸게 사고, 잃지 않는 투자 추구</li>
+                                        </ul>
+                                    </div>
+                            </div>
+                            <!-- 한국투자 중소밸류 펀드[주식] -->
+                            <div class="fund_box clearfix  pt-4 pb-4  mb-0">
+                                    <p class="leftBox">
+                                        <span class="thumbSimsa">한국투자신탁운용준법감시인심사필 제23-250호(2022.09.27~2023.09.26)</span>
+                                        <a href="/fund/domestic_fund.do?flag=6&amp;fundCd=03Z92">							
+                                        <img src="http://kim.koreainvestment.com/images/fund/domestic_banner_06.jpg" alt="한국투자신탁운용준법감시인심사필 제18-33호(2017.08.18~2018.08.17) 알찬놈만 골랐다! 한국투자 중소밸류 펀드[주식] "></a></p>
+                                    <div class="rightBox txt_area">
+                                        <ul  class="text_title pl-4">
+                                            <li class="mb10 theme_tit brown02" style="letter-spacing:-4px;">
+                                                <a href="/fund/domestic_fund.do?flag=6&amp;fundCd=03Z92" style="color: rgb(13, 27, 72);">
+                                                    한국투자 <span class="blue02">중소밸류</span> 펀드[주식]
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <ul class="dot_gray023">
+                                            <li>현장중심의 리서치에 기반한 우량 중소형 가치주 투자</li>
+                                            <li>일정비율 대형주 편입으로 시장 괴리 축소 및 변동성 관리 </li>
+                                            <li>스타매니저가 아닌 팀 운용 중심, 최대한 싸게 사고, 잃지 않는 투자 추구</li>
+                                        </ul>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-2" class="tab-content">
+                    <div class="tabContainer">
+                        <div class="tabContents-Title mb-3">
+                            <h5 class="tabContent__title mb-0">해외펀드</h5>
+                        </div>
+                        <div class="con_detailBox">	
+                            <!-- 한국투자 네비게이터 펀드[주식] -->
+                            <div class="fund_box clearfix pt-4 pb-4 mb-0">
+                                    <p class="leftBox">
+                                        <span class="thumbSimsa">한국투자신탁운용준법감시인심사필 제23-250호(2022.09.27~2023.09.26)</span>
+                                        <a href="/fund/domestic_fund.do?flag=2&amp;fundCd=04813">
+                                        <img src="http://kim.koreainvestment.com/images/fund/domestic_banner_02.jpg" alt="한국투자신탁운용준법감시인심사필 제18-33호(2017.08.18~2018.08.17) 10년동안 거센 풍랑을 이겨온 대형펀드, 어디 있습니까? 한국투자 네비게이터 펀드[주식]"></a>
+                                    </p>
+                                    <div class="rightBox txt_area">
+                                        <ul class="text_title pl-4">
+                                            <li class="mb10 theme_tit brown02">
+                                                <a href="/fund/domestic_fund.do?flag=2&amp;fundCd=04813" style="color:rgb(13, 27, 72)">
+                                                    한국투자 <span class="blue02">네비게이터</span> 펀드[주식]
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <ul class="dot_gray023">
+                                            <li>철저한 리서치와 탐방을 통해 기업의 펀더멘털을 중장기적으로 분석</li>
+                                            <li>미래 성장성(이익 증가율)과 밸류에이션에 비해 저평가된 종목에 투자</li>
+                                        </ul>
+                                    </div>
+                            </div>
+                            <!-- 한국투자 한국의 힘 증권펀드 [주식]   -->
+                            <div class="fund_box clearfix pt-4 pb-4 mb-0">
+                                    <p class="leftBox">
+                                        <span class="thumbSimsa">한국투자신탁운용준법감시인심사필 제23-250호(2022.09.27~2023.09.26)</span>
+                                        <a href="/fund/domestic_fund.do?flag=4&amp;fundCd=40001">
+                                        <img src="http://kim.koreainvestment.com/images/fund/domestic_banner_04.jpg" alt="한국투자신탁운용준법감시인심사필 제18-33호(2017.08.18~2018.08.17) 한국 1등이 세계 1등 No.1 Brand가 늘어날수록 한국의 힘도 커집니다! 한국투자 한국의 힘 증권펀드 [주식]"></a>
+                                    </p>
+                                    <div class="rightBox txt_area">
+                                        <ul class="text_title pl-4">
+                                            <li class="mb10 theme_tit brown02">
+                                                <a href="/fund/domestic_fund.do?flag=4&amp;fundCd=40001" style="color:rgb(13, 27, 72);">
+                                                    한국투자 <span class="blue02">한국의힘</span> 증권펀드[주식]
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <ul class="dot_gray023">
+                                            <li>글로벌 선도기업을 엄선하여 투자</li>
+                                            <li>구조적 성장기업에 투자</li>
+                                        </ul>
+                                    </div>
+                            </div>
+                            <!-- 한국투자 삼성그룹 적립식 증권펀드 1호[주식]  -->
+                            <div class="fund_box clearfix  pt-4 pb-4  mb-0">
+                                    <p class="leftBox"><a href="/fund/domestic_fund.do?flag=1&amp;fundCd=03Y03">
+                                        <span class="thumbSimsa">한국투자신탁운용준법감시인심사필 제23-250호(2022.09.27~2023.09.26)</span>
+                                        <img src="http://kim.koreainvestment.com/images/fund/domestic_banner_01.jpg" alt="한국투자신탁운용준법감시인심사필 제18-33호(2017.08.01~2018.07.31) 4차 산업혁명 시대, 새로운 토투자의 길을 제시합니다.[주식]"></a></p>
+                                    <div class="rightBox txt_area">
+                                        <ul  class="text_title pl-4">
+                                            <li class="mb10 theme_tit brown02">
+                                                <a href="/fund/domestic_fund.do?flag=1&amp;fundCd=03Y03" style="color: rgb(13, 27, 72);">
+                                                    한국투자 <span class="blue02">삼성그룹</span> 적립식 증권펀드 1호[주식]
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <ul class="dot_gray023">
+                                            <li>글로벌 최고 기업으로 성장하고 있는 삼성그룹을 중심으로 투자</li>
+                                            <li>그룹내 차세대 성장동력을 확보해 가고 있는 종목에 주목</li>
+                                            <li>그룹 지배구조 개선 및 배당 확대</li>
+                                        </ul>
+                                    </div>
+                            </div>
+                            <!-- 한국투자 한국의 제4차산업혁명 펀드 -->
+                            <div class="fund_box clearfix  pt-4 pb-4  mb-0">
+                                    <p class="leftBox">
+                                        <span class="thumbSimsa">한국투자신탁운용준법감시인심사필 제23-250호(2022.09.27~2023.09.26)</span>
+                                        <a href="/fund/domestic_fund.do?flag=12&amp;fundCd=05K69">							
+                                        <img src="http://kim.koreainvestment.com/images/fund/domestic_banner_12.jpg" alt="한국투자신탁운용준법감시인심사필 제18-33호(2017.08.18~2018.08.17) 적립식 펀드로 이만한 펀드가 또 있을까? 한국투자 삼성그룹 적립식 증권펀드 1호[주식]"></a></p>
+                                    <div class="rightBox txt_area">
+                                        <ul class="text_title pl-4">
+                                            <li class="mb10 theme_tit brown02"><a href="/fund/domestic_fund.do?flag=12&amp;fundCd=05K69" style="color: rgb(13, 27, 72);">
+                                                한국투자 <span class="blue02">한국의 제4차산업혁명</span> 펀드[주식]
+                                            </a>
+                                        </li>
+                                        </ul>
+                                        <ul class="dot_gray023">
+                                            <li>산업간 융합과 기업 혁신으로 이전 산업혁명보다 가속화된 성장률 기대</li>
+                                            <li>4차산업혁명 4대 핵심기술을 활용한 5가지 미래성장산업에 투자</li>
+                                            <li>한국운용 글로벌/국내리서치본부 협업을 통한 국내혁신기업 발굴</li>
+                                            
+                                        </ul>
+                                    </div>
+                            </div>
+                            <!-- 한국투자 배당리더 펀드[주식]   -->
+                            <div class="fund_box clearfix pt-4  pb-4  mb-0">
+                                    <p class="leftBox">
+                                        <span class="thumbSimsa">한국투자신탁운용준법감시인심사필 제23-250호(2022.09.27~2023.09.26)</span>
+                                        <a href="/fund/domestic_fund.do?flag=3&amp;fundCd=03V09">							
+                                        <img src="http://kim.koreainvestment.com/images/fund/domestic_banner_03.jpg" alt="한국투자신탁운용준법감시인심사필 제18-33호(2017.08.18~2018.08.17) 당신의 배당주투자, 막힘이 없어야 합니다! 한국투자 배당리더 펀드[주식]"></a></p>
+                                    <div class="rightBox txt_area">
+                                        <ul class="text_title pl-4">
+                                            <li class="mb10 theme_tit brown02" style="letter-spacing:-4px;">
+                                                <a href="/fund/domestic_fund.do?flag=3&amp;fundCd=03V09" style="color: rgb(13, 27, 72);">
+                                                    한국투자 <span class="blue02">배당리더</span> 펀드[주식]
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <ul class="dot_gray023">
+                                            <li>배당촉진 정책에 따른 한국 기업의 배당성향 증가와 주가상승 기대 </li>
+                                            <li>배당여력이 높은 우량주와 저평가 배당주에 집중투자</li>
+                                            <li>특정 스타일에 치우치지 않는 리서치 기반의 종목발굴 능력</li>
+                                        </ul>
+                                    </div>
+                            </div>
+                            <!-- 한국투자 롱텀밸류 펀드[주식] -->
+                            <div class="fund_box clearfix pt-4 pb-4  mb-0">
+                                    <p class="leftBox">
+                                        <span class="thumbSimsa">한국투자신탁운용준법감시인심사필 제23-250호(2022.09.27~2023.09.26)</span>
+                                        <a href="/fund/domestic_fund.do?flag=5&amp;fundCd=04Y19">							
+                                        <img src="http://kim.koreainvestment.com/images/fund/domestic_banner_05.jpg" alt="한국투자신탁운용준법감시인심사필 제18-33호(2017.08.18~2018.08.17) 기업의 투자가치는 책상에서 찾아지지 않습니다 한국투자 롱텀밸류 펀드[주식]"></a></p>
+                                    <div class="rightBox txt_area">
+                                        <ul class="text_title pl-4">
+                                            <li class="mb10 theme_tit brown02" style="letter-spacing:-4px;">
+                                                <a href="/fund/domestic_fund.do?flag=5&amp;fundCd=04Y19" style="color: rgb(13, 27, 72);">
+                                                    한국투자 <span class="blue02">롱텀밸류</span> 펀드[주식]
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <ul class="dot_gray023">
+                                            <li>현장중심의 중견기업 발굴로 수익 기회 포착</li>
+                                            <li>변동성 최소화 추구를 위한 다수의 종목 균등수준 투자</li>
+                                            <li>최대한 싸게 사고, 잃지 않는 투자 추구</li>
+                                        </ul>
+                                    </div>
+                            </div>
+                            <!-- 한국투자 중소밸류 펀드[주식] -->
+                            <div class="fund_box clearfix  pt-4 pb-4  mb-0">
+                                    <p class="leftBox">
+                                        <span class="thumbSimsa">한국투자신탁운용준법감시인심사필 제23-250호(2022.09.27~2023.09.26)</span>
+                                        <a href="/fund/domestic_fund.do?flag=6&amp;fundCd=03Z92">							
+                                        <img src="http://kim.koreainvestment.com/images/fund/domestic_banner_06.jpg" alt="한국투자신탁운용준법감시인심사필 제18-33호(2017.08.18~2018.08.17) 알찬놈만 골랐다! 한국투자 중소밸류 펀드[주식] "></a></p>
+                                    <div class="rightBox txt_area">
+                                        <ul  class="text_title pl-4">
+                                            <li class="mb10 theme_tit brown02" style="letter-spacing:-4px;">
+                                                <a href="/fund/domestic_fund.do?flag=6&amp;fundCd=03Z92" style="color: rgb(13, 27, 72);">
+                                                    한국투자 <span class="blue02">중소밸류</span> 펀드[주식]
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <ul class="dot_gray023">
+                                            <li>현장중심의 리서치에 기반한 우량 중소형 가치주 투자</li>
+                                            <li>일정비율 대형주 편입으로 시장 괴리 축소 및 변동성 관리 </li>
+                                            <li>스타매니저가 아닌 팀 운용 중심, 최대한 싸게 사고, 잃지 않는 투자 추구</li>
+                                        </ul>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-3" class="tab-content">
+                    <div class="tabContainer">
+                        <div class="tabContents-Title mb-3">
+                            <h5 class="tabContent__title mb-0">연금펀드</h5>
+                        </div>
+                        <div class="con_detailBox">	
+                            <!-- 한국투자 네비게이터 펀드[주식] -->
+                            <div class="fund_box clearfix pt-4 pb-4 mb-0">
+                                    <p class="leftBox">
+                                        <span class="thumbSimsa">한국투자신탁운용준법감시인심사필 제23-250호(2022.09.27~2023.09.26)</span>
+                                        <a href="/fund/domestic_fund.do?flag=2&amp;fundCd=04813">
+                                        <img src="http://kim.koreainvestment.com/images/fund/domestic_banner_02.jpg" alt="한국투자신탁운용준법감시인심사필 제18-33호(2017.08.18~2018.08.17) 10년동안 거센 풍랑을 이겨온 대형펀드, 어디 있습니까? 한국투자 네비게이터 펀드[주식]"></a>
+                                    </p>
+                                    <div class="rightBox txt_area">
+                                        <ul class="text_title pl-4">
+                                            <li class="mb10 theme_tit brown02">
+                                                <a href="/fund/domestic_fund.do?flag=2&amp;fundCd=04813" style="color:rgb(13, 27, 72)">
+                                                    한국투자 <span class="blue02">네비게이터</span> 펀드[주식]
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <ul class="dot_gray023">
+                                            <li>철저한 리서치와 탐방을 통해 기업의 펀더멘털을 중장기적으로 분석</li>
+                                            <li>미래 성장성(이익 증가율)과 밸류에이션에 비해 저평가된 종목에 투자</li>
+                                        </ul>
+                                    </div>
+                            </div>
+                            <!-- 한국투자 한국의 힘 증권펀드 [주식]   -->
+                            <div class="fund_box clearfix pt-4 pb-4 mb-0">
+                                    <p class="leftBox">
+                                        <span class="thumbSimsa">한국투자신탁운용준법감시인심사필 제23-250호(2022.09.27~2023.09.26)</span>
+                                        <a href="/fund/domestic_fund.do?flag=4&amp;fundCd=40001">
+                                        <img src="http://kim.koreainvestment.com/images/fund/domestic_banner_04.jpg" alt="한국투자신탁운용준법감시인심사필 제18-33호(2017.08.18~2018.08.17) 한국 1등이 세계 1등 No.1 Brand가 늘어날수록 한국의 힘도 커집니다! 한국투자 한국의 힘 증권펀드 [주식]"></a>
+                                    </p>
+                                    <div class="rightBox txt_area">
+                                        <ul class="text_title pl-4">
+                                            <li class="mb10 theme_tit brown02">
+                                                <a href="/fund/domestic_fund.do?flag=4&amp;fundCd=40001" style="color:rgb(13, 27, 72);">
+                                                    한국투자 <span class="blue02">한국의힘</span> 증권펀드[주식]
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <ul class="dot_gray023">
+                                            <li>글로벌 선도기업을 엄선하여 투자</li>
+                                            <li>구조적 성장기업에 투자</li>
+                                        </ul>
+                                    </div>
+                            </div>
+                            <!-- 한국투자 삼성그룹 적립식 증권펀드 1호[주식]  -->
+                            <div class="fund_box clearfix  pt-4 pb-4  mb-0">
+                                    <p class="leftBox"><a href="/fund/domestic_fund.do?flag=1&amp;fundCd=03Y03">
+                                        <span class="thumbSimsa">한국투자신탁운용준법감시인심사필 제23-250호(2022.09.27~2023.09.26)</span>
+                                        <img src="http://kim.koreainvestment.com/images/fund/domestic_banner_01.jpg" alt="한국투자신탁운용준법감시인심사필 제18-33호(2017.08.01~2018.07.31) 4차 산업혁명 시대, 새로운 토투자의 길을 제시합니다.[주식]"></a></p>
+                                    <div class="rightBox txt_area">
+                                        <ul  class="text_title pl-4">
+                                            <li class="mb10 theme_tit brown02">
+                                                <a href="/fund/domestic_fund.do?flag=1&amp;fundCd=03Y03" style="color: rgb(13, 27, 72);">
+                                                    한국투자 <span class="blue02">삼성그룹</span> 적립식 증권펀드 1호[주식]
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <ul class="dot_gray023">
+                                            <li>글로벌 최고 기업으로 성장하고 있는 삼성그룹을 중심으로 투자</li>
+                                            <li>그룹내 차세대 성장동력을 확보해 가고 있는 종목에 주목</li>
+                                            <li>그룹 지배구조 개선 및 배당 확대</li>
+                                        </ul>
+                                    </div>
+                            </div>
+                            <!-- 한국투자 한국의 제4차산업혁명 펀드 -->
+                            <div class="fund_box clearfix  pt-4 pb-4  mb-0">
+                                    <p class="leftBox">
+                                        <span class="thumbSimsa">한국투자신탁운용준법감시인심사필 제23-250호(2022.09.27~2023.09.26)</span>
+                                        <a href="/fund/domestic_fund.do?flag=12&amp;fundCd=05K69">							
+                                        <img src="http://kim.koreainvestment.com/images/fund/domestic_banner_12.jpg" alt="한국투자신탁운용준법감시인심사필 제18-33호(2017.08.18~2018.08.17) 적립식 펀드로 이만한 펀드가 또 있을까? 한국투자 삼성그룹 적립식 증권펀드 1호[주식]"></a></p>
+                                    <div class="rightBox txt_area">
+                                        <ul class="text_title pl-4">
+                                            <li class="mb10 theme_tit brown02"><a href="/fund/domestic_fund.do?flag=12&amp;fundCd=05K69" style="color: rgb(13, 27, 72);">
+                                                한국투자 <span class="blue02">한국의 제4차산업혁명</span> 펀드[주식]
+                                            </a>
+                                        </li>
+                                        </ul>
+                                        <ul class="dot_gray023">
+                                            <li>산업간 융합과 기업 혁신으로 이전 산업혁명보다 가속화된 성장률 기대</li>
+                                            <li>4차산업혁명 4대 핵심기술을 활용한 5가지 미래성장산업에 투자</li>
+                                            <li>한국운용 글로벌/국내리서치본부 협업을 통한 국내혁신기업 발굴</li>
+                                            
+                                        </ul>
+                                    </div>
+                            </div>
+                            <!-- 한국투자 배당리더 펀드[주식]   -->
+                            <div class="fund_box clearfix pt-4  pb-4  mb-0">
+                                    <p class="leftBox">
+                                        <span class="thumbSimsa">한국투자신탁운용준법감시인심사필 제23-250호(2022.09.27~2023.09.26)</span>
+                                        <a href="/fund/domestic_fund.do?flag=3&amp;fundCd=03V09">							
+                                        <img src="http://kim.koreainvestment.com/images/fund/domestic_banner_03.jpg" alt="한국투자신탁운용준법감시인심사필 제18-33호(2017.08.18~2018.08.17) 당신의 배당주투자, 막힘이 없어야 합니다! 한국투자 배당리더 펀드[주식]"></a></p>
+                                    <div class="rightBox txt_area">
+                                        <ul class="text_title pl-4">
+                                            <li class="mb10 theme_tit brown02" style="letter-spacing:-4px;">
+                                                <a href="/fund/domestic_fund.do?flag=3&amp;fundCd=03V09" style="color: rgb(13, 27, 72);">
+                                                    한국투자 <span class="blue02">배당리더</span> 펀드[주식]
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <ul class="dot_gray023">
+                                            <li>배당촉진 정책에 따른 한국 기업의 배당성향 증가와 주가상승 기대 </li>
+                                            <li>배당여력이 높은 우량주와 저평가 배당주에 집중투자</li>
+                                            <li>특정 스타일에 치우치지 않는 리서치 기반의 종목발굴 능력</li>
+                                        </ul>
+                                    </div>
+                            </div>
+                            <!-- 한국투자 롱텀밸류 펀드[주식] -->
+                            <div class="fund_box clearfix pt-4 pb-4  mb-0">
+                                    <p class="leftBox">
+                                        <span class="thumbSimsa">한국투자신탁운용준법감시인심사필 제23-250호(2022.09.27~2023.09.26)</span>
+                                        <a href="/fund/domestic_fund.do?flag=5&amp;fundCd=04Y19">							
+                                        <img src="http://kim.koreainvestment.com/images/fund/domestic_banner_05.jpg" alt="한국투자신탁운용준법감시인심사필 제18-33호(2017.08.18~2018.08.17) 기업의 투자가치는 책상에서 찾아지지 않습니다 한국투자 롱텀밸류 펀드[주식]"></a></p>
+                                    <div class="rightBox txt_area">
+                                        <ul class="text_title pl-4">
+                                            <li class="mb10 theme_tit brown02" style="letter-spacing:-4px;">
+                                                <a href="/fund/domestic_fund.do?flag=5&amp;fundCd=04Y19" style="color: rgb(13, 27, 72);">
+                                                    한국투자 <span class="blue02">롱텀밸류</span> 펀드[주식]
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <ul class="dot_gray023">
+                                            <li>현장중심의 중견기업 발굴로 수익 기회 포착</li>
+                                            <li>변동성 최소화 추구를 위한 다수의 종목 균등수준 투자</li>
+                                            <li>최대한 싸게 사고, 잃지 않는 투자 추구</li>
+                                        </ul>
+                                    </div>
+                            </div>
+                            <!-- 한국투자 중소밸류 펀드[주식] -->
+                            <div class="fund_box clearfix  pt-4 pb-4  mb-0">
+                                    <p class="leftBox">
+                                        <span class="thumbSimsa">한국투자신탁운용준법감시인심사필 제23-250호(2022.09.27~2023.09.26)</span>
+                                        <a href="/fund/domestic_fund.do?flag=6&amp;fundCd=03Z92">							
+                                        <img src="http://kim.koreainvestment.com/images/fund/domestic_banner_06.jpg" alt="한국투자신탁운용준법감시인심사필 제18-33호(2017.08.18~2018.08.17) 알찬놈만 골랐다! 한국투자 중소밸류 펀드[주식] "></a></p>
+                                    <div class="rightBox txt_area">
+                                        <ul  class="text_title pl-4">
+                                            <li class="mb10 theme_tit brown02" style="letter-spacing:-4px;">
+                                                <a href="/fund/domestic_fund.do?flag=6&amp;fundCd=03Z92" style="color: rgb(13, 27, 72);">
+                                                    한국투자 <span class="blue02">중소밸류</span> 펀드[주식]
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <ul class="dot_gray023">
+                                            <li>현장중심의 리서치에 기반한 우량 중소형 가치주 투자</li>
+                                            <li>일정비율 대형주 편입으로 시장 괴리 축소 및 변동성 관리 </li>
+                                            <li>스타매니저가 아닌 팀 운용 중심, 최대한 싸게 사고, 잃지 않는 투자 추구</li>
+                                        </ul>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+<footer th:replace="~{layout/footer :: #footer}"></footer>
+<th:block th:replace="layout/scripts :: scripts"></th:block>
+        <script>
+
+            $(document).ready(function(){
+                
+                $('ul.tabs li').click(function(){
+                    var tab_id = $(this).attr('data-tab');
+                    var tab_check = $(this).attr('data-tab')+2;
+                    var tab_check_second = $(this).attr('data-tab')+3;
+            
+                    $('ul.tabs li').removeClass('current');
+                    $('.tab-content').removeClass('current');
+                    $('.stock_tab_sub').removeClass('current');
+                    $('.stock_details').removeClass('current');
+            
+                    $(this).addClass('current');
+                    $("#"+tab_id).addClass('current');
+                    $("#"+tab_check).addClass('current');
+                    $("#"+tab_check_second).addClass('current');
+                })
+            
+            });
+        </script>
+</body>
+
+</html>

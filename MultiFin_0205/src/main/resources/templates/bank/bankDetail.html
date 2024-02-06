@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:replace="layout/head :: config"></th:block>
+	<title>MultiFin:bankDetail</title>
+	<!-- 현재 페이지에서만 쓰는 css, script -->
+	<link rel="stylesheet" th:href="@{/css/bank/bank.css}">
+</head>
+
+<body>
+<header th:replace="~{layout/header :: #header}"></header>
+<main>
+<!-- 상품 검색 시작 -->
+<section class="section section-lg pt-6 pb-6">
+    <div class="container" style="width: 1200px;">
+        <div class="">
+            <div class="col-12  mb-3">
+            <th:block th:if="${lcList.size == 0 && lmList.size == 0 && lrhList.size == 0}">
+                <p style="font-size: 25px;"  class="h3 font-weight-bolder m-0">검색결과가 없습니다.</p>
+            </th:block>
+            <th:block th:if="${lcList.size != 0 && lmList.size == 0 && lrhList.size == 0}">
+                <p style="font-size: 25px;"  class="h3 font-weight-bolder m-0">개인신용대출 > [[${lcList[0].korCoNm}]] > [[${lcList[0].finPrdtNm}]]</p>
+            </th:block>
+            <th:block th:if="${lcList.size == 0 && lmList.size != 0 && lrhList.size == 0}">
+                <p style="font-size: 25px;"  class="h3 font-weight-bolder m-0">주택담보대출 > [[${lmList[0].korCoNm}]] > [[${lmList[0].finPrdtNm}]]</p>
+            </th:block>
+            <th:block th:if="${lcList.size == 0 && lmList.size == 0 && lrhList.size != 0}">
+                <p style="font-size: 25px;"  class="h3 font-weight-bolder m-0">전세자금대출 > [[${lrhList[0].korCoNm}]] > [[${lrhList[0].finPrdtNm}]]</p>
+            </th:block>
+            </div>
+            <div class="col-sm-12 border-gray-500">
+				<th:block th:if="${lcList.size == 0 && lmList.size == 0 && lrhList.size == 0}">
+					<div>조회된 상품이 없습니다.</div>
+				</th:block>
+				<th:block th:if="${lcList.size != 0 && lmList.size == 0 && lrhList.size == 0}">
+					<div class="mb-4">
+						<table>
+						  	<tr>
+						    	<th class="table-header bg-info text-white" style="width:110px;border-top: 1px solid black;border-bottom: 1px solid black;">가입 방법</th>
+						    	<td class="board-content" style="border-top: 1px solid black;">[[${lcList[0].joinWay}]]</td>
+						  	</tr>
+						  	<tr>
+						    	<th class="table-header bg-info text-white" style="border-bottom: 1px solid black;">대출종류명</th>
+						    	<td class="board-content">[[${lcList[0].crdtPrdtTypeNm}]]</td>
+						  	</tr>
+						</table>
+					</div>
+	            	<div class="" id="">
+		            	<table>
+		            		<tr class="text-center bg-info text-white">
+		                        <th class="table-header">금리구분</th>
+		                        <th class="table-header">900점 초과</th>
+		                        <th class="table-header" >801~900점</th>
+		                        <th class="table-header" >701~800점</th>
+		                        <th class="table-header" >601~700점</th>
+		                        <th class="table-header" >평균 금리</th>
+		                    </tr>
+		                    <tr th:each="lcList, number : ${lcList}">
+		                        <td class="board-content">[[${lcList.crdtLendRateTypeNm}]]</td>
+		                        <td class="board-content">[[${lcList.crdtGrad1}]]%</td>
+		                        <td class="board-content">[[${lcList.crdtGrad4}]]%</td>
+		                        <td class="board-content">[[${lcList.crdtGrad5}]]%</td>
+		                        <td class="board-content">[[${lcList.crdtGrad6}]]%</td>
+		                        <td class="board-content">[[${lcList.crdtGradAvg}]]%</td>
+		                    </tr>
+		            	</table>
+	            	</div>
+	            </th:block>
+            	<th:block th:if="${lcList.size == 0 && lmList.size != 0 && lrhList.size == 0}">
+	                  <div class="mb-4">
+						<table>
+						  	<tr>
+						    	<th class="table-header bg-info text-white" style="width:120px;border-top: 1px solid black;border-bottom: 1px solid black;">가입 방법</th>
+						    	<td class="board-content" style="border-top: 1px solid black;">[[${lmList[0].joinWay}]]</td>
+						  	</tr>
+						  	<tr>
+						    	<th class="table-header bg-info text-white" style="border-bottom: 1px solid black;">대출 부대비용</th>
+						    	<td class="board-content">[[${lmList[0].loanInciExpn}]]</td>
+						  	</tr>
+						  	<tr>
+						    	<th class="table-header bg-info text-white" style="border-bottom: 1px solid black;">중도상환 수수료</th>
+						    	<td class="board-content">[[${lmList[0].erlyRpayFee}]]</td>
+						  	</tr>
+						  	<tr>
+						    	<th class="table-header bg-info text-white" style="border-bottom: 1px solid black;">연체 이자율</th>
+						    	<td class="board-content">[[${lmList[0].dlyRate}]]</td>
+						  	</tr>
+						</table>
+					</div>
+	            	<div class="" id="">
+		            	<table>
+		            		<tr class="text-center bg-info text-white">
+		                        <th class="table-header">담보유형</th>
+		                        <th class="table-header">대출상환유형</th>
+		                        <th class="table-header" >대출금리유형</th>
+		                        <th class="table-header" >최저 대출금리</th>
+		                        <th class="table-header" >최고 대출금리</th>
+		                        <th class="table-header" >전월 취급 평균금리</th>
+		                    </tr>
+		                    <tr th:each="lmList, number : ${lmList}">
+		                        <td class="board-content">[[${lmList.mrtgTypeNm}]]</td>
+		                        <td class="board-content">[[${lmList.rpayTypeNm}]]</td>
+		                        <td class="board-content">[[${lmList.lendRateTypeNm}]]</td>
+		                        <td class="board-content">[[${lmList.lendRateMin}]]%</td>
+		                        <td class="board-content">[[${lmList.lendRateMax}]]%</td>
+		                        <td class="board-content">[[${lmList.lendRateAvg}]]%</td>
+		                    </tr>
+		            	</table>
+	            	</div>
+				</th:block>
+				<th:block th:if="${lcList.size == 0 && lmList.size == 0 && lrhList.size != 0}">
+	                  <div class="mb-4">
+						<table>
+						  	<tr>
+						    	<th class="table-header bg-info text-white" style="width:120px;border-top: 1px solid black;border-bottom: 1px solid black;">가입 방법</th>
+						    	<td class="board-content" style="border-top: 1px solid black;">[[${lrhList[0].joinWay}]]</td>
+						  	</tr>
+						  	<tr>
+						    	<th class="table-header bg-info text-white" style="border-bottom: 1px solid black;">대출 부대비용</th>
+						    	<td class="board-content">[[${lrhList[0].loanInciExpn}]]</td>
+						  	</tr>
+						  	<tr>
+						    	<th class="table-header bg-info text-white" style="border-bottom: 1px solid black;">중도상환 수수료</th>
+						    	<td class="board-content">[[${lrhList[0].erlyRpayFee}]]</td>
+						  	</tr>
+						  	<tr>
+						    	<th class="table-header bg-info text-white" style="border-bottom: 1px solid black;">연체 이자율</th>
+						    	<td class="board-content">[[${lrhList[0].dlyRate}]]</td>
+						  	</tr>
+						</table>
+					</div>
+	            	<div class="" id="">
+		            	<table>
+		            		<tr class="text-center bg-info text-white">
+		                        <th class="table-header">대출상환유형</th>
+		                        <th class="table-header" >대출금리유형</th>
+		                        <th class="table-header" >최저 대출금리</th>
+		                        <th class="table-header" >최고 대출금리</th>
+		                        <th class="table-header" >전월 취급 평균금리</th>
+		                    </tr>
+		                    <tr th:each="lrhList, nurhber : ${lrhList}">
+		                        <td class="board-content">[[${lrhList.rpayTypeNm}]]</td>
+		                        <td class="board-content">[[${lrhList.lendRateTypeNm}]]</td>
+		                        <td class="board-content">[[${lrhList.lendRateMin}]]%</td>
+		                        <td class="board-content">[[${lrhList.lendRateMax}]]%</td>
+		                        <td class="board-content">[[${lrhList.lendRateAvg}]]%</td>
+		                    </tr>
+		            	</table>
+	            	</div>
+				</th:block>
+			</div>
+    	</div>
+	</div>
+</section>
+<!-- 상품 검색 끝 -->
+</main>
+
+<footer th:replace="~{layout/footer :: #footer}"></footer>
+
+<th:block th:replace="layout/scripts :: scripts"></th:block>
+
+</body>
+
+</html>

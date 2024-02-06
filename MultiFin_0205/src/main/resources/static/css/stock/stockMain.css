@@ -1,0 +1,277 @@
+.overlay-primary:before {
+  position: absolute;
+  content: "";
+  background: #0d1b48;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0.8;
+  z-index: 0;
+}
+.increase{ color: rgb(231, 76, 60);}
+.decrease{color:  rgb(52, 152, 219);}
+/*헤더부분*/
+.stock-mainTitle,.stock-mainSubtitle{
+  font-family: 'IBM Plex Sans KR', sans-serif;
+}
+.main_graph{
+  height: 120px;
+  margin: 0 auto;
+}
+.text-gray{
+  text-align: left;
+}
+
+.card-numbers{
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+}
+.main_graph{
+  width: 205px; 
+  height: 85px;
+}
+/*펀드부분*/
+.funds{
+  background-color: rgb(245, 249, 254);
+  width: 100%;
+  margin: 0px;
+}
+.fund_section{
+  padding: 50px 0px;
+  width: 900px;
+  justify-content: center;
+  margin: 0px auto;
+}
+.fund_main_title{
+  display: inline-block;
+  margin-left: 15px;
+  font-family: 'IBM Plex Sans KR', sans-serif;
+}
+.fund_main_subtitle{
+  text-align: right;
+  margin-right: 10px;
+  color:rgb(13, 27, 72);
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+}
+.fund__container{
+  display: flex;
+  padding-top: 10px;
+  justify-content: space-between;
+}
+.fund__info{
+  margin: 0px 15px;
+  padding: 30px;
+  width: 250px;
+  height: 300px;
+  background-color: white;
+  border-radius: 5px;
+  color:rgb(13, 27, 72);
+}
+.card__title{
+  font-weight: 900;
+  margin-bottom: 20px;
+  color:inherit;
+  font-family: 'IBM Plex Sans KR', sans-serif;
+}
+.fund__info:hover{
+  background-color: rgb(13, 27, 72);
+  color: white;
+}
+.fund_description{
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  font-size: 17px;
+  padding-top: 15px;
+}
+.fund-icons i{
+  width: 5px;
+  height: 50px;
+  font-size: 50px;
+  color:inherit;
+  margin-top: 92px;
+  margin-left:130px;
+}
+/*주가동향파트*/
+.stock_info_title,.stock__description{
+  font-family: 'IBM Plex Sans KR', sans-serif;
+}
+.stock_info_title{
+  font-weight: 600;
+}
+.stock__description{
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  line-height: 28px;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: 400;
+}
+.stock_btns{
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  background-color: rgb(13, 27, 72);
+  border: 3px solid rgb(13, 27, 72);
+  color: white;
+  width: 100px;
+  height: 40px;
+  border-radius: 4px;
+  margin-top: 15px;
+}
+
+.stock_btns:hover{
+  border: 3px solid rgb(13, 27, 72);
+  background-color: white;
+  color: rgb(13, 27, 72);
+  transition: all .3s;
+}
+
+.stock-graph{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 30px;
+}
+.stock_information,.company_values{
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  color:rgb(13, 27, 72);
+  display: flex;
+}
+.stock_information{ color: black;}
+.money{width: 120px; font-weight: 500;}
+.company_money{
+  padding-right:20px;
+  font-size: 22px;
+  margin-top: 10px;
+}
+.company_name{
+  font-size: 25px;
+  margin-right: 20px;
+  font-weight: 700;
+}
+.percent-money{
+  font-size: 17px;
+}
+.company_code{
+  line-height: 45px;
+  font-size: 17px;
+}
+.increase{
+  color: rgb(231, 76, 60);
+}
+.decrease{
+  color:  rgb(52, 152, 219);
+}
+.increase-block{
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  background-color: rgb(231, 76, 60);
+  width: 75px;
+  height: 40px;
+  border-radius: 5px;
+  color: white;
+  line-height:40px;
+  text-align: center;
+  margin-top: 20px;
+}
+.decrease-block{
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  background-color: rgb(52, 152, 219);
+  width: 75px;
+  height: 40px;
+  border-radius: 5px;
+  color: white;
+  line-height:40px;
+  text-align: center;
+  margin-top: 20px;
+}
+.stock-graph-section{
+  width: 500px;
+  height: 150px;
+}
+
+/*마지막stock랭킹*/
+.table-content{text-align:right}
+.stock__total{
+  background-color: rgb(248, 248, 248);
+  padding: 10px ;
+  padding-bottom: 30px;
+}
+.stock__total_table{
+  display: flex;
+  margin: 0px auto;
+  width: 1200px;
+  justify-content: center;
+  margin-bottom: 0px;
+}
+.stock__table{
+  width: 420px;
+  height: 250px;
+  background-color: white;
+  margin: 20px 10px;
+  padding: 30px 25px;
+  justify-content: left;
+}
+.stock__table.er{width:480px !important;}
+.table_money{text-align:right;}
+.table_name{text-align:right;}
+.stock{
+  margin: 0px auto;
+  margin-top: 15px;
+}
+.stock td{
+  padding:2px 10px;
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  border-bottom: 1px solid lightgray;
+  font-weight: 500;
+}
+.rank_title{
+  padding-left: 15px;
+  font-size: 19px;
+  font-weight: 600;
+}
+.er, .adver{
+  height: 390px;
+}
+.adver{
+  width: 200px;
+  border: 1px solid lightgray;
+}
+.down{color: rgb(52, 152, 219);}
+.up{ color: rgb(231, 76, 60);}
+
+/*광고부분*/
+.adver__Title,.adver__description{
+  font-family: 'IBM Plex Sans KR', sans-serif;
+}
+.adver__Title{
+  font-weight: 600;
+}
+.adver__description{
+  font-weight: 400;
+  text-align: justify;
+}
+.adver_btn{
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  background-color: rgb(13, 27, 72);
+  border: 2px solid  rgb(13, 27, 72);
+  color: white;
+  width: 100px;
+  height: 40px;
+  border-radius: 4px;
+  margin-top: 15px;
+}
+.adver_btn:hover{
+  border: 2px solid  rgb(13, 27, 72);
+  background-color: transparent;
+  color:  rgb(13, 27, 72);
+  transition: all .3s;
+}
+.adver i{
+  width: 5px;
+  height: 50px;
+  font-size: 50px;
+  margin-top: 110px;
+  color: rgb(13, 27, 72);
+  margin-left: 100px;
+}
